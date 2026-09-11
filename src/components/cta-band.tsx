@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { ApplyButton } from "@/components/apply-button";
 import { buttonVariants } from "@/components/ui/button";
-import { site } from "@/lib/site";
+import { offices, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type CtaBandProps = {
@@ -30,15 +30,18 @@ export function CtaBand({
               <ApplyButton className="h-12 justify-center rounded-full px-6 text-base">
                 Apply online
               </ApplyButton>
-              <a
-                href={site.phoneHref}
-                className={cn(
-                  buttonVariants({ variant: "outline", size: "lg" }),
-                  "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
-                )}
-              >
-                Call {site.phone}
-              </a>
+              {offices.map((office) => (
+                <a
+                  key={office.id}
+                  href={office.phoneHref}
+                  className={cn(
+                    buttonVariants({ variant: "outline", size: "lg" }),
+                    "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
+                  )}
+                >
+                  Call {office.name}
+                </a>
+              ))}
             </>
           ) : (
             <>
@@ -51,15 +54,18 @@ export function CtaBand({
               >
                 Request care
               </Link>
-              <a
-                href={site.phoneHref}
-                className={cn(
-                  buttonVariants({ variant: "outline", size: "lg" }),
-                  "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
-                )}
-              >
-                {site.phone}
-              </a>
+              {offices.map((office) => (
+                <a
+                  key={office.id}
+                  href={office.phoneHref}
+                  className={cn(
+                    buttonVariants({ variant: "outline", size: "lg" }),
+                    "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
+                  )}
+                >
+                  {office.name} {office.phone}
+                </a>
+              ))}
             </>
           )}
         </div>
