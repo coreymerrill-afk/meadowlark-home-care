@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Meadowlark Home Care was founded in 2015 by Corey Merrill and Natalie Redman. Agency-based CFCS/PCS, waiver supports, nursing, private pay, insurance, VA Community Care, and respite in Missoula.",
+    "Meadowlark Home Care was founded in 2015 by Corey Merrill and Natalie Redman. Agency-based CFCS/PCS, waiver supports, nursing, private pay, insurance, VA Community Care, and respite in Missoula and Great Falls.",
   alternates: { canonical: "/about" },
 };
 
@@ -25,7 +25,7 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About us"
-        title="Home care in Missoula."
+        title="Home care in Missoula and Great Falls."
         description="CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports."
       />
 
