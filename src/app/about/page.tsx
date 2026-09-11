@@ -47,16 +47,9 @@ export default function AboutPage() {
             className="object-cover"
             sizes="(min-width: 1024px) 40vw, 100vw"
           />
-          <p className="absolute bottom-3 left-3 rounded-full bg-background/85 px-3 py-1 text-[0.7rem] text-muted-foreground backdrop-blur">
-            Photo: w_lemay,{" "}
-            <a
-              href="https://commons.wikimedia.org/wiki/File:Clark_Fork_River,_Missoula,_MT.jpg"
-              className="underline-offset-2 hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              CC BY-SA 2.0
-            </a>
+          <p className="sr-only">
+            Photo: w_lemay, Clark Fork River, Missoula MT, CC BY-SA 2.0,
+            Wikimedia Commons.
           </p>
         </div>
       </section>
