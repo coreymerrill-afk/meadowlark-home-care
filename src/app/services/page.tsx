@@ -7,6 +7,7 @@ import {
   HeartHandshake,
   Home,
   Phone,
+  Shield,
   Users,
 } from "lucide-react";
 
@@ -33,13 +34,16 @@ function serviceIcon(id: ServiceId): LucideIcon {
   switch (id) {
     case "cfcs-pcs":
       return HeartHandshake;
-    case "hcbs-waiver":
-      return Home;
+    case "va":
+      return Shield;
     case "private-pay":
       return Users;
+    case "hcbs-waiver":
+      return Home;
     default:
       return assertNever(id);
   }
+}
 }
 
 function ServiceResourceLink({ link }: { link: ServiceLink }) {
@@ -114,7 +118,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Services that help you stay home in Missoula"
-        description={`Mostly CFCS/PCS, VA, and private pay—plus HCBS Big Sky / SDMI / DD when authorized. ${site.eligibilityDisclaimer}`}
+        description={`Mostly CFCS/PCS, VA Community Care, and private pay—plus HCBS waivers when authorized. ${site.eligibilityDisclaimer}`}
       />
 
       <section
