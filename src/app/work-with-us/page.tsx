@@ -6,9 +6,7 @@ import { ArrowUpRight, Heart, Leaf, Sparkles } from "lucide-react";
 import { ApplyButton } from "@/components/apply-button";
 import { CtaBand } from "@/components/cta-band";
 import { PageHero } from "@/components/page-hero";
-import { buttonVariants } from "@/components/ui/button";
 import { site } from "@/lib/site";
-import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Work With Us",
@@ -35,6 +33,17 @@ const culture = [
   },
 ] as const;
 
+const benefits = [
+  {
+    title: "Paid time off",
+    body: "Incremental paid time off is one of the ways we reward our most caring, dependable team members.",
+  },
+  {
+    title: "Raises and advancement",
+    body: "Incremental raises recognize good work. Leadership roles are filled from people who have already earned trust here.",
+  },
+] as const;
+
 export default function WorkWithUsPage() {
   return (
     <>
@@ -42,20 +51,37 @@ export default function WorkWithUsPage() {
         eyebrow="Work with us"
         title="Come work with us at Meadowlark."
         description="We hire in Missoula and the Great Falls area. If you prove yourself to us, we will do the same for you."
+        actions={<ApplyButton>Apply online</ApplyButton>}
       />
 
-      <section className="border-b border-border bg-card">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p className="max-w-xl text-sm text-muted-foreground">
-            Caregivers apply online through AxisCare. That is the same Apply
-            button used across the site.
-          </p>
-          <ApplyButton />
+      <section className="border-b border-teal/10 bg-teal/[0.07]">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-4 px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div className="max-w-xl">
+            <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
+              Start here
+            </p>
+            <p className="mt-1 text-base text-muted-foreground">
+              Caregivers apply online through AxisCare. That is the same Apply
+              button used in the header and footer.
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-2">
+            <ApplyButton>Apply on AxisCare</ApplyButton>
+            <a
+              href={site.hireologyUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-4 hover:underline"
+            >
+              Browse listed roles on Hireology
+              <ArrowUpRight className="size-3.5" />
+            </a>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:items-center">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-secondary">
+      <section className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:items-center">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-secondary">
           <Image
             src="/images/careers-team.jpg"
             alt="Two colleagues talking over coffee in a bright, informal workspace"
@@ -66,103 +92,68 @@ export default function WorkWithUsPage() {
         </div>
         <div>
           <h2 className="text-3xl sm:text-4xl">A workplace built for caregivers</h2>
-          <p className="mt-4 leading-relaxed text-muted-foreground">
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
             Meadowlark was founded with the vision of a comfortable place to
             work — one that lets the team focus on care. We look for reliable,
             positive people so the environment stays steady for clients and for
             fellow caregivers.
           </p>
-          <p className="mt-4 leading-relaxed text-muted-foreground">
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
             Working here also means a chance to grow. Advancement is real, and
             it starts with the people already on the team.
           </p>
         </div>
       </section>
 
-      <section className="border-y border-border bg-card/50">
-        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+      <section className="bg-teal/[0.05]">
+        <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
           <h2 className="max-w-xl text-3xl sm:text-4xl">How we take care of the team</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid items-stretch gap-6 md:grid-cols-3">
             {culture.map((item) => (
               <div
                 key={item.title}
-                className="rounded-2xl bg-card p-6 ring-1 ring-foreground/8"
+                className="flex h-full flex-col rounded-2xl border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5"
               >
                 <item.icon className="size-6 text-primary" aria-hidden="true" />
                 <h3 className="mt-4 text-2xl">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                   {item.body}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl bg-secondary/80 p-6">
-              <h3 className="text-2xl">Paid time off</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Incremental paid time off is one of the ways we reward our most
-                caring, dependable team members.
-              </p>
-            </div>
-            <div className="rounded-2xl bg-secondary/80 p-6">
-              <h3 className="text-2xl">Raises and advancement</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Incremental raises recognize good work. Leadership roles are
-                filled from people who have already earned trust here.
-              </p>
-            </div>
+          <div className="mt-6 grid items-stretch gap-6 sm:grid-cols-2">
+            {benefits.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5"
+              >
+                <h3 className="text-2xl">{item.title}</h3>
+                <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                  {item.body}
+                </p>
+              </div>
+            ))}
           </div>
-        </div>
-      </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-        <div className="rounded-[2rem] bg-teal px-6 py-10 text-white sm:px-10">
-          <p className="text-sm font-medium tracking-[0.16em] text-orange uppercase">
-            Apply now
-          </p>
-          <h2 className="mt-3 max-w-2xl text-3xl sm:text-4xl">
-            Start with the AxisCare application.
-          </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/75">
-            Caregivers apply online through AxisCare. You can also browse listed
-            roles on our Hireology board. Questions about Missoula or Great
-            Falls can go to{" "}
-            <a href={site.careersEmailHref} className="underline underline-offset-4">
+          <p className="mt-8 text-sm text-muted-foreground">
+            Questions about Missoula or Great Falls can go to{" "}
+            <a href={site.careersEmailHref} className="font-medium text-primary underline-offset-4 hover:underline">
               {site.careersEmail}
             </a>
+            . You can also{" "}
+            <Link href="/contact" className="font-medium text-primary underline-offset-4 hover:underline">
+              send a message
+            </Link>
             .
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <ApplyButton />
-            <a
-              href={site.hireologyUrl}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "h-12 justify-center rounded-full border-white/25 bg-transparent px-6 text-base text-white hover:bg-white/10"
-              )}
-            >
-              Hireology careers board
-              <ArrowUpRight />
-            </a>
-            <Link
-              href="/contact"
-              className={cn(
-                buttonVariants({ variant: "ghost", size: "lg" }),
-                "h-12 justify-center rounded-full px-6 text-base text-white hover:bg-white/10 hover:text-white"
-              )}
-            >
-              Ask a question
-            </Link>
-          </div>
         </div>
       </section>
 
       <CtaBand
         title="Know someone who would thrive here?"
-        body="Share the application link, or send them to our office in Missoula."
+        body="Share the application from the header, or send them to our office in Missoula."
       />
     </>
   );

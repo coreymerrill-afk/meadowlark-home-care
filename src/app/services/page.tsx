@@ -123,7 +123,7 @@ export default function ServicesPage() {
         className="border-b border-border bg-teal text-white"
       >
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-4 sm:px-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:py-5">
-          <p className="text-xs font-semibold tracking-[0.14em] text-orange uppercase">
+          <p className="text-xs font-semibold tracking-[0.12em] text-orange uppercase">
             How to get started
           </p>
           <ul className="flex flex-col gap-2 text-sm font-medium sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2">
@@ -185,13 +185,13 @@ export default function ServicesPage() {
                     {service.chip}
                   </span>
                 ) : (
-                  <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">
+                  <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
                     {String(index + 1).padStart(2, "0")} · {service.program}
                   </p>
                 )}
               </div>
               {service.chip ? (
-                <p className="mt-3 text-sm font-medium tracking-[0.16em] text-primary uppercase">
+                <p className="mt-3 text-sm font-medium tracking-[0.12em] text-primary uppercase">
                   {String(index + 1).padStart(2, "0")} · {service.program}
                 </p>
               ) : null}

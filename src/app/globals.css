@@ -55,30 +55,30 @@
 }
 
 :root {
-  --background: #f7f4ef;
+  --background: #faf6ee;
   --foreground: oklch(0.26 0.03 230);
   --card: #fffdf8;
   --card-foreground: oklch(0.26 0.03 230);
   --popover: #fffdf8;
   --popover-foreground: oklch(0.26 0.03 230);
-  --primary: oklch(0.38 0.07 220);
-  --primary-foreground: oklch(0.99 0.01 90);
-  --secondary: color-mix(in oklch, var(--teal) 8%, #f7f4ef);
-  --secondary-foreground: oklch(0.3 0.05 220);
-  --muted: color-mix(in oklch, var(--teal) 6%, #f7f4ef);
+  --primary: #004a5c;
+  --primary-foreground: #fffdf8;
+  --secondary: color-mix(in srgb, #003441 8%, #faf6ee);
+  --secondary-foreground: #003441;
+  --muted: color-mix(in srgb, #003441 6%, #faf6ee);
   --muted-foreground: oklch(0.46 0.03 230);
   --accent: oklch(0.93 0.025 80);
   --accent-foreground: oklch(0.32 0.05 45);
   --destructive: oklch(0.55 0.18 25);
   --border: oklch(0.88 0.02 210);
   --input: oklch(0.88 0.02 210);
-  --ring: oklch(0.45 0.07 220);
+  --ring: #004a5c;
   --gold: oklch(0.78 0.12 85);
   --gold-foreground: oklch(0.28 0.05 60);
-  --forest: oklch(0.28 0.05 220);
-  --teal: oklch(0.3 0.055 220);
-  --orange: oklch(0.68 0.18 45);
-  --orange-foreground: oklch(0.99 0.01 85);
+  --forest: #003441;
+  --teal: #003441;
+  --orange: #ef6c22;
+  --orange-foreground: #fffdf8;
   --chart-1: oklch(0.68 0.18 45);
   --chart-2: oklch(0.5 0.08 220);
   --chart-3: oklch(0.45 0.06 50);

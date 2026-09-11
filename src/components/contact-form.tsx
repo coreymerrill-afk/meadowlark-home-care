@@ -31,7 +31,7 @@ export function ContactForm() {
             autoComplete="name"
             required
             aria-invalid={Boolean(state.fieldErrors?.name)}
-            className="h-11 bg-card"
+            className="h-12 bg-card"
           />
         </Field>
         <Field
@@ -46,7 +46,7 @@ export function ContactForm() {
             autoComplete="email"
             required
             aria-invalid={Boolean(state.fieldErrors?.email)}
-            className="h-11 bg-card"
+            className="h-12 bg-card"
           />
         </Field>
       </div>
@@ -58,7 +58,7 @@ export function ContactForm() {
             name="phone"
             type="tel"
             autoComplete="tel"
-            className="h-11 bg-card"
+            className="h-12 bg-card"
           />
         </Field>
         <Field
@@ -71,7 +71,7 @@ export function ContactForm() {
             name="inquiryType"
             defaultValue="Request care"
             className={cn(
-              "h-11 w-full rounded-lg border border-input bg-card px-2.5 text-sm outline-none",
+              "h-12 w-full rounded-lg border border-input bg-card px-3 text-base outline-none",
               "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
             )}
           >
@@ -91,7 +91,7 @@ export function ContactForm() {
           required
           rows={6}
           aria-invalid={Boolean(state.fieldErrors?.message)}
-          className="min-h-36 bg-card"
+          className="min-h-40 bg-card text-base"
           placeholder="Tell us a little about the care you need, or the role you are interested in."
         />
       </Field>
@@ -118,7 +118,7 @@ export function ContactForm() {
       <Button
         type="submit"
         disabled={pending}
-        className="h-12 w-full rounded-full px-6 text-base sm:w-auto"
+        className="h-12 w-full rounded-full bg-teal px-6 text-base text-white hover:bg-teal/90 sm:w-auto"
       >
         {pending ? "Sending…" : "Send message"}
       </Button>

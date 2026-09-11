@@ -44,9 +44,9 @@ export default function HomePage() {
           className="object-cover object-[center_28%]"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-teal/70 via-teal/40 to-teal/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-teal/55 via-teal/30 to-teal/10" />
         <div className="relative mx-auto flex min-h-[28rem] w-full max-w-6xl flex-col justify-end px-4 py-12 sm:min-h-[34rem] sm:px-6 sm:py-16 lg:min-h-[38rem] lg:justify-center">
-          <p className="text-sm font-medium tracking-[0.16em] text-white/80 uppercase">
+          <p className="text-sm font-medium tracking-[0.12em] text-white/80 uppercase">
             Missoula, Montana · Since {site.foundedYear}
           </p>
           <h1 className="mt-3 max-w-3xl text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl">

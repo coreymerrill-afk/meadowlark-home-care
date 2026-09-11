@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Clock3, Mail, MapPin, Phone, Printer } from "lucide-react";
 
-import { ApplyButton } from "@/components/apply-button";
 import { ContactForm } from "@/components/contact-form";
+import { FacebookIcon } from "@/components/facebook-icon";
 import { PageHero } from "@/components/page-hero";
 import { site } from "@/lib/site";
 
@@ -34,11 +34,11 @@ const details = [
   {
     icon: MapPin,
     label: "Office",
-    value: `${site.address.street}, ${site.address.city}, ${site.address.state} ${site.address.postalCode}`,
+    value: `${site.address.street}\n${site.address.city}, ${site.address.state} ${site.address.postalCode}`,
     href: site.mapsUrl,
   },
   {
-    icon: FacebookGlyph,
+    icon: FacebookIcon,
     label: "Facebook",
     value: "Meadowlark Home Care",
     href: site.facebookUrl,
@@ -50,19 +50,6 @@ const details = [
   },
 ] as const;
 
-function FacebookGlyph({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H7v4h2v7h4v-7h3l1-4h-4V9c0-.6.4-1 1-1Z" />
-    </svg>
-  );
-}
-
 export default function ContactPage() {
   return (
     <>
@@ -72,51 +59,61 @@ export default function ContactPage() {
         description="Ask about care at home, or about joining the team. Call, fax, visit the Missoula office, or send a message."
       />
 
-      <section className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <h2 className="text-3xl">Office details</h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Applying to work with us? Start on AxisCare — that is our primary
-            caregiver application.
-          </p>
-          <div className="mt-5">
-            <ApplyButton />
+      <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
+        <div className="grid gap-8 rounded-[1.5rem] border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5 sm:p-8 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
+              Missoula office
+            </p>
+            <h2 className="mt-2 text-3xl">How to reach us</h2>
+            <p className="mt-3 text-base text-muted-foreground">
+              Applying to work with us? Use{" "}
+              <a
+                href={site.applyUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-primary underline-offset-4 hover:underline"
+              >
+                Apply online
+              </a>{" "}
+              in the header — that is our AxisCare caregiver application.
+            </p>
+            <ul className="mt-6 space-y-5">
+              {details.map((item) => (
+                <li key={item.label} className="flex gap-3">
+                  <item.icon className="mt-0.5 size-5 text-primary" aria-hidden="true" />
+                  <div>
+                    <p className="text-sm font-medium tracking-[0.12em] text-muted-foreground uppercase">
+                      {item.label}
+                    </p>
+                    {"href" in item && item.href ? (
+                      <a
+                        href={item.href}
+                        className="mt-1 block whitespace-pre-line text-base underline-offset-4 hover:underline"
+                        {...(item.href.startsWith("http")
+                          ? { target: "_blank", rel: "noreferrer" }
+                          : {})}
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="mt-1 whitespace-pre-line text-base">{item.value}</p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="mt-8 space-y-5">
-            {details.map((item) => (
-              <li key={item.label} className="flex gap-3">
-                <item.icon className="mt-0.5 size-5 text-primary" aria-hidden="true" />
-                <div>
-                  <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase">
-                    {item.label}
-                  </p>
-                  {"href" in item && item.href ? (
-                    <a
-                      href={item.href}
-                      className="mt-1 block text-base underline-offset-4 hover:underline"
-                      {...(item.href.startsWith("http")
-                        ? { target: "_blank", rel: "noreferrer" }
-                        : {})}
-                    >
-                      {item.value}
-                    </a>
-                  ) : (
-                    <p className="mt-1 text-base">{item.value}</p>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
 
-        <div className="rounded-[1.75rem] bg-card p-6 ring-1 ring-foreground/8 sm:p-8 lg:col-span-7">
-          <h2 className="text-3xl">Send a message</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Tell us whether you need care or want to apply. We will follow up
-            by phone or email.
-          </p>
-          <div className="relative mt-8">
-            <ContactForm />
+          <div className="lg:col-span-7 lg:border-l lg:border-border/80 lg:pl-8">
+            <h2 className="text-3xl">Send a message</h2>
+            <p className="mt-2 text-base text-muted-foreground">
+              Tell us whether you need care or want to apply. We will follow up
+              by phone or email.
+            </p>
+            <div className="relative mt-6">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>

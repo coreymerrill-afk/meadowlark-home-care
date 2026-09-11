@@ -1,12 +1,20 @@
+import type { ReactNode } from "react";
+
 type PageHeroProps = {
   eyebrow?: string;
   title: string;
   description: string;
+  actions?: ReactNode;
 };
 
-export function PageHero({ eyebrow, title, description }: PageHeroProps) {
+export function PageHero({
+  eyebrow,
+  title,
+  description,
+  actions,
+}: PageHeroProps) {
   return (
-    <section className="border-b border-border bg-[linear-gradient(180deg,color-mix(in_oklch,var(--teal)_10%,#f7f4ef),transparent)]">
+    <section className="border-b border-border bg-[linear-gradient(180deg,color-mix(in_srgb,#003441_10%,#faf6ee),transparent)]">
       <div className="mx-auto w-full max-w-6xl px-4 py-9 sm:px-6 sm:py-12">
         {eyebrow ? (
           <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
@@ -19,6 +27,7 @@ export function PageHero({ eyebrow, title, description }: PageHeroProps) {
         <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           {description}
         </p>
+        {actions ? <div className="mt-6">{actions}</div> : null}
       </div>
     </section>
   );

@@ -69,7 +69,7 @@ export default function AboutPage() {
       <section className="border-y border-border bg-card/50">
         <div className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-2">
           <div>
-            <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">
+            <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
               Mission
             </p>
             <h2 className="mt-2 text-3xl">
@@ -82,7 +82,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div>
-            <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">
+            <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
               How we work
             </p>
             <h2 className="mt-2 text-3xl">Take charge of care or work.</h2>
