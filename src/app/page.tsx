@@ -30,7 +30,7 @@ export default function HomePage() {
     <>
       <section className="relative isolate min-h-[28rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]">
         <Image
-          src="/images/hero-mountains.jpg"
+          src="/images/hero-caregiver.jpg"
           alt="A caregiver and an older man sitting together at home in Missoula"
           fill
           priority
