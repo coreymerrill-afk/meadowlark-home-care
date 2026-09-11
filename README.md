@@ -6,7 +6,7 @@ The site replaces the previous HostGator pages with five public routes:
 
 - `/` — home, services overview, Family Learning Center, dual CTAs
 - `/about` — founders and mission
-- `/services` — skilled nursing, agency-based CFCS/PCS, Big Sky / SDMI / DD waivers, private pay / third-party insurance / VA Community Care
+- `/services` — CFCS/PCS, Medicaid HCBS waiver, skilled nursing, private pay / VA / third party
 - `/work-with-us` — culture, PTO, raises, advancement, AxisCare apply CTA
 - `/contact` — office details and a working contact form
 
@@ -84,7 +84,7 @@ If you move nameservers to Vercel, recreate MX and any other existing records in
 ## Content notes
 
 - About has no testimonials.
-- Services uses four cards: skilled nursing; agency-based CFCS/PCS (entitlement if eligible); Big Sky, SDMI, and DD waivers (state enrollment; some have wait lists); and non-skilled private pay / third-party insurance plus VA Community Care and Aid & Attendance. Meadowlark is not a hospice provider. Official Medicaid and VA links live on `/services`. The footer repeats the eligibility and hospice disclaimer.
+- Services uses four Compass cards (CFCS/PCS, HCBS waiver, skilled nursing, private pay / VA / third party) plus a How to get started strip with official .gov links. Copy is careful: Meadowlark does not decide Medicaid or VA eligibility. The footer repeats that disclaimer and notes Meadowlark is not a hospice provider.
 - The primary **Apply online** CTA is AxisCare: [4170.axiscare.com caregiver application](https://4170.axiscare.com/?caregivers-applications.php).
 - The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) is linked as a secondary option on Work With Us.
 - Facebook: [facebook.com/meadowlarkhomecare](https://www.facebook.com/meadowlarkhomecare/).

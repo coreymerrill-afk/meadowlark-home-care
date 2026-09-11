@@ -4,7 +4,7 @@ export const site = {
   tagline: "Quality home care in Missoula",
   missionLine: "Quality care through compassion and innovation",
   description:
-    "Meadowlark Home Care provides in-home nursing, agency-based Montana CFCS/PCS, Big Sky / SDMI / DD waiver supports, private-pay non-skilled care, and VA Community Care in Missoula, Montana.",
+    "Meadowlark Home Care provides in-home skilled nursing, agency-based Montana CFCS/PCS, Medicaid HCBS waiver supports, private-pay care, and help navigating VA and other coverage in Missoula, Montana.",
   foundedYear: 2015,
   founders: [
     { name: "Corey Merrill", role: "Co-founder" },
@@ -31,38 +31,44 @@ export const site = {
   hiringAreas: ["Missoula", "Great Falls"],
   opaPhone: "1-888-706-1535",
   opaPhoneHref: "tel:+18887061535",
-  mountainPacific: [
-    { label: "1-800-219-7035", href: "tel:+18002197035" },
-    { label: "1-800-497-8232", href: "tel:+18004978232" },
-    { label: "(406) 443-4020", href: "tel:+14064434020" },
-  ],
-  officialLinks: [
-    {
-      label: "Apply for Montana Medicaid",
-      href: "https://apply.mt.gov/",
-    },
-    {
-      label: "Montana CFCS / PCS program",
-      href: "https://dphhs.mt.gov/sltc/csb/CFCS-PCS",
-    },
-    {
-      label: "Montana Senior & Long Term Care programs",
-      href: "https://dphhs.mt.gov/SLTC/csb/",
-    },
-    {
-      label: "VA skilled home health care",
-      href: "https://www.va.gov/Geriatrics/pages/Skilled_Home_Health_Care.asp",
-    },
-    {
-      label: "VA community care eligibility",
-      href: "https://www.va.gov/resources/eligibility-for-community-care-outside-va/",
-    },
-    {
-      label: "Apply for VA health care",
-      href: "https://www.va.gov/health-care/apply/application/introduction",
-    },
-  ],
+  mountainPacific: {
+    label: "1-800-219-7035",
+    href: "tel:+18002197035",
+  },
+  links: {
+    applyMedicaid: "https://apply.mt.gov/",
+    cfcsPcs: "https://dphhs.mt.gov/SLTC/csb/CFCS-PCS",
+    sltcHub: "https://dphhs.mt.gov/SLTC/csb/",
+    bigSkyWaiver: "https://dphhs.mt.gov/SLTC/csb/BSW/BigSkyWaiverProgram",
+    hcbsWaiverPdf: "https://dphhs.mt.gov/assets/hcbs/InfoSheetforMTHCBSWaivers.pdf",
+    vaAidAttendance: "https://www.va.gov/pension/aid-attendance-housebound/",
+    vaHomemaker: "https://www.va.gov/Geriatrics/pages/Homemaker_and_Home_Health_Aide_Care.asp",
+    vaApply: "https://www.va.gov/health-care/apply/application/introduction",
+  },
 } as const;
+
+export const getStartedLinks = [
+  {
+    label: "Apply Montana Medicaid",
+    href: site.links.applyMedicaid,
+    external: true,
+  },
+  {
+    label: "Learn CFCS/PCS",
+    href: site.links.cfcsPcs,
+    external: true,
+  },
+  {
+    label: "Big Sky Waiver info",
+    href: site.links.bigSkyWaiver,
+    external: true,
+  },
+  {
+    label: `Call Meadowlark ${site.phone}`,
+    href: site.phoneHref,
+    external: false,
+  },
+] as const;
 
 export const navLinks = [
   { href: "/", label: "Home" },

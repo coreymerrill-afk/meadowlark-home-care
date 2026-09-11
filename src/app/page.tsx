@@ -17,28 +17,28 @@ import { cn } from "@/lib/utils";
 
 const services = [
   {
-    href: "/services#cfc-pas",
-    title: "CFCS / PCS",
+    href: "/services#cfcs-pcs",
+    title: "CFCS/PCS",
     icon: HeartHandshake,
-    body: "Agency-based Montana Medicaid personal assistance — meals, bathing, housekeeping, shopping, and community help. If you are eligible, it is an entitlement.",
+    body: "In-home personal care through Montana Medicaid once services are authorized. We don’t decide eligibility — we can be your agency-based provider after you’re approved.",
   },
   {
     href: "/services#waiver",
-    title: "Big Sky, SDMI & DD waivers",
+    title: "Medicaid HCBS waiver",
     icon: Home,
-    body: "Waiver supports beyond typical CFCS/PCS, as authorized on each plan. The state decides enrollment; some waivers have wait lists.",
+    body: "Extra supports beyond standard personal care when a waiver plan authorizes them. Meadowlark can serve as the provider agency for services we’re approved to deliver.",
   },
   {
     href: "/services#nursing",
-    title: "Nursing",
+    title: "Skilled nursing",
     icon: Stethoscope,
-    body: "Skilled nursing at home, including medication support, bowel care programs, and ongoing ostomy, tracheostomy, and catheter care.",
+    body: "Medication support, bowel-care programs, and ongoing ostomy, tracheostomy, and catheter care — private pay or another third-party funder.",
   },
   {
     href: "/services#private-pay",
     title: "Private pay, VA & third party",
     icon: Users,
-    body: "Non-skilled private pay or insurance, VA Community Care, Aid & Attendance, and respite. We are not a hospice provider.",
+    body: "Live-in care, companion support, personal assistance, or respite. Veterans may explore Aid & Attendance or Homemaker/Home Health Aide — VA decides eligibility.",
   },
 ] as const;
 

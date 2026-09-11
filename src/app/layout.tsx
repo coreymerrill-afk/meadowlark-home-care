@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "Meadowlark Home Care",
     "CFCS PCS Montana",
     "Big Sky waiver Missoula",
-    "VA Community Care Missoula",
+    "VA Aid and Attendance Missoula",
     "private duty nursing Missoula",
   ],
   authors: [{ name: site.legalName }],
