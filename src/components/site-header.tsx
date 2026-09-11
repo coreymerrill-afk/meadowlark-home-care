@@ -16,7 +16,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { navLinks, site } from "@/lib/site";
+import { navLinks, offices, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -61,13 +61,20 @@ export function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5 md:ml-0">
-          <a
-            href={site.phoneHref}
-            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-medium text-white/90 hover:bg-white/10 lg:inline-flex"
-          >
-            <Phone className="size-4" aria-hidden="true" />
-            {site.phone}
-          </a>
+          <div className="hidden items-center gap-1 lg:flex">
+            {offices.map((office) => (
+              <a
+                key={office.id}
+                href={office.phoneHref}
+                className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2 text-xs font-medium text-white/90 hover:bg-white/10 xl:text-sm"
+                title={`${office.name} office`}
+              >
+                <Phone className="size-3.5" aria-hidden="true" />
+                <span className="hidden xl:inline">{office.name}</span>
+                {office.phone}
+              </a>
+            ))}
+          </div>
           <a
             href={site.facebookUrl}
             target="_blank"
@@ -112,15 +119,18 @@ export function SiteHeader() {
                 ))}
               </nav>
               <div className="mt-4 flex flex-col gap-2 px-4">
-                <a
-                  href={site.phoneHref}
-                  className={cn(
-                    buttonVariants({ variant: "outline", size: "lg" }),
-                    "h-12 justify-center rounded-full"
-                  )}
-                >
-                  Call {site.phone}
-                </a>
+                {offices.map((office) => (
+                  <a
+                    key={office.id}
+                    href={office.phoneHref}
+                    className={cn(
+                      buttonVariants({ variant: "outline", size: "lg" }),
+                      "h-12 justify-center rounded-full"
+                    )}
+                  >
+                    Call {office.name} {office.phone}
+                  </a>
+                ))}
                 <a
                   href={site.facebookUrl}
                   target="_blank"
