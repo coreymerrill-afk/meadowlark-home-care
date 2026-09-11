@@ -130,7 +130,7 @@ export const serviceBlocks: ServiceBlock[] = [
     title: "Private pay & insurance",
     summary:
       "Non-skilled private pay and insurance, including respite.",
-    body: "Not on Medicaid or VA? Meadowlark offers private pay and works with third-party insurance for non-skilled home care—live-in care, companion support, personal assistance, and respite.",
+    body: "Not on Medicaid or VA? Meadowlark offers private pay and works with third-party insurance for non-skilled home care—live-in caregiving, companion support and outings, personal assistance, and respite.",
     bullets: [
       "Live-in care",
       "Companion support",
