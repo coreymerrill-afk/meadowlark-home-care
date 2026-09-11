@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ApplyButton } from "@/components/apply-button";
 import { FacebookIcon } from "@/components/facebook-icon";
 import { Logo } from "@/components/logo";
-import { navLinks, site } from "@/lib/site";
+import { formatOfficeAddress, navLinks, offices, site } from "@/lib/site";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -11,7 +11,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-teal text-white">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-12">
-        <div className="md:col-span-5">
+        <div className="md:col-span-4">
           <Logo inverted />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/75">
             {site.footerLine}
@@ -22,30 +22,36 @@ export function SiteFooter() {
         </div>
 
         <div className="md:col-span-3">
-          <h2 className="font-heading text-lg text-white">Visit</h2>
-          <p className="mt-3 text-sm leading-relaxed text-white/80">
-            <a
-              href={site.mapsUrl}
-              className="underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {site.address.street}
-              <br />
-              {site.address.city}, {site.address.state} {site.address.postalCode}
-            </a>
-          </p>
+          <h2 className="font-heading text-lg text-white">Offices</h2>
+          <ul className="mt-3 space-y-4 text-sm leading-relaxed text-white/80">
+            {offices.map((office) => (
+              <li key={office.id}>
+                <p className="font-medium text-white">{office.name}</p>
+                <a
+                  href={office.mapsUrl}
+                  className="underline-offset-4 hover:underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {office.street}
+                  <br />
+                  {office.city}, {office.state}
+                  {office.postalCode ? ` ${office.postalCode}` : ""}
+                </a>
+                <p className="mt-1">
+                  <a href={office.phoneHref} className="hover:underline">
+                    {office.phone}
+                  </a>
+                </p>
+                {office.fax ? <p className="mt-0.5">Fax {office.fax}</p> : null}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <div className="md:col-span-2">
+        <div className="md:col-span-3">
           <h2 className="font-heading text-lg text-white">Contact</h2>
           <ul className="mt-3 space-y-2 text-sm text-white/80">
-            <li>
-              <a href={site.phoneHref} className="hover:underline">
-                {site.phone}
-              </a>
-            </li>
-            <li>Fax {site.fax}</li>
             <li>
               <a href={site.careersEmailHref} className="hover:underline">
                 {site.careersEmail}
@@ -83,27 +89,32 @@ export function SiteFooter() {
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-5 text-xs leading-relaxed text-white/60 sm:px-6">
           <p>
             {site.eligibilityDisclaimer}{" "}
-            <a
-              href={site.mapsUrl}
-              className="underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {site.address.street}
-            </a>
-            {`, ${site.address.city}, ${site.address.state} ${site.address.postalCode}`}
-            {" · "}
-            <a href={site.phoneHref} className="underline-offset-4 hover:underline">
-              {site.phone}
-            </a>
-            {" · fax "}
-            {site.fax}
+            {offices.map((office, i) => (
+              <span key={office.id}>
+                {i > 0 ? " · " : null}
+                <a
+                  href={office.mapsUrl}
+                  className="underline-offset-4 hover:underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {formatOfficeAddress(office)}
+                </a>
+                {" · "}
+                <a
+                  href={office.phoneHref}
+                  className="underline-offset-4 hover:underline"
+                >
+                  {office.phone}
+                </a>
+              </span>
+            ))}
           </p>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p>
               © {year} {site.legalName}. All rights reserved.
             </p>
-            <p>Missoula, Montana</p>
+            <p>Missoula & Great Falls, Montana</p>
           </div>
         </div>
       </div>
