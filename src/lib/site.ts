@@ -8,6 +8,7 @@ export const site = {
     "Meadowlark Home Care provides agency-based Montana CFCS/PCS, Big Sky / SDMI / DD waiver supports, skilled nursing, private-pay non-skilled care, VA Community Care, and respite in Missoula, Montana.",
   eligibilityDisclaimer:
     "Eligibility is decided by the state or VA, not Meadowlark. Confirm details on official .gov pages.",
+  footerLine: "Home care for Missoula families since 2015.",
   foundedYear: 2015,
   founders: [
     { name: "Corey Merrill", role: "Co-founder" },
@@ -111,7 +112,7 @@ export const navLinks = [
 export const inquiryTypes = [
   "Request care",
   "Join the team",
-  "General question",
+  "General",
 ] as const;
 
 export type InquiryType = (typeof inquiryTypes)[number];

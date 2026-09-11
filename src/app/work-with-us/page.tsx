@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Heart, Leaf, Sparkles } from "lucide-react";
+import { ArrowUpRight, Heart, Leaf, Sparkles, TrendingUp } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
 import { CtaBand } from "@/components/cta-band";
@@ -15,21 +15,26 @@ export const metadata: Metadata = {
   alternates: { canonical: "/work-with-us" },
 };
 
-const facts = [
+const benefits = [
   {
     icon: Heart,
-    title: "Missoula and Great Falls",
-    body: `We hire in both areas. Questions go to ${site.careersEmail}.`,
+    title: "Trust and respect",
+    body: "Caregivers and clients both have a smoother day when the workplace is built on mutual trust.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Advancement",
+    body: "Leadership roles are filled from people already on the team.",
+  },
+  {
+    icon: Sparkles,
+    title: "Raises",
+    body: "Incremental raises recognize good, dependable work.",
   },
   {
     icon: Leaf,
     title: "Paid time off",
     body: "Incremental PTO for dependable team members.",
-  },
-  {
-    icon: Sparkles,
-    title: "Raises and advancement",
-    body: "Incremental raises. Leadership roles are filled from people who have already earned trust here.",
   },
 ] as const;
 
@@ -39,7 +44,7 @@ export default function WorkWithUsPage() {
       <PageHero
         eyebrow="Work with us"
         title="Come work with us at Meadowlark."
-        description="We hire in Missoula and the Great Falls area. If you prove yourself to us, we will do the same for you."
+        description="We hire caregivers in Missoula and the Great Falls area."
         actions={<ApplyButton>Apply online</ApplyButton>}
       />
 
@@ -81,17 +86,24 @@ export default function WorkWithUsPage() {
         <div>
           <h2 className="text-3xl sm:text-4xl">Promote from within</h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Advanced positions are drawn from people already on the team who
-            have shown they are trustworthy and reliable.
+            Advanced positions are drawn from people already on the team.
+            Questions go to{" "}
+            <a
+              href={site.careersEmailHref}
+              className="font-medium text-primary underline-offset-4 hover:underline"
+            >
+              {site.careersEmail}
+            </a>
+            .
           </p>
         </div>
       </section>
 
       <section className="bg-teal/[0.05]">
         <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
-          <h2 className="max-w-xl text-3xl sm:text-4xl">Hiring details</h2>
-          <div className="mt-8 grid items-stretch gap-6 md:grid-cols-3">
-            {facts.map((item) => (
+          <h2 className="max-w-xl text-3xl sm:text-4xl">How we take care of the team</h2>
+          <div className="mt-8 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {benefits.map((item) => (
               <div
                 key={item.title}
                 className="flex h-full flex-col rounded-2xl border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5"
@@ -106,7 +118,7 @@ export default function WorkWithUsPage() {
           </div>
 
           <p className="mt-8 text-sm text-muted-foreground">
-            Questions about Missoula or Great Falls can go to{" "}
+            Missoula or Great Falls questions:{" "}
             <a href={site.careersEmailHref} className="font-medium text-primary underline-offset-4 hover:underline">
               {site.careersEmail}
             </a>

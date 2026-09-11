@@ -55,8 +55,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="We’re here to help."
-        description="Ask about care at home, or about joining the team. Call, fax, visit the Missoula office, or send a message."
+        title="Ask about care at home, or joining the team."
+        description="Call, fax, visit the Missoula office, or send a message. Caregivers apply on AxisCare."
       />
 
       <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-12">

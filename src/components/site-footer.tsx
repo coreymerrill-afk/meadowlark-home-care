@@ -14,8 +14,7 @@ export function SiteFooter() {
         <div className="md:col-span-5">
           <Logo inverted />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/75">
-            Serving members and caregivers in Missoula, Montana since{" "}
-            {site.foundedYear}.
+            {site.footerLine}
           </p>
           <div className="mt-5">
             <ApplyButton compact />

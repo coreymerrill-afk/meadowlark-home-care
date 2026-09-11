@@ -10,7 +10,7 @@ export type ServiceLink = {
 
 export type ServiceId = "cfcs-pcs" | "hcbs-waiver" | "nursing" | "private-pay";
 
-export type HomeTeaserId = "cfcs-pcs" | "hcbs-waiver" | "private-pay" | "respite";
+export type HomeTeaserId = "cfcs-pcs" | "hcbs-waiver" | "nursing" | "private-pay";
 
 export type ServiceBlock = {
   id: ServiceId;
@@ -161,12 +161,12 @@ export const serviceBlocks: ServiceBlock[] = [
     title: "Paying privately—or using insurance or VA coverage",
     summary:
       "Non-skilled private pay or insurance, VA Community Care, and Aid & Attendance. VA decides eligibility.",
-    body: "Not on Medicaid? Meadowlark provides non-skilled home care through private pay and certain third-party insurance. We participate in VA Community Care and also help veterans who use private pay or Aid & Attendance. The VA decides eligibility; we deliver care once it is approved or you are paying privately.",
+    body: "Not on Medicaid? Meadowlark provides non-skilled home care through private pay and certain third-party insurance, including live-in care, companion support, personal assistance, and respite. We participate in VA Community Care and also help veterans who use private pay or Aid & Attendance. The VA decides eligibility; we deliver care once it is approved or you are paying privately. We do not provide hospice. We can provide respite when hospice is already in place through another provider.",
     bullets: [
       "Live-in care",
       "Companion support",
       "Personal assistance",
-      "Respite",
+      "Respite (not hospice)",
     ],
     primaryCta: {
       label: `Call Meadowlark ${site.phone}`,
@@ -214,27 +214,27 @@ export const homeServiceTeasers: HomeTeaser[] = [
     href: "/services#cfcs-pcs",
     title: "CFCS/PCS (formerly CFC/PAS)",
     summary:
-      "Agency-based CFCS/PCS. If you qualify, there is no services waitlist—authorization still takes time.",
+      "Agency-based personal care. If you qualify, there is no services waitlist—authorization still takes time.",
   },
   {
     id: "hcbs-waiver",
     href: "/services#hcbs-waiver",
     title: "HCBS Big Sky / SDMI / DD",
     summary:
-      "Big Sky, SDMI, and/or DD waiver supports as authorized on your plan. Some waivers have wait lists.",
+      "Waiver supports as authorized on your plan. Some waivers have wait lists.",
+  },
+  {
+    id: "nursing",
+    href: "/services#nursing",
+    title: "Nursing",
+    summary:
+      "Skilled nursing at home: medications, bowel-care programs, ostomy, trach, and catheter care.",
   },
   {
     id: "private-pay",
     href: "/services#private-pay",
-    title: "Private pay / insurance / VA Community Care",
+    title: "Private pay, insurance & VA",
     summary:
-      "Non-skilled private pay or insurance, VA Community Care, and Aid & Attendance. VA decides eligibility.",
-  },
-  {
-    id: "respite",
-    href: "/services#private-pay",
-    title: "Respite",
-    summary:
-      "Short-term relief at home for families and caregivers. Available through private pay or when authorized on a plan.",
+      "Non-skilled private pay, insurance, and VA Community Care. Respite is available. We do not provide hospice.",
   },
 ];

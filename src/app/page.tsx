@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Heart, HeartHandshake, Home, Users } from "lucide-react";
+import { ArrowRight, BookOpen, HeartHandshake, Home, Stethoscope, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
@@ -16,10 +16,10 @@ function teaserIcon(id: HomeTeaserId): LucideIcon {
       return HeartHandshake;
     case "hcbs-waiver":
       return Home;
+    case "nursing":
+      return Stethoscope;
     case "private-pay":
       return Users;
-    case "respite":
-      return Heart;
     default:
       return assertNever(id);
   }
@@ -47,14 +47,14 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-teal/55 via-teal/30 to-teal/10" />
         <div className="relative mx-auto flex min-h-[28rem] w-full max-w-6xl flex-col justify-end px-4 py-12 sm:min-h-[34rem] sm:px-6 sm:py-16 lg:min-h-[38rem] lg:justify-center">
           <p className="text-sm font-medium tracking-[0.12em] text-white/80 uppercase">
-            Missoula, Montana · Since {site.foundedYear}
+            Missoula · Since {site.foundedYear}
           </p>
           <h1 className="mt-3 max-w-3xl text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl">
             Quality home care in Missoula.
           </h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85">
-            Agency-based CFCS/PCS, HCBS waiver supports, nursing, private pay,
-            VA Community Care, and respite — in the home.
+            Skilled nursing and in-home personal care—through Montana Medicaid,
+            waiver supports, private pay, and veterans’ pathways.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
@@ -180,9 +180,9 @@ export default function HomePage() {
               Family Learning Center
             </h2>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              Created with the Institute for Professional Care Education. Topics
-              include caregiving, nursing, companion care, and respite. Ask us
-              about access — we do not publish an open enrollment link.
+              Family education from the Institute for Professional Care
+              Education. Ask us about access — we do not publish an open
+              enrollment link.
             </p>
             <ul className="mt-5 grid grid-cols-2 gap-2 text-sm">
               {learningTopics.map((topic) => (
@@ -207,8 +207,7 @@ export default function HomePage() {
 
       <CtaBand
         title="Need care at home?"
-        body="Request care and we will follow up. Caregivers apply on AxisCare."
-        showApply
+        body="Request care and we will follow up, or call the Missoula office."
       />
     </>
   );

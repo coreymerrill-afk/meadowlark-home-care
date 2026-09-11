@@ -116,7 +116,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Services that help you stay home in Missoula"
-        description={`Montana Medicaid personal care, HCBS Big Sky / SDMI / DD supports, skilled nursing, private pay, insurance, VA Community Care, and respite — delivered in the home. ${site.eligibilityDisclaimer}`}
+        description={`CFCS/PCS (formerly CFC/PAS), HCBS Big Sky / SDMI / DD, skilled nursing, private pay, insurance, VA Community Care, and respite. ${site.eligibilityDisclaimer}`}
       />
 
       <section
