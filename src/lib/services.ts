@@ -31,13 +31,29 @@ export type HomeTeaser = {
   summary: string;
 };
 
-const mountainPacificLinks: ServiceLink[] = site.mountainPacific.all.map(
-  (phone) => ({
+/** Shared eligibility contacts — shown once on the Services page, not repeated per block. */
+export const servicesContactCluster: ServiceLink[] = [
+  {
+    label: `Office of Public Assistance ${site.opaPhone}`,
+    href: site.opaPhoneHref,
+    kind: "phone",
+  },
+  ...site.mountainPacific.all.map((phone) => ({
     label: `Mountain Pacific ${phone.label}`,
     href: phone.href,
     kind: "phone" as const,
-  })
-);
+  })),
+  {
+    label: `Developmental Disabilities Program ${site.ddpPhone}`,
+    href: site.ddpPhoneHref,
+    kind: "phone",
+  },
+  {
+    label: `Call Meadowlark ${site.phone}`,
+    href: site.phoneHref,
+    kind: "phone",
+  },
+];
 
 export const serviceBlocks: ServiceBlock[] = [
   {
@@ -63,17 +79,6 @@ export const serviceBlocks: ServiceBlock[] = [
         label: "Montana Senior & Long Term Care programs",
         href: site.links.sltcHub,
         kind: "external",
-      },
-      {
-        label: `Office of Public Assistance ${site.opaPhone}`,
-        href: site.opaPhoneHref,
-        kind: "phone",
-      },
-      ...mountainPacificLinks,
-      {
-        label: `Call Meadowlark ${site.phone}`,
-        href: site.phoneHref,
-        kind: "phone",
       },
     ],
   },
@@ -115,22 +120,6 @@ export const serviceBlocks: ServiceBlock[] = [
         label: "Montana HCBS waiver information sheet (PDF)",
         href: site.links.hcbsWaiverPdf,
         kind: "external",
-      },
-      ...mountainPacificLinks,
-      {
-        label: `Developmental Disabilities Program ${site.ddpPhone}`,
-        href: site.ddpPhoneHref,
-        kind: "phone",
-      },
-      {
-        label: `Office of Public Assistance ${site.opaPhone}`,
-        href: site.opaPhoneHref,
-        kind: "phone",
-      },
-      {
-        label: `Call Meadowlark ${site.phone}`,
-        href: site.phoneHref,
-        kind: "phone",
       },
     ],
   },
