@@ -68,11 +68,13 @@ Anonymous `vercel deploy --temporary` URLs expire and cannot hold custom domains
 
 **Auth blocker from this environment:** `vercel whoami` returns **Logged out**. There is no `VERCEL_TOKEN` in the agent environment, so this repo cannot create a durable project, add domains, or set Production env vars from here.
 
+GitHub repo for lasting hosting: [github.com/coreymerrill-afk/meadowlark-home-care](https://github.com/coreymerrill-afk/meadowlark-home-care). Do not use `vercel deploy --temporary`.
+
 Corey must do this once (about five minutes):
 
-1. Create a GitHub repository for this project (use **Create repo** in Cursor if the project is still on a temporary remote).
+1. Confirm this Next.js app is on `main` of that GitHub repo (not only the auto-init README).
 2. Sign in at [vercel.com](https://vercel.com) with the Meadowlark / Corey account.
-3. Import the GitHub repo at [vercel.com/new](https://vercel.com/new). Framework: **Next.js**. Build: `npm run build`.
+3. Import **coreymerrill-afk/meadowlark-home-care** at [vercel.com/new](https://vercel.com/new). Framework: **Next.js**. Build: `npm run build`.
 4. In **Settings → Environment Variables**, add for **Production** (and Preview if you want matching metadata):
 
    `NEXT_PUBLIC_SITE_URL` = `https://www.meadowlarkhomecare.com`
