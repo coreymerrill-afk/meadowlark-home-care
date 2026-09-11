@@ -122,6 +122,7 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 
 ## Content notes
 
+- Do not use the old slogan “Quality care through compassion and innovation” in the hero, footer, About, or metadata.
 - About has no testimonials.
 - Services uses four Compass cards: agency-based CFCS/PCS (formerly CFC/PAS); HCBS Big Sky / SDMI / DD; skilled nursing; and private pay / insurance / VA Community Care with respite. Do not mention hospice. Shared eligibility disclaimer: the state or VA decides — not Meadowlark. Confirm on .gov pages.
 - The primary **Apply online** CTA is AxisCare: [4170.axiscare.com caregiver application](https://4170.axiscare.com/?caregivers-applications.php).
