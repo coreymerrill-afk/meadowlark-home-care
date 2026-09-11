@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 type CtaBandProps = {
   title?: string;
   body?: string;
+  /** Careers mode: primary Apply (AxisCare) + Call. Default: Request care + Call. */
   showApply?: boolean;
 };
 
@@ -24,27 +25,42 @@ export function CtaBand({
           <p className="mt-3 text-muted-foreground">{body}</p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <Link
-            href="/contact"
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "h-12 justify-center rounded-full bg-teal px-6 text-base text-white hover:bg-teal/90"
-            )}
-          >
-            Request care
-          </Link>
           {showApply ? (
-            <ApplyButton appearance="secondary">Apply</ApplyButton>
+            <>
+              <ApplyButton className="h-12 justify-center rounded-full px-6 text-base">
+                Apply online
+              </ApplyButton>
+              <a
+                href={site.phoneHref}
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
+                )}
+              >
+                Call {site.phone}
+              </a>
+            </>
           ) : (
-            <a
-              href={site.phoneHref}
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
-              )}
-            >
-              {site.phone}
-            </a>
+            <>
+              <Link
+                href="/contact"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "h-12 justify-center rounded-full bg-teal px-6 text-base text-white hover:bg-teal/90"
+                )}
+              >
+                Request care
+              </Link>
+              <a
+                href={site.phoneHref}
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
+                )}
+              >
+                {site.phone}
+              </a>
+            </>
           )}
         </div>
       </div>
