@@ -8,9 +8,9 @@ export type ServiceLink = {
   kind: ServiceLinkKind;
 };
 
-export type ServiceId = "cfcs-pcs" | "hcbs-waiver" | "nursing" | "private-pay";
+export type ServiceId = "cfcs-pcs" | "hcbs-waiver" | "private-pay";
 
-export type HomeTeaserId = "cfcs-pcs" | "hcbs-waiver" | "nursing" | "private-pay";
+export type HomeTeaserId = "cfcs-pcs" | "hcbs-waiver" | "private-pay";
 
 export type ServiceBlock = {
   id: ServiceId;
@@ -124,26 +124,6 @@ export const serviceBlocks: ServiceBlock[] = [
     ],
   },
   {
-    id: "nursing",
-    program: "Nursing",
-    title: "Skilled nursing at home",
-    summary:
-      "Medication support, bowel-care programs, and ostomy, tracheostomy, and catheter care.",
-    body: "When needs go beyond caregiver support, Meadowlark can provide skilled nursing—medication management and refills, bowel-care programs, and ongoing care for ostomies, tracheostomies, catheters, and similar needs. Nursing may be private pay, another third-party funder, or VA when authorized. We will be clear about nursing versus personal care.",
-    primaryCta: {
-      label: `Call Meadowlark ${site.phone}`,
-      href: site.phoneHref,
-      kind: "phone",
-    },
-    links: [
-      {
-        label: "VA skilled home health care",
-        href: site.links.vaSkilledHomeHealth,
-        kind: "external",
-      },
-    ],
-  },
-  {
     id: "private-pay",
     program: "Private pay, insurance & VA",
     chip: "Private pay / insurance / VA Community Care",
@@ -166,11 +146,6 @@ export const serviceBlocks: ServiceBlock[] = [
       {
         label: "VA community care eligibility",
         href: site.links.vaCommunityCare,
-        kind: "external",
-      },
-      {
-        label: "VA skilled home health care",
-        href: site.links.vaSkilledHomeHealth,
         kind: "external",
       },
       {
@@ -211,13 +186,6 @@ export const homeServiceTeasers: HomeTeaser[] = [
     title: "HCBS Big Sky / SDMI / DD",
     summary:
       "Waiver supports as authorized on your plan. Some waivers have wait lists.",
-  },
-  {
-    id: "nursing",
-    href: "/services#nursing",
-    title: "Nursing",
-    summary:
-      "Skilled nursing at home: medications, bowel-care programs, ostomy, trach, and catheter care.",
   },
   {
     id: "private-pay",
