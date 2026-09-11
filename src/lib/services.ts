@@ -8,9 +8,9 @@ export type ServiceLink = {
   kind: ServiceLinkKind;
 };
 
-export type ServiceId = "cfcs-pcs" | "hcbs-waiver" | "private-pay";
+export type ServiceId = "cfcs-pcs" | "va" | "private-pay" | "hcbs-waiver";
 
-export type HomeTeaserId = "cfcs-pcs" | "hcbs-waiver" | "private-pay";
+export type HomeTeaserId = "cfcs-pcs" | "va" | "private-pay";
 
 export type ServiceBlock = {
   id: ServiceId;
@@ -31,7 +31,7 @@ export type HomeTeaser = {
   summary: string;
 };
 
-/** Shared eligibility contacts — shown once on the Services page, not repeated per block. */
+/** Shared eligibility contacts — shown once on the Services page. */
 export const servicesContactCluster: ServiceLink[] = [
   {
     label: `Office of Public Assistance ${site.opaPhone}`,
@@ -59,11 +59,11 @@ export const serviceBlocks: ServiceBlock[] = [
   {
     id: "cfcs-pcs",
     program: "Montana Medicaid personal care",
-    chip: "CFCS/PCS (formerly CFC/PAS)",
-    title: "Help at home through Montana Medicaid",
+    chip: "CFCS/PCS",
+    title: "Medicaid personal care (CFCS/PCS)",
     summary:
       "Agency-based CFCS/PCS. If you qualify, there is no services waitlist—authorization still takes time.",
-    body: "Meadowlark is an agency-based provider for Montana CFCS/PCS (formerly CFC/PAS). If you have Montana Medicaid—or you are applying—you may qualify for in-home personal care: meals, bathing and hygiene, light housekeeping, shopping, and community activities. CFCS/PCS is an entitlement program: if you qualify, there is no services waitlist, though authorization still takes time. We do not decide eligibility—the state does. Once services are authorized, we can be your agency provider.",
+    body: "If you have Montana Medicaid—or you are applying—you may qualify for in-home personal care through CFCS/PCS (formerly CFC/PAS): meals, bathing and hygiene, light housekeeping, shopping, and community activities. Meadowlark is an agency-based provider. Once the state authorizes services, we can deliver them. We do not decide eligibility. CFCS/PCS is an entitlement program: if you qualify, there is no services waitlist, though authorization still takes time.",
     primaryCta: {
       label: "Apply for Montana Medicaid",
       href: site.links.applyMedicaid,
@@ -83,13 +83,75 @@ export const serviceBlocks: ServiceBlock[] = [
     ],
   },
   {
+    id: "va",
+    program: "Veterans",
+    chip: "VA Community Care",
+    title: "Veterans & VA Community Care",
+    summary:
+      "VA Community Care provider. Veterans also use private pay or Aid & Attendance.",
+    body: "Meadowlark participates in VA Community Care. Enrolled veterans may receive authorized in-home personal care through Community Care. Families also use private pay or Aid & Attendance. The VA decides eligibility; we deliver care once you are approved or paying privately.",
+    primaryCta: {
+      label: "Check VA Community Care eligibility",
+      href: site.links.vaCommunityCare,
+      kind: "external",
+    },
+    links: [
+      {
+        label: "VA Homemaker and Home Health Aide care",
+        href: site.links.vaHomemaker,
+        kind: "external",
+      },
+      {
+        label: "Apply for VA health care",
+        href: site.links.vaApply,
+        kind: "external",
+      },
+      {
+        label: "VA Aid & Attendance",
+        href: site.links.vaAidAttendance,
+        kind: "external",
+      },
+      {
+        label: "VA Montana health care",
+        href: site.links.vaMontana,
+        kind: "external",
+      },
+      {
+        label: `Call Meadowlark ${site.phone}`,
+        href: site.phoneHref,
+        kind: "phone",
+      },
+    ],
+  },
+  {
+    id: "private-pay",
+    program: "Private pay & insurance",
+    chip: "Private pay / insurance",
+    title: "Private pay & insurance",
+    summary:
+      "Non-skilled private pay and insurance. Respite available. Not hospice.",
+    body: "Not on Medicaid or VA? Meadowlark offers private pay and works with third-party insurance for non-skilled home care—live-in care, companion support, personal assistance, and respite. We are not a hospice provider; we can provide respite when hospice is already in place through another provider.",
+    bullets: [
+      "Live-in care",
+      "Companion support",
+      "Personal assistance",
+      "Respite (not hospice)",
+    ],
+    primaryCta: {
+      label: `Call Meadowlark ${site.phone}`,
+      href: site.phoneHref,
+      kind: "phone",
+    },
+    links: [],
+  },
+  {
     id: "hcbs-waiver",
     program: "Medicaid HCBS waiver",
     chip: "HCBS Big Sky / SDMI / DD",
-    title: "Extra support through a Medicaid waiver",
+    title: "Medicaid HCBS waiver",
     summary:
-      "Big Sky, SDMI, and/or DD waiver supports as authorized on your plan. Some waivers have wait lists.",
-    body: "Meadowlark serves members on Montana's Big Sky, Severe Disabling Mental Illness (SDMI), and/or Developmental Disabilities (DD) waivers, as authorized on each person's plan. Authorized supports can include social supervision, homemaker services, specially trained attendants, and habilitation aide help. Some waivers have wait lists. The state handles eligibility; we deliver what is on your approved plan.",
+      "Big Sky, SDMI, and/or DD supports as authorized. Some waivers have wait lists.",
+    body: "Meadowlark serves members on Montana HCBS waivers—including Big Sky, SDMI, and DD—for authorized supports such as social supervision, homemaker services, specially trained attendants, and habilitation aide help. Some waivers have wait lists. The state handles eligibility; we deliver what is on your approved plan.",
     primaryCta: {
       label: "Apply for Montana Medicaid",
       href: site.links.applyMedicaid,
@@ -123,75 +185,28 @@ export const serviceBlocks: ServiceBlock[] = [
       },
     ],
   },
-  {
-    id: "private-pay",
-    program: "Private pay, insurance & VA",
-    chip: "Private pay / insurance / VA Community Care",
-    title: "Paying privately—or using insurance or VA coverage",
-    summary:
-      "Non-skilled private pay or insurance, VA Community Care, and Aid & Attendance. VA decides eligibility.",
-    body: "Not on Medicaid? Meadowlark provides non-skilled home care through private pay and certain third-party insurance, including live-in care, companion support, personal assistance, and respite. We participate in VA Community Care and also help veterans who use private pay or Aid & Attendance. The VA decides eligibility; we deliver care once it is approved or you are paying privately. We do not provide hospice. We can provide respite when hospice is already in place through another provider.",
-    bullets: [
-      "Live-in care",
-      "Companion support",
-      "Personal assistance",
-      "Respite (not hospice)",
-    ],
-    primaryCta: {
-      label: `Call Meadowlark ${site.phone}`,
-      href: site.phoneHref,
-      kind: "phone",
-    },
-    links: [
-      {
-        label: "VA community care eligibility",
-        href: site.links.vaCommunityCare,
-        kind: "external",
-      },
-      {
-        label: "VA Homemaker and Home Health Aide care",
-        href: site.links.vaHomemaker,
-        kind: "external",
-      },
-      {
-        label: "Apply for VA health care",
-        href: site.links.vaApply,
-        kind: "external",
-      },
-      {
-        label: "VA Aid & Attendance",
-        href: site.links.vaAidAttendance,
-        kind: "external",
-      },
-      {
-        label: "VA Montana health care",
-        href: site.links.vaMontana,
-        kind: "external",
-      },
-    ],
-  },
 ];
 
 export const homeServiceTeasers: HomeTeaser[] = [
   {
     id: "cfcs-pcs",
     href: "/services#cfcs-pcs",
-    title: "CFCS/PCS (formerly CFC/PAS)",
+    title: "CFCS/PCS",
     summary:
-      "Agency-based personal care. If you qualify, there is no services waitlist—authorization still takes time.",
+      "Agency-based Medicaid personal care. If you qualify, there is no services waitlist—authorization still takes time.",
   },
   {
-    id: "hcbs-waiver",
-    href: "/services#hcbs-waiver",
-    title: "HCBS Big Sky / SDMI / DD",
+    id: "va",
+    href: "/services#va",
+    title: "VA Community Care",
     summary:
-      "Waiver supports as authorized on your plan. Some waivers have wait lists.",
+      "VA Community Care provider. Veterans also use private pay or Aid & Attendance.",
   },
   {
     id: "private-pay",
     href: "/services#private-pay",
-    title: "Private pay, insurance & VA",
+    title: "Private pay & insurance",
     summary:
-      "Non-skilled private pay, insurance, and VA Community Care. Respite is available. We do not provide hospice.",
+      "Non-skilled home care, including respite. We do not provide hospice.",
   },
 ];
