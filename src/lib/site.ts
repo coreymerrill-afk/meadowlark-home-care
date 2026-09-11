@@ -63,6 +63,10 @@ export const site = {
     ddWaiver:
       "https://dphhs.mt.gov/BHDD/DisabilityServices/developmentaldisabilities/MedicaidDDP0208WaiverServices",
   },
+  staff: {
+    sltcFormUrl:
+      "https://script.google.com/a/macros/meadowlarkhomecare.com/s/AKfycbxR80-VQsBrgyYgxyrNA8TKIrk47u-gv8OS5o5IF9uKQlnbdExndT8eNiDZ2SWazRE/exec",
+  },
 } as const;
 
 export const getStartedLinks = [

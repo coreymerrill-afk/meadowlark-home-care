@@ -12,6 +12,11 @@ The site replaces the previous HostGator pages with five public routes:
 
 `/careers` and the old `.html` HostGator paths redirect to these routes.
 
+Unlisted staff tools (not in the public nav, sitemap, or robots allow list):
+
+- `/staff/forms` — internal forms hub
+- `/staff/forms/sltc` — SLTC phone form filler entry (Meadowlark Google account required)
+
 ## Local development
 
 Requirements: Node.js 20+ and npm.
