@@ -17,7 +17,7 @@ const offerings = [
   "VA Community Care and Aid & Attendance",
   "Private pay and insurance for non-skilled home care",
   "HCBS Big Sky, SDMI, and DD waiver supports",
-  "Respite — we do not provide hospice",
+  "Respite",
 ] as const;
 
 export default function AboutPage() {
