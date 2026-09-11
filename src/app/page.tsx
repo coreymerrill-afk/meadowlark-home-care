@@ -1,46 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight,
-  BookOpen,
-  HeartHandshake,
-  Home,
-  Stethoscope,
-  Users,
-} from "lucide-react";
+import { ArrowRight, BookOpen, HeartHandshake, Home, Shield, Stethoscope, Users } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
 import { CtaBand } from "@/components/cta-band";
 import { buttonVariants } from "@/components/ui/button";
-import { site } from "@/lib/site";
+import { serviceBlocks, type ServiceId } from "@/lib/services";
+import { assertNever, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const services = [
-  {
-    href: "/services#cfcs-pcs",
-    title: "CFCS/PCS",
-    icon: HeartHandshake,
-    body: "In-home personal care through Montana Medicaid once services are authorized. We don’t decide eligibility — we can be your agency-based provider after you’re approved.",
-  },
-  {
-    href: "/services#waiver",
-    title: "Medicaid HCBS waiver",
-    icon: Home,
-    body: "Extra supports beyond standard personal care when a waiver plan authorizes them. Meadowlark can serve as the provider agency for services we’re approved to deliver.",
-  },
-  {
-    href: "/services#nursing",
-    title: "Skilled nursing",
-    icon: Stethoscope,
-    body: "Medication support, bowel-care programs, and ongoing ostomy, tracheostomy, and catheter care — private pay or another third-party funder.",
-  },
-  {
-    href: "/services#private-pay",
-    title: "Private pay, VA & third party",
-    icon: Users,
-    body: "Live-in care, companion support, personal assistance, or respite. Veterans may explore Aid & Attendance or Homemaker/Home Health Aide — VA decides eligibility.",
-  },
-] as const;
+function serviceIcon(id: ServiceId): LucideIcon {
+  switch (id) {
+    case "cfcs-pcs":
+      return HeartHandshake;
+    case "hcbs-waiver":
+      return Home;
+    case "nursing":
+      return Stethoscope;
+    case "private-pay":
+      return Users;
+    case "va-third-party":
+      return Shield;
+    default:
+      return assertNever(id);
+  }
+}
 
 const learningTopics = [
   "Caregiving",
@@ -158,24 +143,27 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            {services.map((service) => (
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {serviceBlocks.map((service) => {
+              const Icon = serviceIcon(service.id);
+              return (
               <Link
-                key={service.href}
-                href={service.href}
+                key={service.id}
+                href={`/services#${service.id}`}
                 className="group rounded-2xl border-l-4 border-orange bg-card p-5 shadow-sm ring-1 ring-foreground/6 transition-colors hover:bg-secondary/40"
               >
-                <service.icon className="size-6 text-primary" aria-hidden="true" />
-                <h3 className="mt-4 text-2xl">{service.title}</h3>
+                <Icon className="size-6 text-primary" aria-hidden="true" />
+                <h3 className="mt-4 text-2xl">{service.chip ?? service.program}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {service.body}
+                  {service.summary}
                 </p>
                 <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
                   Learn more
                   <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
                 </span>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

@@ -32,8 +32,11 @@ export const site = {
   opaPhone: "1-888-706-1535",
   opaPhoneHref: "tel:+18887061535",
   mountainPacific: {
-    label: "1-800-219-7035",
-    href: "tel:+18002197035",
+    cfcsAssessment: { label: "1-800-219-7035", href: "tel:+18002197035" },
+    waiverScreening: [
+      { label: "1-800-497-8232", href: "tel:+18004978232" },
+      { label: "1-406-443-4020", href: "tel:+14064434020" },
+    ],
   },
   links: {
     applyMedicaid: "https://apply.mt.gov/",
@@ -44,6 +47,10 @@ export const site = {
     vaAidAttendance: "https://www.va.gov/pension/aid-attendance-housebound/",
     vaHomemaker: "https://www.va.gov/Geriatrics/pages/Homemaker_and_Home_Health_Aide_Care.asp",
     vaApply: "https://www.va.gov/health-care/apply/application/introduction",
+    vaSkilledHomeHealth:
+      "https://www.va.gov/Geriatrics/pages/Skilled_Home_Health_Care.asp",
+    vaCommunityCare:
+      "https://www.va.gov/resources/eligibility-for-community-care-outside-va/",
   },
 } as const;
 

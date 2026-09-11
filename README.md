@@ -6,7 +6,7 @@ The site replaces the previous HostGator pages with five public routes:
 
 - `/` — home, services overview, Family Learning Center, dual CTAs
 - `/about` — founders and mission
-- `/services` — CFCS/PCS, Medicaid HCBS waiver, skilled nursing, private pay / VA / third party
+- `/services` — five blocks: CFCS/PCS, HCBS waiver, skilled nursing, private pay, VA / third party
 - `/work-with-us` — culture, PTO, raises, advancement, AxisCare apply CTA
 - `/contact` — office details and a working contact form
 
@@ -84,7 +84,7 @@ If you move nameservers to Vercel, recreate MX and any other existing records in
 ## Content notes
 
 - About has no testimonials.
-- Services uses four Compass cards (CFCS/PCS, HCBS waiver, skilled nursing, private pay / VA / third party) plus a How to get started strip with official .gov links. Copy is careful: Meadowlark does not decide Medicaid or VA eligibility. The footer repeats that disclaimer and notes Meadowlark is not a hospice provider.
+- Services uses Compass page-ready copy: H1 “Services that help you stay home in Missoula,” five blocks (CFCS/PCS, HCBS waiver, nursing, private pay, VA / third party), a How to get started strip, and a footer disclaimer that the state or VA—not Meadowlark—decides eligibility. Naming chip: CFCS/PCS (formerly CFC/PAS). Hospice wording is respite / support when hospice is already in place.
 - The primary **Apply online** CTA is AxisCare: [4170.axiscare.com caregiver application](https://4170.axiscare.com/?caregivers-applications.php).
 - The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) is linked as a secondary option on Work With Us.
 - Facebook: [facebook.com/meadowlarkhomecare](https://www.facebook.com/meadowlarkhomecare/).
