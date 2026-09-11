@@ -1,20 +1,62 @@
 import { resolvePublicSiteUrl } from "@/lib/public-site-url";
 
+export type Office = {
+  id: "missoula" | "great-falls";
+  name: string;
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  phone: string;
+  phoneHref: string;
+  fax?: string;
+  mapsUrl: string;
+};
+
+export const offices: Office[] = [
+  {
+    id: "missoula",
+    name: "Missoula",
+    street: "800 Kensington Ave. Ste. LL3",
+    city: "Missoula",
+    state: "MT",
+    postalCode: "59801",
+    phone: "(406) 926-3447",
+    phoneHref: "tel:+14069263447",
+    fax: "(406) 926-1501",
+    mapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=800+Kensington+Ave+Ste+LL3+Missoula+MT+59801",
+  },
+  {
+    id: "great-falls",
+    name: "Great Falls",
+    street: "318 1st Ave S",
+    city: "Great Falls",
+    state: "MT",
+    postalCode: "",
+    phone: "(406) 206-5993",
+    phoneHref: "tel:+14062065993",
+    mapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=318+1st+Ave+S+Great+Falls+MT",
+  },
+];
+
 export const site = {
   name: "Meadowlark Home Care",
   legalName: "Meadowlark Home Care, LLC",
-  tagline: "Quality home care in Missoula",
+  tagline: "Quality home care in Montana",
   description:
-    "Meadowlark Home Care provides agency-based Montana CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports in Missoula, Montana.",
+    "Meadowlark Home Care provides agency-based Montana CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports in Missoula and Great Falls, Montana.",
   eligibilityDisclaimer:
     "Eligibility is decided by the state or VA, not Meadowlark. Confirm details on official .gov pages.",
-  footerLine: "Home care for Missoula families since 2015.",
+  footerLine: "Home care in Missoula and Great Falls since 2015.",
   foundedYear: 2015,
   founders: [
     { name: "Corey Merrill", role: "Co-founder" },
     { name: "Natalie Redman", role: "Co-founder" },
   ],
   url: resolvePublicSiteUrl(),
+  /** @deprecated prefer offices[] — kept for older call sites (Missoula). */
   address: {
     street: "800 Kensington Ave. Ste. LL3",
     city: "Missoula",
@@ -27,7 +69,8 @@ export const site = {
   fax: "(406) 926-1501",
   careersEmail: "hr@meadowlarkhomecare.com",
   careersEmailHref: "mailto:hr@meadowlarkhomecare.com",
-  applyUrl: "https://4170.axiscare.com/?caregivers-applications.php",
+  applyUrl: "/apply",
+  axisCareApplyUrl: "https://4170.axiscare.com/?caregivers-applications.php",
   hireologyUrl: "https://careers.hireology.com/meadowlarkhomecare3",
   facebookUrl: "https://www.facebook.com/meadowlarkhomecare/",
   mapsUrl:
@@ -95,8 +138,13 @@ export const getStartedLinks = [
     external: true,
   },
   {
-    label: `Call Meadowlark ${site.phone}`,
-    href: site.phoneHref,
+    label: `Missoula ${offices[0].phone}`,
+    href: offices[0].phoneHref,
+    external: false,
+  },
+  {
+    label: `Great Falls ${offices[1].phone}`,
+    href: offices[1].phoneHref,
     external: false,
   },
 ] as const;
@@ -115,11 +163,22 @@ export const inquiryTypes = [
   "General",
 ] as const;
 
+export const applyOfficeOptions = [
+  "Missoula",
+  "Great Falls",
+  "Either",
+] as const;
+
 export type InquiryType = (typeof inquiryTypes)[number];
+export type ApplyOffice = (typeof applyOfficeOptions)[number];
+
+export function formatOfficeAddress(office: Office, separator = ", ") {
+  const zip = office.postalCode ? ` ${office.postalCode}` : "";
+  return `${office.street}${separator}${office.city}, ${office.state}${zip}`;
+}
 
 export function formatAddress(separator = ", ") {
-  const { street, city, state, postalCode } = site.address;
-  return `${street}${separator}${city}, ${state} ${postalCode}`;
+  return formatOfficeAddress(offices[0], separator);
 }
 
 export function assertNever(value: never): never {
