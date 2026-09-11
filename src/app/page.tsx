@@ -22,7 +22,6 @@ function teaserIcon(id: HomeTeaserId): LucideIcon {
       return assertNever(id);
   }
 }
-}
 
 export default function HomePage() {
   return (
@@ -45,7 +44,7 @@ export default function HomePage() {
             Quality home care in Missoula.
           </h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85">
-            In-home personal care through CFCS/PCS, VA Community Care, and private pay.
+            CFCS/PCS, VA Community Care, and private pay.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
