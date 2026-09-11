@@ -15,32 +15,21 @@ export const metadata: Metadata = {
   alternates: { canonical: "/work-with-us" },
 };
 
-const culture = [
+const facts = [
   {
     icon: Heart,
-    title: "Trust first",
-    body: "We rely on mutual trust and respect so caregivers and clients both have a smoother day.",
+    title: "Missoula and Great Falls",
+    body: `We hire in both areas. Questions go to ${site.careersEmail}.`,
   },
   {
     icon: Leaf,
-    title: "Room to grow",
-    body: "Advanced positions are drawn from people who have already shown they are trustworthy and reliable.",
+    title: "Paid time off",
+    body: "Incremental PTO for dependable team members.",
   },
   {
     icon: Sparkles,
-    title: "Care is the work",
-    body: "The goal is a comfortable place of employment that lets us do what we do best: care for others.",
-  },
-] as const;
-
-const benefits = [
-  {
-    title: "Paid time off",
-    body: "Incremental paid time off is one of the ways we reward our most caring, dependable team members.",
-  },
-  {
     title: "Raises and advancement",
-    body: "Incremental raises recognize good work. Leadership roles are filled from people who have already earned trust here.",
+    body: "Incremental raises. Leadership roles are filled from people who have already earned trust here.",
   },
 ] as const;
 
@@ -61,8 +50,7 @@ export default function WorkWithUsPage() {
               Start here
             </p>
             <p className="mt-1 text-base text-muted-foreground">
-              Caregivers apply online through AxisCare. That is the same Apply
-              button used in the header and footer.
+              Caregivers apply on AxisCare. Listed roles also appear on Hireology.
             </p>
           </div>
           <div className="flex flex-col items-start gap-2">
@@ -84,52 +72,32 @@ export default function WorkWithUsPage() {
         <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-secondary">
           <Image
             src="/images/careers-team.jpg"
-            alt="Two colleagues talking over coffee in a bright, informal workspace"
+            alt="A caregiver helping an older woman stand in her kitchen"
             fill
             className="object-cover"
             sizes="(min-width: 1024px) 40vw, 100vw"
           />
         </div>
         <div>
-          <h2 className="text-3xl sm:text-4xl">A workplace built for caregivers</h2>
+          <h2 className="text-3xl sm:text-4xl">Promote from within</h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Meadowlark was founded with the vision of a comfortable place to
-            work — one that lets the team focus on care. We look for reliable,
-            positive people so the environment stays steady for clients and for
-            fellow caregivers.
-          </p>
-          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Working here also means a chance to grow. Advancement is real, and
-            it starts with the people already on the team.
+            Advanced positions are drawn from people already on the team who
+            have shown they are trustworthy and reliable.
           </p>
         </div>
       </section>
 
       <section className="bg-teal/[0.05]">
         <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
-          <h2 className="max-w-xl text-3xl sm:text-4xl">How we take care of the team</h2>
+          <h2 className="max-w-xl text-3xl sm:text-4xl">Hiring details</h2>
           <div className="mt-8 grid items-stretch gap-6 md:grid-cols-3">
-            {culture.map((item) => (
+            {facts.map((item) => (
               <div
                 key={item.title}
                 className="flex h-full flex-col rounded-2xl border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5"
               >
                 <item.icon className="size-6 text-primary" aria-hidden="true" />
                 <h3 className="mt-4 text-2xl">{item.title}</h3>
-                <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-                  {item.body}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 grid items-stretch gap-6 sm:grid-cols-2">
-            {benefits.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5"
-              >
-                <h3 className="text-2xl">{item.title}</h3>
                 <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                   {item.body}
                 </p>
@@ -152,8 +120,8 @@ export default function WorkWithUsPage() {
       </section>
 
       <CtaBand
-        title="Know someone who would thrive here?"
-        body="Share the application from the header, or send them to our office in Missoula."
+        title="Ready to apply?"
+        body="Use Apply online in the header, or call the Missoula office."
       />
     </>
   );

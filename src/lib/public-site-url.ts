@@ -1,4 +1,4 @@
-const PRODUCTION_SITE_URL = "https://meadowlarkhomecare.com";
+const PRODUCTION_SITE_URL = "https://www.meadowlarkhomecare.com";
 
 function isLocalHostUrl(value: string): boolean {
   try {

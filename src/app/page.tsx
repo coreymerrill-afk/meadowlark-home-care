@@ -38,10 +38,10 @@ export default function HomePage() {
       <section className="relative isolate min-h-[28rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]">
         <Image
           src="/images/hero-home.jpg"
-          alt="A caregiver holding the hand of an older woman outdoors"
+          alt="A caregiver and an older man looking through a photo album at home"
           fill
           priority
-          className="object-cover object-[36%_18%] sm:object-[40%_22%] lg:object-[center_28%]"
+          className="object-cover object-[center_42%]"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-teal/55 via-teal/30 to-teal/10" />
@@ -53,8 +53,8 @@ export default function HomePage() {
             Quality home care in Missoula.
           </h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85">
-            {site.missionLine}. Care for members at home — and a workplace built
-            on trust for caregivers.
+            Agency-based CFCS/PCS, waiver supports, nursing, private pay, and VA
+            Community Care — in the home.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
@@ -118,7 +118,7 @@ export default function HomePage() {
                 What we do
               </p>
               <h2 className="mt-2 max-w-xl text-3xl sm:text-4xl">
-                Care that fits the home you already have.
+                Four ways we help people stay home.
               </h2>
             </div>
             <Link
@@ -160,7 +160,7 @@ export default function HomePage() {
           <div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] bg-secondary">
             <Image
               src="/images/family-learning.jpg"
-              alt="An older adult and two younger people looking at a tablet together"
+              alt="A family member and an older woman reviewing caregiver education materials at a kitchen table"
               fill
               className="object-cover object-[center_20%]"
               sizes="(min-width: 1024px) 40vw, 100vw"
@@ -172,15 +172,12 @@ export default function HomePage() {
               Family Learning Center
             </p>
             <h2 className="mt-2 text-3xl sm:text-4xl">
-              Resources for families, friends, and caregivers.
+              Family Learning Center
             </h2>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              Meadowlark Home Care offers the Family Learning Center, created
-              with the Institute for Professional Care Education. It helps
-              families, friends, caregivers, and other health care professionals
-              understand the challenges some members of our community face —
-              topics such as caregiving, nursing, companion care, and respite
-              and family support.
+              Created with the Institute for Professional Care Education. Topics
+              include caregiving, nursing, companion care, and respite. Ask us
+              about access — we do not publish an open enrollment link.
             </p>
             <ul className="mt-5 grid grid-cols-2 gap-2 text-sm">
               {learningTopics.map((topic) => (
@@ -204,8 +201,8 @@ export default function HomePage() {
       </section>
 
       <CtaBand
-        title="Contact us for services — or become part of the team."
-        body="The same office helps families start care. Caregivers apply from the header or footer."
+        title="Need care at home?"
+        body="Call the Missoula office. Caregivers apply from the header or footer."
       />
     </>
   );

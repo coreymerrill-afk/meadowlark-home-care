@@ -17,30 +17,19 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About us"
-        title="A different way to run home care."
-        description={`Founded in ${site.foundedYear} by Corey Merrill and Natalie Redman, Meadowlark was built to change home care in our community for the better.`}
+        title={`Founded in Missoula in ${site.foundedYear}.`}
+        description="Corey Merrill and Natalie Redman started Meadowlark Home Care to change home care in this community for the better."
       />
 
       <section className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:items-center">
         <div>
-          <h2 className="text-3xl sm:text-4xl">The founders’ story</h2>
+          <h2 className="text-3xl sm:text-4xl">The founders</h2>
           <div className="mt-4 space-y-4 leading-relaxed text-muted-foreground">
             <p>
-              Corey Merrill and Natalie Redman started Meadowlark Home Care in{" "}
-              {site.foundedYear} with a single mission: to change the home care
-              industry in our community for the better.
-            </p>
-            <p>
-              With more than two decades of combined experience, they knew what
-              works — and what does not — in home care. A different solution was
-              needed: one that treats employees well enough that families can
-              count on consistent care.
-            </p>
-            <p>
-              Providing a positive workplace means the family members and
-              friends we serve get the reliable, thoughtful care they deserve.
-              Technology and a clearer administrative structure help the team
-              stay focused on people, not paperwork for its own sake.
+              Corey Merrill and Natalie Redman opened Meadowlark Home Care in{" "}
+              {site.foundedYear}. Combined, they brought more than two decades
+              of home-care experience — and a workplace that treats caregivers
+              well enough that families can count on consistent care.
             </p>
           </div>
         </div>
@@ -76,20 +65,17 @@ export default function AboutPage() {
               Quality care through compassion and innovation.
             </h2>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              Meadowlark strives to provide the best in care and employment for
-              our members and caregivers — a positive, caring environment that
-              can be felt by the entire care team and the people we serve.
+              For members at home and for the caregivers who work here.
             </p>
           </div>
           <div>
             <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
-              How we work
+              Who we serve
             </p>
-            <h2 className="mt-2 text-3xl">Take charge of care or work.</h2>
+            <h2 className="mt-2 text-3xl">Members at home. Caregivers on the team.</h2>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              Families can ask for help at home. Caregivers can build a career
-              here. Either way, the invitation is the same: become part of the
-              Meadowlark Home Care family.
+              Families request care. Caregivers apply through AxisCare. The
+              Missoula office handles both.
             </p>
           </div>
         </div>
