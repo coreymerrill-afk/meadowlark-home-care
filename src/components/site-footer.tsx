@@ -79,11 +79,21 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-5 text-xs leading-relaxed text-white/60 sm:px-6">
           <p>
-            © {year} {site.legalName}. All rights reserved.
+            Eligibility and enrollment for Montana Medicaid waivers, CFCS/PCS,
+            and VA Community Care are decided by the State of Montana or the
+            U.S. Department of Veterans Affairs—not by Meadowlark. Some waivers
+            have wait lists. CFCS/PCS is a Montana entitlement when you meet
+            the program rules. Meadowlark is not a hospice provider; we can
+            provide respite and support when hospice is already in place.
           </p>
-          <p>Missoula, Montana</p>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <p>
+              © {year} {site.legalName}. All rights reserved.
+            </p>
+            <p>Missoula, Montana</p>
+          </div>
         </div>
       </div>
     </footer>

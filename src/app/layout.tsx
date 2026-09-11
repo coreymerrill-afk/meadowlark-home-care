@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   keywords: [
     "home care Missoula",
     "Meadowlark Home Care",
-    "Medicaid PAS Montana",
-    "CFC home care",
-    "HCBS waiver Missoula",
+    "CFCS PCS Montana",
+    "Big Sky waiver Missoula",
+    "VA Community Care Missoula",
     "private duty nursing Missoula",
   ],
   authors: [{ name: site.legalName }],

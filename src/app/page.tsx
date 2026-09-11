@@ -18,15 +18,15 @@ import { cn } from "@/lib/utils";
 const services = [
   {
     href: "/services#cfc-pas",
-    title: "CFC / Medicaid PAS",
+    title: "CFCS / PCS",
     icon: HeartHandshake,
-    body: "Personal assistance for qualifying Medicaid members — meals, bathing, light housekeeping, shopping, and community integration.",
+    body: "Agency-based Montana Medicaid personal assistance — meals, bathing, housekeeping, shopping, and community help. If you are eligible, it is an entitlement.",
   },
   {
     href: "/services#waiver",
-    title: "Medicaid Waiver / HCBS",
+    title: "Big Sky, SDMI & DD waivers",
     icon: Home,
-    body: "Waiver services beyond typical CFC, including homemaker support, social supervision, specially trained attendants, and habilitation aides.",
+    body: "Waiver supports beyond typical CFCS/PCS, as authorized on each plan. The state decides enrollment; some waivers have wait lists.",
   },
   {
     href: "/services#nursing",
@@ -38,7 +38,7 @@ const services = [
     href: "/services#private-pay",
     title: "Private pay, VA & third party",
     icon: Users,
-    body: "Live-in care, companion support, personal assistance, and respite when Medicaid is not the funding source.",
+    body: "Non-skilled private pay or insurance, VA Community Care, Aid & Attendance, and respite. We are not a hospice provider.",
   },
 ] as const;
 
@@ -46,7 +46,7 @@ const learningTopics = [
   "Caregiving",
   "Nursing",
   "Companion care",
-  "Respite and hospice support",
+  "Respite and family support",
 ] as const;
 
 export default function HomePage() {
@@ -163,7 +163,7 @@ export default function HomePage() {
               <Link
                 key={service.href}
                 href={service.href}
-                className="group rounded-2xl bg-card p-6 ring-1 ring-foreground/8 transition-colors hover:bg-secondary/40"
+                className="group rounded-2xl border-l-4 border-orange bg-card p-5 shadow-sm ring-1 ring-foreground/6 transition-colors hover:bg-secondary/40"
               >
                 <service.icon className="size-6 text-primary" aria-hidden="true" />
                 <h3 className="mt-4 text-2xl">{service.title}</h3>
@@ -205,7 +205,7 @@ export default function HomePage() {
               families, friends, caregivers, and other health care professionals
               understand the challenges some members of our community face —
               topics such as caregiving, nursing, companion care, and respite
-              or hospice support.
+              and family support.
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-2 text-sm">
               {learningTopics.map((topic) => (
