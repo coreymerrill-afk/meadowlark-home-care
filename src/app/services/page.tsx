@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports in Missoula.",
+    "CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports in Missoula and Great Falls.",
   alternates: { canonical: "/services" },
 };
 
@@ -116,7 +116,7 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Home care services in Missoula"
+        title="Home care services in Missoula and Great Falls"
         description={`CFCS/PCS, VA Community Care, private pay, and HCBS waivers. ${site.eligibilityDisclaimer}`}
       />
 
