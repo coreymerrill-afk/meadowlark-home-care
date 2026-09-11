@@ -8,12 +8,7 @@ export type ServiceLink = {
   kind: ServiceLinkKind;
 };
 
-export type ServiceId =
-  | "cfcs-pcs"
-  | "hcbs-waiver"
-  | "nursing"
-  | "private-pay"
-  | "va-third-party";
+export type ServiceId = "cfcs-pcs" | "hcbs-waiver" | "nursing" | "private-pay";
 
 export type ServiceBlock = {
   id: ServiceId;
@@ -26,6 +21,14 @@ export type ServiceBlock = {
   links: ServiceLink[];
 };
 
+const mountainPacificLinks: ServiceLink[] = site.mountainPacific.all.map(
+  (phone) => ({
+    label: `Mountain Pacific ${phone.label}`,
+    href: phone.href,
+    kind: "phone" as const,
+  })
+);
+
 export const serviceBlocks: ServiceBlock[] = [
   {
     id: "cfcs-pcs",
@@ -33,8 +36,8 @@ export const serviceBlocks: ServiceBlock[] = [
     chip: "CFCS/PCS (formerly CFC/PAS)",
     title: "Help at home through Montana Medicaid",
     summary:
-      "In-home personal care once CFCS/PCS is authorized. Meadowlark can be your agency-based provider. We don’t decide eligibility.",
-    body: "If you already have Montana Medicaid—or you’re applying—you may qualify for in-home personal care through Community First Choice Services (CFCS) and Personal Care Services (PCS) (formerly CFC/PAS). These help with everyday needs like bathing, dressing, meals, and light household tasks so you can stay safely at home. Meadowlark can be your agency-based provider once services are authorized. We don’t decide Medicaid eligibility—that’s the Office of Public Assistance—but we can walk you through what to expect and coordinate care after you’re approved.",
+      "In-home personal care through CFCS/PCS once authorized. Meadowlark can be your agency provider. The state decides eligibility.",
+    body: "If you have Montana Medicaid—or you’re applying—you may qualify for in-home personal care through CFCS/PCS (formerly CFC/PAS). Help with meals, bathing and hygiene, light housekeeping, shopping, and community activities. Meadowlark can be your agency provider once services are authorized. We don’t decide eligibility—the state does. CFCS/PCS is an entitlement program: if you qualify, there’s no services waitlist (authorization still takes time).",
     primaryCta: {
       label: "Apply for Montana Medicaid",
       href: site.links.applyMedicaid,
@@ -56,11 +59,7 @@ export const serviceBlocks: ServiceBlock[] = [
         href: site.opaPhoneHref,
         kind: "phone",
       },
-      {
-        label: `Mountain Pacific CFCS assessment ${site.mountainPacific.cfcsAssessment.label}`,
-        href: site.mountainPacific.cfcsAssessment.href,
-        kind: "phone",
-      },
+      ...mountainPacificLinks,
       {
         label: `Call Meadowlark ${site.phone}`,
         href: site.phoneHref,
@@ -73,8 +72,8 @@ export const serviceBlocks: ServiceBlock[] = [
     program: "Medicaid HCBS waiver",
     title: "Extra support through a Medicaid waiver",
     summary:
-      "Waiver supports beyond standard personal care, as authorized on your plan. The state decides enrollment.",
-    body: "HCBS waivers—like Montana’s Big Sky Waiver—can cover supports beyond standard personal care when you meet Medicaid and level-of-care rules. Depending on your plan, that may include homemaker help, specially trained attendants, habilitation support, respite (and support when hospice is already in place), and other authorized services. If you’re already on a waiver (or being screened), Meadowlark can serve as your provider agency for the services we’re approved to deliver under your plan. We don’t decide waiver eligibility.",
+      "Authorized waiver supports such as social supervision, homemaker help, and habilitation. Some waivers have wait lists.",
+    body: "If you’re on an HCBS waiver—or being screened for one—Meadowlark can provide authorized supports such as social supervision, homemaker services, specially trained attendants, and habilitation aide help. Some waivers (including Big Sky) have wait lists. The state handles eligibility; we deliver what’s on your approved plan.",
     primaryCta: {
       label: "Apply for Montana Medicaid",
       href: site.links.applyMedicaid,
@@ -96,16 +95,7 @@ export const serviceBlocks: ServiceBlock[] = [
         href: site.links.hcbsWaiverPdf,
         kind: "external",
       },
-      {
-        label: `Mountain Pacific waiver screening ${site.mountainPacific.waiverScreening[0].label}`,
-        href: site.mountainPacific.waiverScreening[0].href,
-        kind: "phone",
-      },
-      {
-        label: `or ${site.mountainPacific.waiverScreening[1].label}`,
-        href: site.mountainPacific.waiverScreening[1].href,
-        kind: "phone",
-      },
+      ...mountainPacificLinks,
       {
         label: `Office of Public Assistance ${site.opaPhone}`,
         href: site.opaPhoneHref,
@@ -120,11 +110,11 @@ export const serviceBlocks: ServiceBlock[] = [
   },
   {
     id: "nursing",
-    program: "Skilled nursing",
+    program: "Nursing",
     title: "Skilled nursing at home",
     summary:
-      "Medication support, bowel-care programs, and ostomy, tracheostomy, and catheter care.",
-    body: "When needs go beyond caregiver support, Meadowlark can provide skilled nursing—medication support, bowel-care programs, and ongoing care for ostomies, tracheostomies, catheters, and similar needs. Nursing may be private pay or another third-party funder. We’ll be clear about nursing versus personal care.",
+      "Medication management, bowel-care programs, and ostomy, tracheostomy, and catheter care.",
+    body: "Skilled nursing at home—medication management and refills, bowel-care programs, and care for ostomies, tracheostomies, catheters, and similar needs. Available through private pay or other third-party funding. We’ll be clear about nursing vs personal care.",
     primaryCta: {
       label: `Call Meadowlark ${site.phone}`,
       href: site.phoneHref,
@@ -140,11 +130,11 @@ export const serviceBlocks: ServiceBlock[] = [
   },
   {
     id: "private-pay",
-    program: "Private pay",
-    title: "Paying privately for home care",
+    program: "Private pay & VA / third party",
+    title: "Paying privately—or using VA / other coverage",
     summary:
-      "Live-in care, companion support, personal assistance, or respite—without Medicaid.",
-    body: "Not on Medicaid? Families often pay privately—or use certain third-party insurance—for live-in care, companion support, personal assistance, or respite (and support when hospice is already in place). Meadowlark is not a hospice provider. If you want extra hands at home and a clear private-pay path, we can talk through what a typical week would look like.",
+      "Live-in care, companion support, personal assistance, or respite. We don’t decide VA eligibility.",
+    body: "Not on Medicaid? You can still get help—private pay, VA, or other coverage for live-in care, companion support, personal assistance, or respite. We don’t decide VA eligibility; we help once your path is clear.",
     primaryCta: {
       label: `Call Meadowlark ${site.phone}`,
       href: site.phoneHref,
@@ -152,43 +142,13 @@ export const serviceBlocks: ServiceBlock[] = [
     },
     links: [
       {
-        label: "Send a message",
-        href: "/contact",
-        kind: "internal",
-      },
-    ],
-  },
-  {
-    id: "va-third-party",
-    program: "VA and other coverage",
-    title: "Using VA or other third-party coverage",
-    summary:
-      "Aid & Attendance, Homemaker/Home Health Aide, and other coverage. VA decides eligibility.",
-    body: "Veterans may explore Aid & Attendance or Homemaker/Home Health Aide services through VA, and some families use other third-party coverage. We don’t decide VA eligibility; we’re happy to explain how our services can fit once your funding path is clear.",
-    primaryCta: {
-      label: `Call Meadowlark ${site.phone}`,
-      href: site.phoneHref,
-      kind: "phone",
-    },
-    links: [
-      {
-        label: "VA Aid & Attendance",
-        href: site.links.vaAidAttendance,
-        kind: "external",
-      },
-      {
-        label: "VA Homemaker and Home Health Aide care",
-        href: site.links.vaHomemaker,
+        label: "VA skilled home health care",
+        href: site.links.vaSkilledHomeHealth,
         kind: "external",
       },
       {
         label: "VA community care eligibility",
         href: site.links.vaCommunityCare,
-        kind: "external",
-      },
-      {
-        label: "VA skilled home health care",
-        href: site.links.vaSkilledHomeHealth,
         kind: "external",
       },
       {

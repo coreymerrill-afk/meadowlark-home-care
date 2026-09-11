@@ -81,11 +81,22 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-5 text-xs leading-relaxed text-white/60 sm:px-6">
           <p>
-            Eligibility for Montana Medicaid, CFCS/PCS, HCBS waivers, and VA
-            benefits is decided by the State of Montana or the U.S. Department
-            of Veterans Affairs—not by Meadowlark. Confirm details on official
-            .gov pages. Meadowlark is not a hospice provider; we offer respite
-            (and support when hospice is already in place).
+            Eligibility decided by the state or VA, not Meadowlark. Confirm on
+            official .gov pages.{" "}
+            <a
+              href={site.mapsUrl}
+              className="underline-offset-4 hover:underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              800 Kensington Ave Ste LL3
+            </a>
+            {" · "}
+            <a href={site.phoneHref} className="underline-offset-4 hover:underline">
+              {site.phone}
+            </a>
+            {" · fax "}
+            {site.fax}
           </p>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p>

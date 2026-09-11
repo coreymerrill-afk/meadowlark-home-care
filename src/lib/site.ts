@@ -37,6 +37,11 @@ export const site = {
       { label: "1-800-497-8232", href: "tel:+18004978232" },
       { label: "1-406-443-4020", href: "tel:+14064434020" },
     ],
+    all: [
+      { label: "1-800-219-7035", href: "tel:+18002197035" },
+      { label: "1-800-497-8232", href: "tel:+18004978232" },
+      { label: "406-443-4020", href: "tel:+14064434020" },
+    ],
   },
   links: {
     applyMedicaid: "https://apply.mt.gov/",

@@ -6,7 +6,6 @@ import {
   HeartHandshake,
   Home,
   Phone,
-  Shield,
   Stethoscope,
   Users,
 } from "lucide-react";
@@ -39,8 +38,6 @@ function serviceIcon(id: ServiceId): LucideIcon {
       return Stethoscope;
     case "private-pay":
       return Users;
-    case "va-third-party":
-      return Shield;
     default:
       return assertNever(id);
   }
@@ -151,7 +148,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <div className="mx-auto grid w-full max-w-6xl gap-3 px-4 pt-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-5">
+      <div className="mx-auto grid w-full max-w-6xl gap-3 px-4 pt-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
         {serviceBlocks.map((service) => {
           const Icon = serviceIcon(service.id);
           return (

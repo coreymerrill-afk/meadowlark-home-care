@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, HeartHandshake, Home, Shield, Stethoscope, Users } from "lucide-react";
+import { ArrowRight, BookOpen, HeartHandshake, Home, Stethoscope, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
@@ -20,8 +20,6 @@ function serviceIcon(id: ServiceId): LucideIcon {
       return Stethoscope;
     case "private-pay":
       return Users;
-    case "va-third-party":
-      return Shield;
     default:
       return assertNever(id);
   }
@@ -143,7 +141,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {serviceBlocks.map((service) => {
               const Icon = serviceIcon(service.id);
               return (
