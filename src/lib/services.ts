@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { offices, site } from "@/lib/site";
 
 export type ServiceLinkKind = "external" | "phone" | "internal";
 
@@ -48,11 +48,11 @@ export const servicesContactCluster: ServiceLink[] = [
     href: site.ddpPhoneHref,
     kind: "phone",
   },
-  {
-    label: `Call Meadowlark ${site.phone}`,
-    href: site.phoneHref,
-    kind: "phone",
-  },
+  ...offices.map((office) => ({
+    label: `Call Meadowlark ${office.name} ${office.phone}`,
+    href: office.phoneHref,
+    kind: "phone" as const,
+  })),
 ];
 
 export const serviceBlocks: ServiceBlock[] = [
@@ -116,11 +116,11 @@ export const serviceBlocks: ServiceBlock[] = [
         href: site.links.vaMontana,
         kind: "external",
       },
-      {
-        label: `Call Meadowlark ${site.phone}`,
-        href: site.phoneHref,
-        kind: "phone",
-      },
+      ...offices.map((office) => ({
+        label: `Call Meadowlark ${office.name} ${office.phone}`,
+        href: office.phoneHref,
+        kind: "phone" as const,
+      })),
     ],
   },
   {
@@ -137,11 +137,11 @@ export const serviceBlocks: ServiceBlock[] = [
       "Personal assistance",
       "Respite",
     ],
-    primaryCta: {
-      label: `Call Meadowlark ${site.phone}`,
-      href: site.phoneHref,
-      kind: "phone",
-    },
+    primaryCta: ...offices.map((office) => ({
+        label: `Call Meadowlark ${office.name} ${office.phone}`,
+        href: office.phoneHref,
+        kind: "phone" as const,
+      })),
     links: [],
   },
   {
