@@ -137,12 +137,18 @@ export const serviceBlocks: ServiceBlock[] = [
       "Personal assistance",
       "Respite",
     ],
-    primaryCta: ...offices.map((office) => ({
+    primaryCta: {
+      label: "Contact us",
+      href: "/contact",
+      kind: "internal",
+    },
+    links: [
+      ...offices.map((office) => ({
         label: `Call Meadowlark ${office.name} ${office.phone}`,
         href: office.phoneHref,
         kind: "phone" as const,
       })),
-    links: [],
+    ],
   },
   {
     id: "hcbs-waiver",
