@@ -129,13 +129,13 @@ export const serviceBlocks: ServiceBlock[] = [
     chip: "Private pay / insurance",
     title: "Private pay & insurance",
     summary:
-      "Non-skilled private pay and insurance. Respite available. Not hospice.",
-    body: "Not on Medicaid or VA? Meadowlark offers private pay and works with third-party insurance for non-skilled home care—live-in care, companion support, personal assistance, and respite. We are not a hospice provider; we can provide respite when hospice is already in place through another provider.",
+      "Non-skilled private pay and insurance, including respite.",
+    body: "Not on Medicaid or VA? Meadowlark offers private pay and works with third-party insurance for non-skilled home care—live-in care, companion support, personal assistance, and respite.",
     bullets: [
       "Live-in care",
       "Companion support",
       "Personal assistance",
-      "Respite (not hospice)",
+      "Respite",
     ],
     primaryCta: {
       label: `Call Meadowlark ${site.phone}`,
@@ -207,6 +207,6 @@ export const homeServiceTeasers: HomeTeaser[] = [
     href: "/services#private-pay",
     title: "Private pay & insurance",
     summary:
-      "Non-skilled home care, including respite. We do not provide hospice.",
+      "Non-skilled home care, including respite.",
   },
 ];
