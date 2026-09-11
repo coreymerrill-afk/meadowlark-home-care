@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, HeartHandshake, Home, Stethoscope, Users } from "lucide-react";
+import { ArrowRight, HeartHandshake, Home, Stethoscope, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
@@ -24,13 +24,6 @@ function teaserIcon(id: HomeTeaserId): LucideIcon {
       return assertNever(id);
   }
 }
-
-const learningTopics = [
-  "Caregiving",
-  "Nursing",
-  "Companion care",
-  "Respite",
-] as const;
 
 export default function HomePage() {
   return (
@@ -156,51 +149,6 @@ export default function HomePage() {
                 </Link>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-14 lg:grid-cols-2">
-          <div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] bg-secondary">
-            <Image
-              src="/images/family-learning.jpg"
-              alt="A family member and an older woman reading a care booklet at a kitchen table"
-              fill
-              className="object-cover object-[center_20%]"
-              sizes="(min-width: 1024px) 40vw, 100vw"
-            />
-          </div>
-          <div>
-            <p className="inline-flex items-center gap-2 text-sm font-medium tracking-[0.12em] text-primary uppercase">
-              <BookOpen className="size-4" />
-              Family Learning Center
-            </p>
-            <h2 className="mt-2 text-3xl sm:text-4xl">
-              Family Learning Center
-            </h2>
-            <p className="mt-3 leading-relaxed text-muted-foreground">
-              Family education from the Institute for Professional Care
-              Education. Ask us about access — we do not publish an open
-              enrollment link.
-            </p>
-            <ul className="mt-5 grid grid-cols-2 gap-2 text-sm">
-              {learningTopics.map((topic) => (
-                <li
-                  key={topic}
-                  className="rounded-full bg-card px-3 py-2 text-center font-medium ring-1 ring-teal/25"
-                >
-                  {topic}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href="/contact"
-              className="mt-5 inline-flex items-center gap-1.5 text-base font-semibold text-primary underline-offset-4 hover:underline"
-            >
-              Ask us about access
-              <ArrowRight className="size-4" />
-            </Link>
           </div>
         </div>
       </section>
