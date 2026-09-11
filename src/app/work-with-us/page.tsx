@@ -72,7 +72,7 @@ export default function WorkWithUsPage() {
         <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-secondary">
           <Image
             src="/images/careers-team.jpg"
-            alt="A caregiver helping an older woman stand in her kitchen"
+            alt="Two Meadowlark caregivers talking over coffee in a break room"
             fill
             className="object-cover"
             sizes="(min-width: 1024px) 40vw, 100vw"

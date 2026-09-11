@@ -37,11 +37,11 @@ export default function HomePage() {
     <>
       <section className="relative isolate min-h-[28rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]">
         <Image
-          src="/images/hero-home.jpg"
-          alt="A caregiver and an older man looking through a photo album at home"
+          src="/images/hero-mountains.jpg"
+          alt="A caregiver and an older man sitting together at home in Missoula"
           fill
           priority
-          className="object-cover object-[center_42%]"
+          className="object-cover object-[18%_center]"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-teal/55 via-teal/30 to-teal/10" />
@@ -165,7 +165,7 @@ export default function HomePage() {
           <div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] bg-secondary">
             <Image
               src="/images/family-learning.jpg"
-              alt="A family member and an older woman reviewing caregiver education materials at a kitchen table"
+              alt="A family member and an older woman reading a care booklet at a kitchen table"
               fill
               className="object-cover object-[center_20%]"
               sizes="(min-width: 1024px) 40vw, 100vw"

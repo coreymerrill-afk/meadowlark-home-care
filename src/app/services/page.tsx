@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -167,6 +168,18 @@ export default function ServicesPage() {
             </a>
           );
         })}
+      </div>
+
+      <div className="mx-auto w-full max-w-6xl px-4 pt-6 sm:px-6">
+        <div className="relative aspect-[21/8] overflow-hidden rounded-[1.5rem] bg-secondary">
+          <Image
+            src="/images/services-care.jpg"
+            alt="A caregiver helping an older woman with her cardigan at home"
+            fill
+            className="object-cover object-[center_25%]"
+            sizes="100vw"
+          />
+        </div>
       </div>
 
       <div className="mx-auto w-full max-w-6xl space-y-6 px-4 py-10 sm:px-6 sm:py-12">

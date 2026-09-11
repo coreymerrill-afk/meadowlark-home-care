@@ -143,6 +143,8 @@ public/images/      Page photography
 ## Photo credits
 
 - About page river photo: [Clark Fork River, Missoula, MT](https://commons.wikimedia.org/wiki/File:Clark_Fork_River,_Missoula,_MT.jpg) by w_lemay, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
-- Home hero, Family Learning, and Work With Us photographs are generated stand-ins (caregiver + client at home). Replace with Meadowlark’s own photos when available.
+- Home hero (`hero-mountains.jpg`): caregiver + older adult at home, faces left for the teal gradient. Not a landscape hero.
+- Family Learning, Work With Us, and Services accent photos are in-home / break-room care scenes. Replace with Meadowlark’s own photos when available.
+- Do not use Banff/Moraine Lake, UI wireframes, or generic SaaS laptop stock.
 
 © Meadowlark Home Care, LLC. Copyright year is generated dynamically in the footer.
