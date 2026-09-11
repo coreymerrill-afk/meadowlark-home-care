@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     "CFCS PCS Montana",
     "Big Sky waiver Missoula",
     "VA Aid and Attendance Missoula",
-    "private duty nursing Missoula",
   ],
   authors: [{ name: site.legalName }],
   openGraph: {
