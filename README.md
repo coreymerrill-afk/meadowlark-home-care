@@ -7,7 +7,8 @@ The site replaces the previous HostGator pages with five public routes:
 - `/` — home, services overview, dual CTAs
 - `/about` — founders and mission
 - `/services` — four Compass cards: CFCS/PCS, HCBS waiver, nursing, private pay & VA / third party
-- `/work-with-us` — hiring areas, PTO, raises, advancement, AxisCare apply CTA
+- `/apply` — short caregiver application (name, phone, email, preferred office, optional note)
+- `/work-with-us` — hiring areas, PTO, raises, advancement, short `/apply` form
 - `/contact` — office details and a working contact form
 
 `/careers` and the old `.html` HostGator paths redirect to these routes.
@@ -127,7 +128,7 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 - Do not use the old slogan “Quality care through compassion and innovation” anywhere on public pages. Footer line: “Home care for Missoula families since 2015.”
 - About has no testimonials and states the founders’ origin once (2015, Corey Merrill and Natalie Redman).
 - Services uses four Compass cards: agency-based CFCS/PCS (formerly CFC/PAS); HCBS Big Sky / SDMI / DD; skilled nursing; and private pay / insurance / VA Community Care with respite.Respite is offered. Shared eligibility disclaimer: the state or VA decides — not Meadowlark. Confirm on .gov pages.
-- The primary **Apply online** CTA is AxisCare: [4170.axiscare.com caregiver application](https://4170.axiscare.com/?caregivers-applications.php).
+- The primary **Apply online** CTA is the short `/apply` form (emails HR via Resend). AxisCare URL kept in `site.axisCareApplyUrl` as optional backup only.
 - The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) is linked as a secondary option on Work With Us.
 - Facebook: [facebook.com/meadowlarkhomecare](https://www.facebook.com/meadowlarkhomecare/).
 - Contact form success copy is always visitor-facing. It never surfaces HostGator-style “server encountered an error” text. Without `RESEND_API_KEY`, submissions still succeed and are logged on the server.
