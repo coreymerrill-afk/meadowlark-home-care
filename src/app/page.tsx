@@ -7,7 +7,7 @@ import { ApplyButton } from "@/components/apply-button";
 import { CtaBand } from "@/components/cta-band";
 import { buttonVariants } from "@/components/ui/button";
 import { homeServiceTeasers, type HomeTeaserId } from "@/lib/services";
-import { assertNever, site } from "@/lib/site";
+import { assertNever, offices, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 function teaserIcon(id: HomeTeaserId): LucideIcon {
@@ -38,10 +38,10 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-teal/55 via-teal/30 to-teal/10" />
         <div className="relative mx-auto flex min-h-[28rem] w-full max-w-6xl flex-col justify-end px-4 py-12 sm:min-h-[34rem] sm:px-6 sm:py-16 lg:min-h-[38rem] lg:justify-center">
           <p className="text-sm font-medium tracking-[0.12em] text-white/80 uppercase">
-            Missoula · Since {site.foundedYear}
+            Missoula & Great Falls · Since {site.foundedYear}
           </p>
           <h1 className="mt-3 max-w-3xl text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl">
-            Quality home care in Missoula.
+            Quality home care in Montana.
           </h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85">
             CFCS/PCS, VA Community Care, and private pay.
@@ -64,11 +64,17 @@ export default function HomePage() {
             </ApplyButton>
           </div>
           <p className="mt-5 text-sm text-white/80">
-            Call{" "}
-            <a href={site.phoneHref} className="font-medium text-white underline-offset-4 hover:underline">
-              {site.phone}
-            </a>{" "}
-            · {site.address.street}
+            {offices.map((office, i) => (
+              <span key={office.id}>
+                {i > 0 ? " · " : null}
+                <a
+                  href={office.phoneHref}
+                  className="font-medium text-white underline-offset-4 hover:underline"
+                >
+                  {office.name} {office.phone}
+                </a>
+              </span>
+            ))}
           </p>
         </div>
       </section>
@@ -93,15 +99,18 @@ export default function HomePage() {
               Work with us in Missoula or Great Falls
             </p>
           </Link>
-          <a
-            href={site.phoneHref}
-            className="flex flex-1 flex-col justify-center px-4 py-5 text-center transition-colors hover:bg-teal/[0.05] sm:px-6"
-          >
-            <p className="font-heading text-lg">{site.phone}</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Call the Missoula office
-            </p>
-          </a>
+          <div className="flex flex-1 flex-col justify-center gap-2 px-4 py-5 text-center sm:px-6">
+            {offices.map((office) => (
+              <a
+                key={office.id}
+                href={office.phoneHref}
+                className="rounded-lg px-2 py-1 transition-colors hover:bg-teal/[0.05]"
+              >
+                <p className="font-heading text-base sm:text-lg">{office.phone}</p>
+                <p className="text-sm text-muted-foreground">{office.name} office</p>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -152,7 +161,7 @@ export default function HomePage() {
 
       <CtaBand
         title="Need care at home?"
-        body="Request care and we will follow up, or call the Missoula office."
+        body="Request care and we will follow up, or call either office."
       />
     </>
   );
