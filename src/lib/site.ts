@@ -155,6 +155,7 @@ export const navLinks = [
   { href: "/services", label: "Services" },
   { href: "/work-with-us", label: "Work With Us" },
   { href: "/contact", label: "Contact" },
+  { href: "#", label: "Login" },
 ] as const;
 
 export const inquiryTypes = [
