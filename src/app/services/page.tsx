@@ -7,7 +7,6 @@ import {
   HeartHandshake,
   Home,
   Phone,
-  Stethoscope,
   Users,
 } from "lucide-react";
 
@@ -26,7 +25,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Services that help you stay home in Missoula: Montana CFCS/PCS, HCBS waiver supports, skilled nursing, private pay, and VA or other coverage.",
+    "Services that help you stay home in Missoula: Montana CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports.",
   alternates: { canonical: "/services" },
 };
 
@@ -36,8 +35,6 @@ function serviceIcon(id: ServiceId): LucideIcon {
       return HeartHandshake;
     case "hcbs-waiver":
       return Home;
-    case "nursing":
-      return Stethoscope;
     case "private-pay":
       return Users;
     default:
@@ -117,7 +114,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Services that help you stay home in Missoula"
-        description={`CFCS/PCS (formerly CFC/PAS), HCBS Big Sky / SDMI / DD, skilled nursing, private pay, insurance, VA Community Care, and respite. ${site.eligibilityDisclaimer}`}
+        description={`Mostly CFCS/PCS, VA, and private pay—plus HCBS Big Sky / SDMI / DD when authorized. ${site.eligibilityDisclaimer}`}
       />
 
       <section
