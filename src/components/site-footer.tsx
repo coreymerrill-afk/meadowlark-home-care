@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { ApplyButton } from "@/components/apply-button";
+import { FacebookIcon } from "@/components/facebook-icon";
 import { Logo } from "@/components/logo";
 import { navLinks, site } from "@/lib/site";
 
@@ -54,10 +55,11 @@ export function SiteFooter() {
             <li>
               <a
                 href={site.facebookUrl}
-                className="hover:underline"
+                className="inline-flex items-center gap-1.5 hover:underline"
                 target="_blank"
                 rel="noreferrer"
               >
+                <FacebookIcon className="size-3.5" />
                 Facebook
               </a>
             </li>

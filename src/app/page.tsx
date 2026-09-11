@@ -37,15 +37,15 @@ export default function HomePage() {
     <>
       <section className="relative isolate min-h-[28rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]">
         <Image
-          src="/images/hero-mountains.jpg"
-          alt="Mountain lake at sunrise with evergreen forest along the shore"
+          src="/images/hero-home.jpg"
+          alt="A caregiver holding the hand of an older woman outdoors"
           fill
           priority
-          className="object-cover"
+          className="object-cover object-[center_28%]"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-teal/85 via-teal/55 to-teal/25" />
-        <div className="relative mx-auto flex min-h-[28rem] w-full max-w-6xl flex-col justify-end px-4 py-14 sm:min-h-[34rem] sm:px-6 sm:py-20 lg:min-h-[38rem] lg:justify-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-teal/70 via-teal/40 to-teal/15" />
+        <div className="relative mx-auto flex min-h-[28rem] w-full max-w-6xl flex-col justify-end px-4 py-12 sm:min-h-[34rem] sm:px-6 sm:py-16 lg:min-h-[38rem] lg:justify-center">
           <p className="text-sm font-medium tracking-[0.16em] text-white/80 uppercase">
             Missoula, Montana · Since {site.foundedYear}
           </p>
@@ -78,11 +78,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-b border-border bg-card">
-        <div className="mx-auto grid w-full max-w-6xl gap-4 px-4 py-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+      <section className="border-b border-border/70 bg-background">
+        <div className="mx-auto flex w-full max-w-6xl flex-col divide-y divide-border/80 sm:flex-row sm:divide-x sm:divide-y-0">
           <Link
             href="/contact"
-            className="rounded-2xl border-2 border-orange/70 px-4 py-5 text-center transition-colors hover:bg-orange/8"
+            className="flex flex-1 flex-col justify-center px-4 py-5 text-center transition-colors hover:bg-teal/[0.05] sm:px-6"
           >
             <p className="font-heading text-lg">Need care?</p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -91,7 +91,7 @@ export default function HomePage() {
           </Link>
           <Link
             href="/work-with-us"
-            className="rounded-2xl border-2 border-orange/70 px-4 py-5 text-center transition-colors hover:bg-orange/8"
+            className="flex flex-1 flex-col justify-center px-4 py-5 text-center transition-colors hover:bg-teal/[0.05] sm:px-6"
           >
             <p className="font-heading text-lg">Join the team</p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -99,19 +99,8 @@ export default function HomePage() {
             </p>
           </Link>
           <a
-            href={site.applyUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-2xl border-2 border-orange/70 px-4 py-5 text-center transition-colors hover:bg-orange/8"
-          >
-            <p className="font-heading text-lg">Apply online</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Caregiver application via AxisCare
-            </p>
-          </a>
-          <a
             href={site.phoneHref}
-            className="rounded-2xl border-2 border-orange/70 px-4 py-5 text-center transition-colors hover:bg-orange/8"
+            className="flex flex-1 flex-col justify-center px-4 py-5 text-center transition-colors hover:bg-teal/[0.05] sm:px-6"
           >
             <p className="font-heading text-lg">{site.phone}</p>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -121,14 +110,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-card/40">
-        <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <section className="bg-teal/[0.05]">
+        <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">
+              <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
                 What we do
               </p>
-              <h2 className="mt-3 max-w-xl text-3xl sm:text-4xl">
+              <h2 className="mt-2 max-w-xl text-3xl sm:text-4xl">
                 Care that fits the home you already have.
               </h2>
             </div>
@@ -141,21 +130,21 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          <div className="mt-8 grid items-stretch gap-6 sm:grid-cols-2">
             {serviceBlocks.map((service) => {
               const Icon = serviceIcon(service.id);
               return (
               <Link
                 key={service.id}
                 href={`/services#${service.id}`}
-                className="group rounded-2xl border-l-4 border-orange bg-card p-5 shadow-sm ring-1 ring-foreground/6 transition-colors hover:bg-secondary/40"
+                className="group flex h-full flex-col rounded-2xl border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5 transition-colors hover:bg-card/80"
               >
                 <Icon className="size-6 text-primary" aria-hidden="true" />
                 <h3 className="mt-4 text-2xl">{service.chip ?? service.program}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                   {service.summary}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                <span className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-medium text-primary">
                   Learn more
                   <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
                 </span>
@@ -166,26 +155,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-border">
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2">
+      <section>
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-14 lg:grid-cols-2">
           <div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] bg-secondary">
             <Image
               src="/images/family-learning.jpg"
-              alt="A person writing notes at a table with a cup of coffee nearby"
+              alt="An older adult and two younger people looking at a tablet together"
               fill
-              className="object-cover"
+              className="object-cover object-[center_20%]"
               sizes="(min-width: 1024px) 40vw, 100vw"
             />
           </div>
           <div>
-            <p className="inline-flex items-center gap-2 text-sm font-medium tracking-[0.16em] text-primary uppercase">
+            <p className="inline-flex items-center gap-2 text-sm font-medium tracking-[0.12em] text-primary uppercase">
               <BookOpen className="size-4" />
               Family Learning Center
             </p>
-            <h2 className="mt-3 text-3xl sm:text-4xl">
+            <h2 className="mt-2 text-3xl sm:text-4xl">
               Resources for families, friends, and caregivers.
             </h2>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
+            <p className="mt-3 leading-relaxed text-muted-foreground">
               Meadowlark Home Care offers the Family Learning Center, created
               with the Institute for Professional Care Education. It helps
               families, friends, caregivers, and other health care professionals
@@ -193,18 +182,21 @@ export default function HomePage() {
               topics such as caregiving, nursing, companion care, and respite
               and family support.
             </p>
-            <ul className="mt-6 grid grid-cols-2 gap-2 text-sm">
+            <ul className="mt-5 grid grid-cols-2 gap-2 text-sm">
               {learningTopics.map((topic) => (
                 <li
                   key={topic}
-                  className="rounded-full bg-secondary px-3 py-2 text-center font-medium"
+                  className="rounded-full bg-card px-3 py-2 text-center font-medium ring-1 ring-teal/25"
                 >
                   {topic}
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-sm text-muted-foreground">
-              Ask us about access when you call or send a message.
+            <p className="mt-5 text-sm text-muted-foreground">
+              <Link href="/contact" className="font-medium text-primary underline-offset-4 hover:underline">
+                Ask us about access
+              </Link>{" "}
+              when you call or send a message.
             </p>
           </div>
         </div>
@@ -212,7 +204,7 @@ export default function HomePage() {
 
       <CtaBand
         title="Contact us for services — or become part of the team."
-        body="The same office helps families start care and helps caregivers apply."
+        body="The same office helps families start care. Caregivers apply from the header or footer."
       />
     </>
   );

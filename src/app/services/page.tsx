@@ -155,9 +155,9 @@ export default function ServicesPage() {
             <a
               key={service.id}
               href={`#${service.id}`}
-              className="rounded-2xl border border-orange/50 bg-card px-4 py-4 text-left shadow-sm ring-1 ring-foreground/4 transition-colors hover:border-orange hover:bg-orange/8"
+              className="rounded-2xl border-l-4 border-teal bg-card px-4 py-4 text-left shadow-[0_10px_28px_-14px_rgba(0,52,65,0.18)] ring-1 ring-foreground/5 transition-colors hover:bg-teal/[0.04]"
             >
-              <Icon className="size-5 text-orange" aria-hidden="true" />
+              <Icon className="size-5 text-teal" aria-hidden="true" />
               <p className="mt-3 font-heading text-base leading-snug">
                 {service.chip ?? service.program}
               </p>
@@ -176,10 +176,10 @@ export default function ServicesPage() {
             <article
               key={service.id}
               id={service.id}
-              className="scroll-mt-36 rounded-[1.5rem] border-l-4 border-orange bg-card p-5 shadow-sm ring-1 ring-foreground/6 sm:p-8"
+              className="scroll-mt-36 rounded-[1.5rem] border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.2)] ring-1 ring-foreground/5 sm:p-8"
             >
               <div className="flex flex-wrap items-center gap-2">
-                <Icon className="size-5 text-orange" aria-hidden="true" />
+                <Icon className="size-5 text-teal" aria-hidden="true" />
                 {service.chip ? (
                   <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold tracking-[0.04em] text-foreground">
                     {service.chip}
@@ -196,7 +196,7 @@ export default function ServicesPage() {
                 </p>
               ) : null}
               <h2 className="mt-2 text-3xl sm:text-4xl">{service.title}</h2>
-              <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
+              <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground">
                 {service.body}
               </p>
               {service.primaryCta ? <PrimaryCta link={service.primaryCta} /> : null}

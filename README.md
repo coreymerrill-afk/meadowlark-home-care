@@ -102,7 +102,7 @@ public/images/      Page photography
 
 ## Photo credits
 
-- Hero mountain lake and supporting lifestyle photos: [Pexels](https://www.pexels.com/license/) (free to use).
+- Hero caregiver photo and Family Learning tablet photo: [Pexels](https://www.pexels.com/license/) (free to use).
 - About page river photo: [Clark Fork River, Missoula, MT](https://commons.wikimedia.org/wiki/File:Clark_Fork_River,_Missoula,_MT.jpg) by w_lemay, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
 
 © Meadowlark Home Care, LLC. Copyright year is generated dynamically in the footer.

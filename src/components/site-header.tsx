@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu, Phone } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
+import { FacebookIcon } from "@/components/facebook-icon";
 import { Logo } from "@/components/logo";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -23,23 +24,46 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 bg-teal text-white">
-      <div className="mx-auto flex h-[4.5rem] w-full max-w-6xl items-center gap-3 px-4 sm:h-[5rem] sm:px-6">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-3 px-4 sm:h-[4.25rem] sm:px-6">
         <Link
           href="/"
-          className="min-w-0 shrink rounded-md focus-visible:ring-3 focus-visible:ring-white/40"
+          className="min-w-0 shrink-0 rounded-md focus-visible:ring-3 focus-visible:ring-white/40"
         >
-          <Logo inverted />
+          <Logo inverted markClassName="size-10 sm:size-11" />
           <span className="sr-only">{site.name} home</span>
         </Link>
 
-        <div className="mx-auto hidden md:block">
-          <ApplyButton />
-        </div>
+        <nav
+          className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 md:flex"
+          aria-label="Primary"
+        >
+          {navLinks.map((link) => {
+            const active =
+              link.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(link.href);
 
-        <div className="ml-auto flex items-center gap-2 md:ml-0">
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm font-medium transition-colors lg:px-3",
+                  active
+                    ? "bg-white/15 text-white"
+                    : "text-white/80 hover:bg-white/10 hover:text-white"
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="ml-auto flex items-center gap-1.5 md:ml-0">
           <a
             href={site.phoneHref}
-            className="hidden items-center gap-2 whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/10 lg:inline-flex"
+            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-medium text-white/90 hover:bg-white/10 lg:inline-flex"
           >
             <Phone className="size-4" aria-hidden="true" />
             {site.phone}
@@ -48,13 +72,12 @@ export function SiteHeader() {
             href={site.facebookUrl}
             target="_blank"
             rel="noreferrer"
-            className="hidden whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white/90 hover:bg-white/10 lg:inline-flex"
+            className="hidden size-9 items-center justify-center rounded-full text-white/90 hover:bg-white/10 md:inline-flex"
+            aria-label="Meadowlark Home Care on Facebook"
           >
-            Facebook
+            <FacebookIcon className="size-4" />
           </a>
-          <ApplyButton compact className="md:hidden">
-            Apply
-          </ApplyButton>
+          <ApplyButton compact>Apply</ApplyButton>
           <Sheet>
             <SheetTrigger
               render={
@@ -108,6 +131,7 @@ export function SiteHeader() {
                     "h-12 justify-center rounded-full"
                   )}
                 >
+                  <FacebookIcon />
                   Facebook
                 </a>
               </div>
@@ -115,35 +139,6 @@ export function SiteHeader() {
           </Sheet>
         </div>
       </div>
-
-      <nav
-        className="hidden border-t border-white/15 md:block"
-        aria-label="Primary"
-      >
-        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-center gap-x-1 gap-y-1 px-4 py-2 sm:px-6">
-          {navLinks.map((link) => {
-            const active =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "whitespace-nowrap rounded-full px-3.5 py-2 text-[0.8rem] font-semibold tracking-[0.12em] uppercase transition-colors",
-                  active
-                    ? "bg-white/15 text-white"
-                    : "text-white/80 hover:bg-white/10 hover:text-white"
-                )}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
     </header>
   );
 }
