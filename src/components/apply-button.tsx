@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { type ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 
@@ -19,10 +20,8 @@ export function ApplyButton({
   appearance = "cta",
 }: ApplyButtonProps) {
   return (
-    <a
+    <Link
       href={site.applyUrl}
-      target="_blank"
-      rel="noreferrer"
       className={cn(
         buttonVariants({
           variant: appearance === "secondary" ? "outline" : "cta",
@@ -35,6 +34,6 @@ export function ApplyButton({
     >
       {children}
       <ArrowUpRight className={compact ? "size-3.5" : "size-4"} />
-    </a>
+    </Link>
   );
 }
