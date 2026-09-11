@@ -16,6 +16,7 @@ import { PageHero } from "@/components/page-hero";
 import { buttonVariants } from "@/components/ui/button";
 import {
   serviceBlocks,
+  servicesContactCluster,
   type ServiceId,
   type ServiceLink,
 } from "@/lib/services";
@@ -162,9 +163,6 @@ export default function ServicesPage() {
               <p className="mt-3 font-heading text-base leading-snug">
                 {service.chip ?? service.program}
               </p>
-              <p className="mt-1 text-[0.7rem] font-semibold tracking-[0.12em] text-muted-foreground uppercase">
-                Jump to details
-              </p>
             </a>
           );
         })}
@@ -233,6 +231,24 @@ export default function ServicesPage() {
           );
         })}
       </div>
+
+
+      <section className="mx-auto w-full max-w-6xl px-4 pb-2 sm:px-6">
+        <div className="rounded-[1.5rem] bg-teal/[0.05] p-6 ring-1 ring-foreground/5 sm:p-8">
+          <h2 className="text-2xl sm:text-3xl">Eligibility contacts</h2>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+            State and screening numbers for Medicaid and waiver pathways. Call
+            Meadowlark anytime if you want help figuring out the next step.
+          </p>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {servicesContactCluster.map((link) => (
+              <li key={link.href + link.label}>
+                <ServiceResourceLink link={link} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <p className="mx-auto max-w-6xl px-4 pb-4 text-sm text-muted-foreground sm:px-6">
         {site.eligibilityDisclaimer}
