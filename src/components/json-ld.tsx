@@ -1,4 +1,4 @@
-import { formatAddress, site } from "@/lib/site";
+import { offices, site } from "@/lib/site";
 
 export function LocalBusinessJsonLd() {
   const data = {
@@ -8,7 +8,7 @@ export function LocalBusinessJsonLd() {
     alternateName: site.name,
     description: site.description,
     url: site.url,
-    telephone: site.phone,
+    telephone: offices.map((o) => o.phone),
     faxNumber: site.fax,
     email: site.careersEmail,
     foundingDate: String(site.foundedYear),
@@ -17,21 +17,19 @@ export function LocalBusinessJsonLd() {
       name: founder.name,
       jobTitle: founder.role,
     })),
-    address: {
+    address: offices.map((office) => ({
       "@type": "PostalAddress",
-      streetAddress: site.address.street,
-      addressLocality: site.address.city,
-      addressRegion: site.address.state,
-      postalCode: site.address.postalCode,
+      streetAddress: office.street,
+      addressLocality: office.city,
+      addressRegion: office.state,
+      ...(office.postalCode ? { postalCode: office.postalCode } : {}),
       addressCountry: "US",
-    },
-    areaServed: [
-      {
-        "@type": "City",
-        name: "Missoula",
-        containedInPlace: { "@type": "State", name: "Montana" },
-      },
-    ],
+    })),
+    areaServed: offices.map((office) => ({
+      "@type": "City",
+      name: office.city,
+      containedInPlace: { "@type": "State", name: "Montana" },
+    })),
     sameAs: [site.facebookUrl],
   };
 
@@ -44,5 +42,14 @@ export function LocalBusinessJsonLd() {
 }
 
 export function AddressLine() {
-  return <span>{formatAddress()}</span>;
+  return (
+    <span>
+      {offices.map((o, i) => (
+        <span key={o.id}>
+          {i > 0 ? " · " : null}
+          {o.city}
+        </span>
+      ))}
+    </span>
+  );
 }
