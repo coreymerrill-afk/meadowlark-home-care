@@ -1,3 +1,5 @@
+import { resolvePublicSiteUrl } from "@/lib/public-site-url";
+
 export const site = {
   name: "Meadowlark Home Care",
   legalName: "Meadowlark Home Care, LLC",
@@ -10,7 +12,7 @@ export const site = {
     { name: "Corey Merrill", role: "Co-founder" },
     { name: "Natalie Redman", role: "Co-founder" },
   ],
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://meadowlarkhomecare.com",
+  url: resolvePublicSiteUrl(),
   address: {
     street: "800 Kensington Ave. Ste. LL3",
     city: "Missoula",
