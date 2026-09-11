@@ -1,25 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, HeartHandshake, Home, Stethoscope, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Heart, HeartHandshake, Home, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
 import { CtaBand } from "@/components/cta-band";
 import { buttonVariants } from "@/components/ui/button";
-import { serviceBlocks, type ServiceId } from "@/lib/services";
+import { homeServiceTeasers, type HomeTeaserId } from "@/lib/services";
 import { assertNever, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-function serviceIcon(id: ServiceId): LucideIcon {
+function teaserIcon(id: HomeTeaserId): LucideIcon {
   switch (id) {
     case "cfcs-pcs":
       return HeartHandshake;
     case "hcbs-waiver":
       return Home;
-    case "nursing":
-      return Stethoscope;
     case "private-pay":
       return Users;
+    case "respite":
+      return Heart;
     default:
       return assertNever(id);
   }
@@ -29,7 +29,7 @@ const learningTopics = [
   "Caregiving",
   "Nursing",
   "Companion care",
-  "Respite and family support",
+  "Respite",
 ] as const;
 
 export default function HomePage() {
@@ -53,8 +53,8 @@ export default function HomePage() {
             Quality home care in Missoula.
           </h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85">
-            Agency-based CFCS/PCS, waiver supports, nursing, private pay, and VA
-            Community Care — in the home.
+            Agency-based CFCS/PCS, HCBS waiver supports, nursing, private pay,
+            VA Community Care, and respite — in the home.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
@@ -66,7 +66,12 @@ export default function HomePage() {
             >
               Request care
             </Link>
-            <ApplyButton />
+            <ApplyButton
+              appearance="secondary"
+              className="border-white/70 bg-transparent text-white hover:bg-white/10 hover:text-white"
+            >
+              Apply
+            </ApplyButton>
           </div>
           <p className="mt-5 text-sm text-white/80">
             Call{" "}
@@ -118,7 +123,7 @@ export default function HomePage() {
                 What we do
               </p>
               <h2 className="mt-2 max-w-xl text-3xl sm:text-4xl">
-                Four ways we help people stay home.
+                How we help people stay home.
               </h2>
             </div>
             <Link
@@ -131,24 +136,24 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 grid items-stretch gap-6 sm:grid-cols-2">
-            {serviceBlocks.map((service) => {
-              const Icon = serviceIcon(service.id);
+            {homeServiceTeasers.map((teaser) => {
+              const Icon = teaserIcon(teaser.id);
               return (
-              <Link
-                key={service.id}
-                href={`/services#${service.id}`}
-                className="group flex h-full flex-col rounded-2xl border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5 transition-colors hover:bg-card/80"
-              >
-                <Icon className="size-6 text-primary" aria-hidden="true" />
-                <h3 className="mt-4 text-2xl">{service.chip ?? service.program}</h3>
-                <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-                  {service.summary}
-                </p>
-                <span className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-medium text-primary">
-                  Learn more
-                  <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </Link>
+                <Link
+                  key={teaser.id}
+                  href={teaser.href}
+                  className="group flex h-full flex-col rounded-2xl border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5 transition-colors hover:bg-card/80"
+                >
+                  <Icon className="size-6 text-primary" aria-hidden="true" />
+                  <h3 className="mt-4 text-2xl">{teaser.title}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                    {teaser.summary}
+                  </p>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-medium text-primary">
+                    Learn more
+                    <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
               );
             })}
           </div>
@@ -202,7 +207,8 @@ export default function HomePage() {
 
       <CtaBand
         title="Need care at home?"
-        body="Call the Missoula office. Caregivers apply from the header or footer."
+        body="Request care and we will follow up. Caregivers apply on AxisCare."
+        showApply
       />
     </>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ApplyButton } from "@/components/apply-button";
 import { buttonVariants } from "@/components/ui/button";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -7,11 +8,13 @@ import { cn } from "@/lib/utils";
 type CtaBandProps = {
   title?: string;
   body?: string;
+  showApply?: boolean;
 };
 
 export function CtaBand({
   title = "Ready to talk?",
   body = "Call us about care at home, or apply to join the team from the header.",
+  showApply = false,
 }: CtaBandProps) {
   return (
     <section className="border-t border-teal/10 bg-teal/[0.07]">
@@ -30,15 +33,19 @@ export function CtaBand({
           >
             Request care
           </Link>
-          <a
-            href={site.phoneHref}
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
-            )}
-          >
-            {site.phone}
-          </a>
+          {showApply ? (
+            <ApplyButton appearance="secondary">Apply</ApplyButton>
+          ) : (
+            <a
+              href={site.phoneHref}
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
+              )}
+            >
+              {site.phone}
+            </a>
+          )}
         </div>
       </div>
     </section>

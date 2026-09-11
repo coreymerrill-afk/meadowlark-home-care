@@ -62,7 +62,7 @@ export default function AboutPage() {
               Mission
             </p>
             <h2 className="mt-2 text-3xl">
-              Quality care through compassion and innovation.
+              Quality home care in Missoula.
             </h2>
             <p className="mt-3 leading-relaxed text-muted-foreground">
               For members at home and for the caregivers who work here.

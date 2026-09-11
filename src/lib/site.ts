@@ -4,9 +4,10 @@ export const site = {
   name: "Meadowlark Home Care",
   legalName: "Meadowlark Home Care, LLC",
   tagline: "Quality home care in Missoula",
-  missionLine: "Quality care through compassion and innovation",
   description:
-    "Meadowlark Home Care provides agency-based Montana CFCS/PCS, Big Sky / SDMI / DD waiver supports, skilled nursing, private-pay non-skilled care, and VA Community Care in Missoula, Montana.",
+    "Meadowlark Home Care provides agency-based Montana CFCS/PCS, Big Sky / SDMI / DD waiver supports, skilled nursing, private-pay non-skilled care, VA Community Care, and respite in Missoula, Montana.",
+  eligibilityDisclaimer:
+    "Eligibility is decided by the state or VA, not Meadowlark. Confirm details on official .gov pages.",
   foundedYear: 2015,
   founders: [
     { name: "Corey Merrill", role: "Co-founder" },
@@ -78,13 +79,18 @@ export const getStartedLinks = [
     external: true,
   },
   {
-    label: "Learn CFCS/PCS",
+    label: "CFCS/PCS (dphhs.mt.gov)",
     href: site.links.cfcsPcs,
     external: true,
   },
   {
-    label: "Big Sky Waiver info",
+    label: "Big Sky Waiver (dphhs.mt.gov)",
     href: site.links.bigSkyWaiver,
+    external: true,
+  },
+  {
+    label: "VA Community Care (va.gov)",
+    href: site.links.vaCommunityCare,
     external: true,
   },
   {

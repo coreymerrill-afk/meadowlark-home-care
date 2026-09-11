@@ -14,8 +14,8 @@ export function SiteFooter() {
         <div className="md:col-span-5">
           <Logo inverted />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/75">
-            {site.missionLine}. Serving members and caregivers in Missoula,
-            Montana since {site.foundedYear}.
+            Serving members and caregivers in Missoula, Montana since{" "}
+            {site.foundedYear}.
           </p>
           <div className="mt-5">
             <ApplyButton compact />
@@ -83,8 +83,7 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-5 text-xs leading-relaxed text-white/60 sm:px-6">
           <p>
-            Eligibility is decided by the state or VA, not Meadowlark. Confirm
-            details on official .gov pages.{" "}
+            {site.eligibilityDisclaimer}{" "}
             <a
               href={site.mapsUrl}
               className="underline-offset-4 hover:underline"

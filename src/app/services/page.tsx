@@ -18,7 +18,7 @@ import {
   type ServiceId,
   type ServiceLink,
 } from "@/lib/services";
-import { assertNever, getStartedLinks } from "@/lib/site";
+import { assertNever, getStartedLinks, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -115,7 +115,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Services that help you stay home in Missoula"
-        description="Montana Medicaid personal care, HCBS waiver supports, skilled nursing, private pay, and VA or other coverage — delivered in the home. Meadowlark does not decide eligibility. The State of Montana and the VA do."
+        description={`Montana Medicaid personal care, HCBS Big Sky / SDMI / DD supports, skilled nursing, private pay, insurance, VA Community Care, and respite — delivered in the home. ${site.eligibilityDisclaimer}`}
       />
 
       <section
@@ -199,6 +199,13 @@ export default function ServicesPage() {
               <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground">
                 {service.body}
               </p>
+              {service.bullets && service.bullets.length > 0 ? (
+                <ul className="mt-4 list-disc space-y-1 pl-5 text-base text-muted-foreground">
+                  {service.bullets.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
               {service.primaryCta ? <PrimaryCta link={service.primaryCta} /> : null}
               {service.links.length > 0 ? (
                 <ul className="mt-5 flex flex-wrap gap-2">
@@ -214,9 +221,13 @@ export default function ServicesPage() {
         })}
       </div>
 
+      <p className="mx-auto max-w-6xl px-4 pb-4 text-sm text-muted-foreground sm:px-6">
+        {site.eligibilityDisclaimer}
+      </p>
+
       <CtaBand
         title="Not sure which service fits?"
-        body="Tell us what a typical day looks like. We will point you toward the right official pages and what we can provide. Eligibility is decided by the state or the VA—not by Meadowlark."
+        body={`Tell us what a typical day looks like. We will point you toward the right official pages and what we can provide. ${site.eligibilityDisclaimer}`}
       />
     </>
   );

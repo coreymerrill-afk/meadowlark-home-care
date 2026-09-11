@@ -44,7 +44,7 @@ export default function OpenGraphImage() {
             Quality home care in Missoula.
           </div>
           <div style={{ fontSize: 28, color: "#D7E6EA", maxWidth: 760 }}>
-            Compassion and innovation for members and caregivers since 2015.
+            Agency-based home care in Missoula since 2015.
           </div>
         </div>
         <div style={{ fontSize: 22, color: "#F4A261" }}>

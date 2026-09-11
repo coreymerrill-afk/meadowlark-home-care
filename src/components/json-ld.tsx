@@ -33,7 +33,6 @@ export function LocalBusinessJsonLd() {
       },
     ],
     sameAs: [site.facebookUrl],
-    slogan: site.missionLine,
   };
 
   return (

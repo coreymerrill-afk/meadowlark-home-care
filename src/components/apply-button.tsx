@@ -9,12 +9,14 @@ type ApplyButtonProps = {
   className?: string;
   children?: ReactNode;
   compact?: boolean;
+  appearance?: "cta" | "secondary";
 };
 
 export function ApplyButton({
   className,
   children = "Apply online",
   compact = false,
+  appearance = "cta",
 }: ApplyButtonProps) {
   return (
     <a
@@ -22,7 +24,10 @@ export function ApplyButton({
       target="_blank"
       rel="noreferrer"
       className={cn(
-        buttonVariants({ variant: "cta", size: "lg" }),
+        buttonVariants({
+          variant: appearance === "secondary" ? "outline" : "cta",
+          size: "lg",
+        }),
         compact ? "h-10 px-3.5 text-sm" : "h-12 px-5 text-base",
         "rounded-full",
         className
