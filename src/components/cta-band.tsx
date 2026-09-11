@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { ApplyButton } from "@/components/apply-button";
 import { buttonVariants } from "@/components/ui/button";
-import { offices, site } from "@/lib/site";
+import { offices } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type CtaBandProps = {
