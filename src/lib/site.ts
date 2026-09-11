@@ -23,8 +23,9 @@ export const site = {
   fax: "(406) 926-1501",
   careersEmail: "hr@meadowlarkhomecare.com",
   careersEmailHref: "mailto:hr@meadowlarkhomecare.com",
+  applyUrl: "https://4170.axiscare.com/?caregivers-applications.php",
   hireologyUrl: "https://careers.hireology.com/meadowlarkhomecare3",
-  facebookUrl: "https://www.facebook.com/meadowlarkhomecare",
+  facebookUrl: "https://www.facebook.com/meadowlarkhomecare/",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=800+Kensington+Ave+Ste+LL3+Missoula+MT+59801",
   hiringAreas: ["Missoula", "Great Falls"],
@@ -32,9 +33,9 @@ export const site = {
 
 export const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
   { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-  { href: "/careers", label: "Careers" },
+  { href: "/work-with-us", label: "Work With Us" },
   { href: "/contact", label: "Contact" },
 ] as const;
 

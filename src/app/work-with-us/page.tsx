@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Heart, Leaf, Sparkles } from "lucide-react";
 
+import { ApplyButton } from "@/components/apply-button";
 import { CtaBand } from "@/components/cta-band";
 import { PageHero } from "@/components/page-hero";
 import { buttonVariants } from "@/components/ui/button";
@@ -10,10 +11,10 @@ import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Careers",
+  title: "Work With Us",
   description:
-    "Join Meadowlark Home Care in Missoula or the Great Falls area. We promote from within and offer paid time off and incremental raises.",
-  alternates: { canonical: "/careers" },
+    "Join Meadowlark Home Care in Missoula or the Great Falls area. Apply online through AxisCare. We promote from within and offer paid time off and incremental raises.",
+  alternates: { canonical: "/work-with-us" },
 };
 
 const culture = [
@@ -34,11 +35,11 @@ const culture = [
   },
 ] as const;
 
-export default function CareersPage() {
+export default function WorkWithUsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Careers"
+        eyebrow="Work with us"
         title="Come work with us at Meadowlark."
         description="We hire in Missoula and the Great Falls area. If you prove yourself to us, we will do the same for you."
       />
@@ -106,39 +107,41 @@ export default function CareersPage() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-        <div className="rounded-[2rem] bg-forest px-6 py-10 text-primary-foreground sm:px-10">
-          <p className="text-sm font-medium tracking-[0.16em] text-gold uppercase">
+        <div className="rounded-[2rem] bg-teal px-6 py-10 text-white sm:px-10">
+          <p className="text-sm font-medium tracking-[0.16em] text-orange uppercase">
             Apply now
           </p>
           <h2 className="mt-3 max-w-2xl text-3xl sm:text-4xl">
-            Open roles are posted on Hireology.
+            Start with the AxisCare application.
           </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-primary-foreground/75">
-            Applications are handled through our careers portal. Questions about
-            working in Missoula or Great Falls can also go to{" "}
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/75">
+            Caregivers apply online through AxisCare. You can also browse listed
+            roles on our Hireology board. Questions about Missoula or Great
+            Falls can go to{" "}
             <a href={site.careersEmailHref} className="underline underline-offset-4">
               {site.careersEmail}
             </a>
             .
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <ApplyButton />
             <a
               href={site.hireologyUrl}
               target="_blank"
               rel="noreferrer"
               className={cn(
-                buttonVariants({ size: "lg" }),
-                "h-12 justify-center rounded-full bg-[var(--gold)] px-6 text-base text-gold-foreground hover:bg-[var(--gold)]/90"
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "h-12 justify-center rounded-full border-white/25 bg-transparent px-6 text-base text-white hover:bg-white/10"
               )}
             >
-              View open roles
+              Hireology careers board
               <ArrowUpRight />
             </a>
             <Link
               href="/contact"
               className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "h-12 justify-center rounded-full border-white/20 bg-transparent px-6 text-base text-primary-foreground hover:bg-white/10"
+                buttonVariants({ variant: "ghost", size: "lg" }),
+                "h-12 justify-center rounded-full px-6 text-base text-white hover:bg-white/10 hover:text-white"
               )}
             >
               Ask a question

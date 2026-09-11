@@ -9,18 +9,13 @@ import {
   Users,
 } from "lucide-react";
 
+import { ApplyButton } from "@/components/apply-button";
 import { CtaBand } from "@/components/cta-band";
 import { buttonVariants } from "@/components/ui/button";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const services = [
-  {
-    href: "/services#nursing",
-    title: "Nursing",
-    icon: Stethoscope,
-    body: "Skilled nursing at home, including medication support, bowel care programs, and ongoing ostomy, tracheostomy, and catheter care.",
-  },
   {
     href: "/services#cfc-pas",
     title: "CFC / Medicaid PAS",
@@ -32,6 +27,12 @@ const services = [
     title: "Medicaid Waiver / HCBS",
     icon: Home,
     body: "Waiver services beyond typical CFC, including homemaker support, social supervision, specially trained attendants, and habilitation aides.",
+  },
+  {
+    href: "/services#nursing",
+    title: "Nursing",
+    icon: Stethoscope,
+    body: "Skilled nursing at home, including medication support, bowel care programs, and ongoing ostomy, tracheostomy, and catheter care.",
   },
   {
     href: "/services#private-pay",
@@ -51,71 +52,93 @@ const learningTopics = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-6">
-            <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">
-              Missoula, Montana · Since {site.foundedYear}
-            </p>
-            <h1 className="mt-4 text-4xl leading-[1.08] sm:text-5xl lg:text-[3.5rem]">
-              Quality home care, close to the people who matter.
-            </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              {site.missionLine}. Meadowlark Home Care helps members stay at
-              home — and gives caregivers a workplace built on trust.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/contact"
-                className={cn(
-                  buttonVariants({ size: "lg" }),
-                  "h-12 justify-center rounded-full px-6 text-base"
-                )}
-              >
-                Get care
-              </Link>
-              <Link
-                href="/careers"
-                className={cn(
-                  buttonVariants({ variant: "outline", size: "lg" }),
-                  "h-12 justify-center rounded-full px-6 text-base"
-                )}
-              >
-                Join the team
-              </Link>
-            </div>
-            <p className="mt-5 text-sm text-muted-foreground">
-              Call{" "}
-              <a href={site.phoneHref} className="font-medium text-foreground underline-offset-4 hover:underline">
-                {site.phone}
-              </a>{" "}
-              or visit us at {site.address.street}.
-            </p>
+      <section className="relative isolate min-h-[28rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]">
+        <Image
+          src="/images/hero-mountains.jpg"
+          alt="Mountain lake at sunrise with evergreen forest along the shore"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-teal/85 via-teal/55 to-teal/25" />
+        <div className="relative mx-auto flex min-h-[28rem] w-full max-w-6xl flex-col justify-end px-4 py-14 sm:min-h-[34rem] sm:px-6 sm:py-20 lg:min-h-[38rem] lg:justify-center">
+          <p className="text-sm font-medium tracking-[0.16em] text-white/80 uppercase">
+            Missoula, Montana · Since {site.foundedYear}
+          </p>
+          <h1 className="mt-3 max-w-3xl text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl">
+            Quality home care in Missoula.
+          </h1>
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85">
+            {site.missionLine}. Care for members at home — and a workplace built
+            on trust for caregivers.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/contact"
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "h-12 justify-center rounded-full bg-white px-6 text-base text-teal hover:bg-white/90"
+              )}
+            >
+              Request care
+            </Link>
+            <ApplyButton />
           </div>
-
-          <div className="relative lg:col-span-6">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-secondary shadow-sm sm:aspect-[5/4] lg:aspect-[4/5]">
-              <Image
-                src="/images/hero-home.jpg"
-                alt="A caregiver and an older adult talking outdoors, holding hands"
-                fill
-                priority
-                className="object-cover"
-                sizes="(min-width: 1024px) 40vw, 100vw"
-              />
-            </div>
-            <div className="absolute -bottom-4 left-4 right-4 rounded-2xl bg-card/95 p-4 shadow-md ring-1 ring-foreground/8 backdrop-blur sm:left-auto sm:right-6 sm:max-w-xs">
-              <p className="font-heading text-lg">Two ways to start</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Families can request care. Caregivers can apply in Missoula and
-                the Great Falls area.
-              </p>
-            </div>
-          </div>
+          <p className="mt-5 text-sm text-white/80">
+            Call{" "}
+            <a href={site.phoneHref} className="font-medium text-white underline-offset-4 hover:underline">
+              {site.phone}
+            </a>{" "}
+            · {site.address.street}
+          </p>
         </div>
       </section>
 
-      <section className="border-t border-border bg-card/40">
+      <section className="border-b border-border bg-card">
+        <div className="mx-auto grid w-full max-w-6xl gap-4 px-4 py-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+          <Link
+            href="/contact"
+            className="rounded-2xl border-2 border-orange/70 px-4 py-5 text-center transition-colors hover:bg-orange/8"
+          >
+            <p className="font-heading text-lg">Need care?</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Contact us about services
+            </p>
+          </Link>
+          <Link
+            href="/work-with-us"
+            className="rounded-2xl border-2 border-orange/70 px-4 py-5 text-center transition-colors hover:bg-orange/8"
+          >
+            <p className="font-heading text-lg">Join the team</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Work with us in Missoula or Great Falls
+            </p>
+          </Link>
+          <a
+            href={site.applyUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-2xl border-2 border-orange/70 px-4 py-5 text-center transition-colors hover:bg-orange/8"
+          >
+            <p className="font-heading text-lg">Apply online</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Caregiver application via AxisCare
+            </p>
+          </a>
+          <a
+            href={site.phoneHref}
+            className="rounded-2xl border-2 border-orange/70 px-4 py-5 text-center transition-colors hover:bg-orange/8"
+          >
+            <p className="font-heading text-lg">{site.phone}</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Call the Missoula office
+            </p>
+          </a>
+        </div>
+      </section>
+
+      <section className="bg-card/40">
         <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -162,7 +185,7 @@ export default function HomePage() {
           <div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] bg-secondary">
             <Image
               src="/images/family-learning.jpg"
-                alt="A person writing notes at a table with a cup of coffee nearby"
+              alt="A person writing notes at a table with a cup of coffee nearby"
               fill
               className="object-cover"
               sizes="(min-width: 1024px) 40vw, 100vw"
@@ -177,11 +200,12 @@ export default function HomePage() {
               Resources for families, friends, and caregivers.
             </h2>
             <p className="mt-4 leading-relaxed text-muted-foreground">
-              Meadowlark Home Care is proud to offer the Family Learning Center,
-              in collaboration with the Institute for Professional Care
-              Education. It is a tool for families, friends, caregivers, and
-              other health care professionals who want to better understand the
-              challenges some members of our community face.
+              Meadowlark Home Care offers the Family Learning Center, created
+              with the Institute for Professional Care Education. It helps
+              families, friends, caregivers, and other health care professionals
+              understand the challenges some members of our community face —
+              topics such as caregiving, nursing, companion care, and respite
+              or hospice support.
             </p>
             <ul className="mt-6 grid grid-cols-2 gap-2 text-sm">
               {learningTopics.map((topic) => (
@@ -201,7 +225,7 @@ export default function HomePage() {
       </section>
 
       <CtaBand
-        title="Contact us for services — or to become part of the team."
+        title="Contact us for services — or become part of the team."
         body="The same office helps families start care and helps caregivers apply."
       />
     </>

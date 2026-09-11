@@ -3,17 +3,34 @@ import { cn } from "@/lib/utils";
 type LogoProps = {
   className?: string;
   markClassName?: string;
+  inverted?: boolean;
 };
 
-export function Logo({ className, markClassName }: LogoProps) {
+export function Logo({ className, markClassName, inverted = false }: LogoProps) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <MeadowlarkMark className={cn("size-9 shrink-0", markClassName)} />
-      <span className="flex flex-col leading-none">
-        <span className="font-heading text-[1.05rem] font-semibold tracking-tight">
+      <MeadowlarkMark
+        className={cn(
+          "size-10 shrink-0 sm:size-11",
+          inverted ? "text-white" : "text-foreground",
+          markClassName
+        )}
+      />
+      <span className="flex min-w-0 flex-col leading-none">
+        <span
+          className={cn(
+            "font-heading text-[1.05rem] font-semibold tracking-tight sm:text-lg",
+            inverted && "text-white"
+          )}
+        >
           Meadowlark
         </span>
-        <span className="mt-0.5 text-[0.68rem] font-medium tracking-[0.14em] text-muted-foreground uppercase">
+        <span
+          className={cn(
+            "mt-0.5 text-[0.68rem] font-medium tracking-[0.16em] uppercase",
+            inverted ? "text-white/75" : "text-muted-foreground"
+          )}
+        >
           Home Care
         </span>
       </span>
@@ -24,28 +41,16 @@ export function Logo({ className, markClassName }: LogoProps) {
 export function MeadowlarkMark({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 40 40"
-      fill="none"
+      viewBox="0 0 72 56"
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-hidden="true"
     >
-      <circle cx="20" cy="20" r="20" className="fill-primary" />
-      <path
-        d="M8.5 24.5c4.2-1.4 7.8-5.8 8.6-10.6.2-1.4 1.8-2 2.9-1.1 3.2 2.6 6.6 7.4 7.2 12.2"
-        className="stroke-[var(--gold)]"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-      <path
-        d="M19.2 14.2c2.8.4 6.8 1.2 9.8 3.8 1.6 1.4 3.6.4 4.5-1.2-2.2.2-4.1-.8-5.6-2.4-2.2-2.3-5.8-3.6-8.7-3.4-.8.1-1.2 1-.8 1.7.3.5.6 1.1.8 1.5Z"
-        className="fill-[var(--gold)]"
-      />
-      <path
-        d="M12.2 22.8c3.6 1.8 8.4 2.6 12.6 1.2 1.8-.6 3.6.8 3.2 2.6-.8 3.4-4.6 5.6-8.2 5.4-3.8-.2-7.8-2.4-9.2-5.8-.4-1 .4-2.1 1.6-1.8.6.1 1.4.3 0-1.6Z"
-        className="fill-[var(--gold)]"
-      />
-      <circle cx="27.6" cy="15.4" r="0.7" className="fill-primary" />
+      <path d="M58.2 20.4c2.2-1.6 4.6-4.2 5.4-7.2.3-1.2-.7-2.2-1.8-2-2.4.4-4.6 2-6.2 3.8-1.6-2.6-4.4-4.6-7.6-5.2-1.2-.2-2.2.8-2 1.9.6 3.4 3 6.2 6 7.8-1.8 2.2-4.4 3.6-7.2 4.2-.9.2-1.2 1.3-.6 1.9 3.4 3.4 8.2 4.8 12.8 3.6 1.8-.5 2.6-2.6 1.6-4.2-.8-1.3-1.8-2.6-2.4-4.6Z" />
+      <path d="M14.8 29.2c6.2-8.4 15.6-13.6 25.6-14.2 1.6-.1 2.4 1.8 1.2 2.8-4.6 3.8-8.2 9-10 15 5.2 1.2 10.8 1 15.8-.8 1.4-.5 2.8.6 2.6 2.1-.4 3.6-2.6 6.8-5.6 8.8-6.2 4.2-14.4 4.6-21.2 1.4-5.2-2.4-9.2-7-10.8-12.4-.4-1.3.8-2.5 2.4-2.7Z" />
+      <circle cx="59.6" cy="12.6" r="1.05" className="fill-background" />
+      <path d="M8 42c10.4 1.4 22.2 1.2 32.6-1.2 1.2-.3 1.8 1.3.7 1.9-10.6 5.6-24.2 6.2-35.2 1.4-.9-.4-.7-1.4 1.9-2.1Z" />
     </svg>
   );
 }

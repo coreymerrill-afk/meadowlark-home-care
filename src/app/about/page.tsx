@@ -6,7 +6,7 @@ import { PageHero } from "@/components/page-hero";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Us",
   description:
     "Meadowlark Home Care was founded in 2015 by Corey Merrill and Natalie Redman to change home care in Missoula for the better.",
   alternates: { canonical: "/about" },

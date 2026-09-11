@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Clock3, Mail, MapPin, Phone, Printer } from "lucide-react";
 
+import { ApplyButton } from "@/components/apply-button";
 import { ContactForm } from "@/components/contact-form";
 import { PageHero } from "@/components/page-hero";
 import { site } from "@/lib/site";
@@ -55,7 +56,14 @@ export default function ContactPage() {
       <section className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <h2 className="text-3xl">Office details</h2>
-          <ul className="mt-6 space-y-5">
+          <p className="mt-3 text-sm text-muted-foreground">
+            Applying to work with us? Start on AxisCare — that is our primary
+            caregiver application.
+          </p>
+          <div className="mt-5">
+            <ApplyButton />
+          </div>
+          <ul className="mt-8 space-y-5">
             {details.map((item) => (
               <li key={item.label} className="flex gap-3">
                 <item.icon className="mt-0.5 size-5 text-primary" aria-hidden="true" />

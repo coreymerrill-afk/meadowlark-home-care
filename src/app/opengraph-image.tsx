@@ -14,9 +14,9 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#F4EEE3",
+          background: "#0F4A5C",
           padding: 72,
-          color: "#2A241C",
+          color: "#FFFFFF",
         }}
       >
         <div
@@ -27,7 +27,7 @@ export default function OpenGraphImage() {
             fontSize: 28,
             letterSpacing: 2,
             textTransform: "uppercase",
-            color: "#2C5A45",
+            color: "#F4A261",
           }}
         >
           Meadowlark Home Care
@@ -43,11 +43,11 @@ export default function OpenGraphImage() {
           >
             Quality home care in Missoula.
           </div>
-          <div style={{ fontSize: 28, color: "#5C5348", maxWidth: 760 }}>
+          <div style={{ fontSize: 28, color: "#D7E6EA", maxWidth: 760 }}>
             Compassion and innovation for members and caregivers since 2015.
           </div>
         </div>
-        <div style={{ fontSize: 22, color: "#2C5A45" }}>
+        <div style={{ fontSize: 22, color: "#F4A261" }}>
           800 Kensington Ave. Ste. LL3 · (406) 926-3447
         </div>
       </div>

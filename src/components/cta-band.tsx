@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ApplyButton } from "@/components/apply-button";
 import { buttonVariants } from "@/components/ui/button";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -20,7 +21,7 @@ export function CtaBand({
           <h2 className="text-3xl sm:text-4xl">{title}</h2>
           <p className="mt-3 text-muted-foreground">{body}</p>
         </div>
-        <div className="flex flex-col gap-3 sm:flex-row">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <Link
             href="/contact"
             className={cn(
@@ -28,17 +29,9 @@ export function CtaBand({
               "h-12 justify-center rounded-full px-6 text-base"
             )}
           >
-            Get care
+            Request care
           </Link>
-          <Link
-            href="/careers"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "h-12 justify-center rounded-full px-6 text-base"
-            )}
-          >
-            Join the team
-          </Link>
+          <ApplyButton />
           <a
             href={site.phoneHref}
             className={cn(

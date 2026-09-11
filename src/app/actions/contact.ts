@@ -62,7 +62,7 @@ export async function submitContact(
   if (parsed.data.companyWebsite) {
     return {
       status: "success",
-      message: "Thanks — we received your message and will be in touch.",
+      message: "Thanks — we received your message and will be in touch soon.",
       mode: "preview",
     };
   }
@@ -88,8 +88,7 @@ export async function submitContact(
     return {
       status: "success",
       mode: "preview",
-      message:
-        "Thanks — your message was recorded in preview mode. Add a Resend API key to send live email.",
+      message: "Thanks — we received your message and will be in touch soon.",
     };
   }
 
@@ -107,22 +106,20 @@ export async function submitContact(
       console.error("[contact form]", error);
       return {
         status: "error",
-        message:
-          "We could not send that just now. Please call us or try again in a few minutes.",
+        message: `We could not send that just now. Please call ${site.phone} or try again in a few minutes.`,
       };
     }
   } catch (error) {
     console.error("[contact form]", error);
     return {
       status: "error",
-      message:
-        "We could not send that just now. Please call us or try again in a few minutes.",
+      message: `We could not send that just now. Please call ${site.phone} or try again in a few minutes.`,
     };
   }
 
   return {
     status: "success",
     mode: "sent",
-    message: "Thanks — we received your message and will be in touch.",
+    message: "Thanks — we received your message and will be in touch soon.",
   };
 }

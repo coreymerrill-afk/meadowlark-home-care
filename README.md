@@ -5,10 +5,12 @@ Production website for [Meadowlark Home Care, LLC](https://meadowlarkhomecare.co
 The site replaces the previous HostGator pages with five public routes:
 
 - `/` — home, services overview, Family Learning Center, dual CTAs
-- `/services` — nursing, CFC/Medicaid PAS, Medicaid Waiver/HCBS, private pay / VA / third party
 - `/about` — founders, mission, labeled testimonial placeholders
-- `/careers` — culture, PTO, raises, advancement, Hireology apply link
+- `/services` — nursing, CFC/Medicaid PAS, Medicaid Waiver/HCBS, private pay / VA / third party
+- `/work-with-us` — culture, PTO, raises, advancement, AxisCare apply CTA
 - `/contact` — office details and a working contact form
+
+`/careers` and the old `.html` HostGator paths redirect to these routes.
 
 ## Local development
 
@@ -85,7 +87,11 @@ If the domain uses HostGator nameservers and you would rather manage DNS in Verc
 
 - Testimonials on `/about` are clearly labeled placeholders. Replace them with real, permissioned quotes before treating them as customer proof.
 - Service copy is cleaned up from the previous site (for example, “medication” and “Personal Assistance Services”). No licenses or medical claims were added.
-- Careers applications go to [Hireology](https://careers.hireology.com/meadowlarkhomecare3). Hiring copy mentions Missoula and the Great Falls area.
+- The primary **Apply online** CTA is AxisCare: [4170.axiscare.com caregiver application](https://4170.axiscare.com/?caregivers-applications.php).
+- The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) is linked as a secondary option on Work With Us.
+- Facebook: [facebook.com/meadowlarkhomecare](https://www.facebook.com/meadowlarkhomecare/).
+- The old Family Learning Center host (`flc.ipced.com/meadowlarkhomecare`) does not resolve. The site describes the resource and does not use that broken outbound URL.
+- Contact form success copy is always visitor-facing. It never surfaces HostGator-style “server encountered an error” text. Without `RESEND_API_KEY`, submissions still succeed and are logged on the server.
 
 ## Project layout
 
@@ -98,7 +104,7 @@ public/images/      Page photography
 
 ## Photo credits
 
-- Hero and supporting lifestyle photos: [Pexels](https://www.pexels.com/license/) (free to use).
+- Hero mountain lake and supporting lifestyle photos: [Pexels](https://www.pexels.com/license/) (free to use).
 - About page river photo: [Clark Fork River, Missoula, MT](https://commons.wikimedia.org/wiki/File:Clark_Fork_River,_Missoula,_MT.jpg) by w_lemay, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
 
 © Meadowlark Home Care, LLC. Copyright year is generated dynamically in the footer.
