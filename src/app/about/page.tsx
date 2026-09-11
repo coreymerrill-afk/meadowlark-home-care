@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 
 const offerings = [
   "Agency-based CFCS/PCS (formerly CFC/PAS)",
+  "VA Community Care and Aid & Attendance pathways",
+  "Private pay and insurance for non-skilled home care",
   "HCBS Big Sky, SDMI, and DD waiver supports",
-  "Skilled nursing at home",
-  "Private pay, insurance, and VA Community Care",
   "Respite — we do not provide hospice",
 ] as const;
 
@@ -26,7 +26,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About us"
         title="Home care in Missoula."
-        description="An agency-based provider for personal care, waiver supports, nursing, private pay, and veterans’ pathways."
+        description="An agency-based provider for CFCS/PCS, VA, private pay, and waiver supports."
       />
 
       <section className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:items-center">
