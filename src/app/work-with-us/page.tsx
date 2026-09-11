@@ -11,7 +11,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Work With Us",
   description:
-    "Join Meadowlark Home Care in Missoula or the Great Falls area. Apply online through AxisCare. We promote from within and offer paid time off and incremental raises.",
+    "Join Meadowlark Home Care in Missoula or Great Falls. Apply online with a short form. We promote from within and offer paid time off and incremental raises.",
   alternates: { canonical: "/work-with-us" },
 };
 
@@ -44,7 +44,7 @@ export default function WorkWithUsPage() {
       <PageHero
         eyebrow="Work with us"
         title="Come work with us at Meadowlark."
-        description="We hire caregivers in Missoula and the Great Falls area."
+        description="We hire caregivers in Missoula and Great Falls."
         actions={<ApplyButton>Apply online</ApplyButton>}
       />
 
@@ -55,11 +55,11 @@ export default function WorkWithUsPage() {
               Start here
             </p>
             <p className="mt-1 text-base text-muted-foreground">
-              Caregivers apply on AxisCare. Listed roles also appear on Hireology.
+              Short application on this site. Listed roles also appear on Hireology.
             </p>
           </div>
           <div className="flex flex-col items-start gap-2">
-            <ApplyButton className="hidden sm:inline-flex">Apply on AxisCare</ApplyButton>
+            <ApplyButton className="hidden sm:inline-flex">Apply online</ApplyButton>
             <a
               href={site.hireologyUrl}
               target="_blank"
@@ -133,7 +133,7 @@ export default function WorkWithUsPage() {
 
       <CtaBand
         title="Ready to apply?"
-        body="Apply on AxisCare, or call the Missoula office with questions."
+        body="Apply online, or call either office with questions."
         showApply
       />
     </>
