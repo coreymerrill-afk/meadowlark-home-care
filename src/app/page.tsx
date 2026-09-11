@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, HeartHandshake, Home, Stethoscope, Users } from "lucide-react";
+import { ArrowRight, HeartHandshake, Home, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
@@ -16,8 +16,6 @@ function teaserIcon(id: HomeTeaserId): LucideIcon {
       return HeartHandshake;
     case "hcbs-waiver":
       return Home;
-    case "nursing":
-      return Stethoscope;
     case "private-pay":
       return Users;
     default:
@@ -46,8 +44,7 @@ export default function HomePage() {
             Quality home care in Missoula.
           </h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85">
-            Skilled nursing and in-home personal care—through Montana Medicaid,
-            waiver supports, private pay, and veterans’ pathways.
+            In-home personal care—mostly CFCS/PCS, VA, and private pay.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
