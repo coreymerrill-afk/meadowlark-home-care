@@ -4,7 +4,7 @@ Production website for [Meadowlark Home Care, LLC](https://meadowlarkhomecare.co
 
 The site replaces the previous HostGator pages with five public routes:
 
-- `/` — home, services overview, Family Learning Center, dual CTAs
+- `/` — home, services overview, dual CTAs
 - `/about` — founders and mission
 - `/services` — four Compass cards: CFCS/PCS, HCBS waiver, nursing, private pay & VA / third party
 - `/work-with-us` — hiring areas, PTO, raises, advancement, AxisCare apply CTA
@@ -130,7 +130,6 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 - The primary **Apply online** CTA is AxisCare: [4170.axiscare.com caregiver application](https://4170.axiscare.com/?caregivers-applications.php).
 - The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) is linked as a secondary option on Work With Us.
 - Facebook: [facebook.com/meadowlarkhomecare](https://www.facebook.com/meadowlarkhomecare/).
-- The old Family Learning Center host (`flc.ipced.com/meadowlarkhomecare`) does not resolve. The site describes the resource and does not use that broken outbound URL.
 - Contact form success copy is always visitor-facing. It never surfaces HostGator-style “server encountered an error” text. Without `RESEND_API_KEY`, submissions still succeed and are logged on the server.
 
 ## Project layout
@@ -146,7 +145,6 @@ public/images/      Page photography
 
 - About page river photo: [Clark Fork River, Missoula, MT](https://commons.wikimedia.org/wiki/File:Clark_Fork_River,_Missoula,_MT.jpg) by w_lemay, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/).
 - Home hero (`hero-mountains.jpg`): caregiver + older adult at home, faces left for the teal gradient. Not a landscape hero.
-- Family Learning, Work With Us, and Services accent photos are in-home / break-room care scenes. Replace with Meadowlark’s own photos when available.
 - Do not use Banff/Moraine Lake, UI wireframes, or generic SaaS laptop stock.
 
 © Meadowlark Home Care, LLC. Copyright year is generated dynamically in the footer.
