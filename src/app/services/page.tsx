@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Services that help you stay home in Missoula: Montana CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports.",
+    "CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports in Missoula.",
   alternates: { canonical: "/services" },
 };
 
@@ -117,8 +117,8 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Services that help you stay home in Missoula"
-        description={`Mostly CFCS/PCS, VA Community Care, and private pay—plus HCBS waivers when authorized. ${site.eligibilityDisclaimer}`}
+        title="Home care services in Missoula"
+        description={`CFCS/PCS, VA Community Care, private pay, and HCBS waivers. ${site.eligibilityDisclaimer}`}
       />
 
       <section
@@ -238,8 +238,7 @@ export default function ServicesPage() {
         <div className="rounded-[1.5rem] bg-teal/[0.05] p-6 ring-1 ring-foreground/5 sm:p-8">
           <h2 className="text-2xl sm:text-3xl">Eligibility contacts</h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            State and screening numbers for Medicaid and waiver pathways. Call
-            Meadowlark anytime if you want help figuring out the next step.
+            Medicaid and waiver screening numbers. Call Meadowlark if you need help with the next step.
           </p>
           <ul className="mt-5 flex flex-wrap gap-2">
             {servicesContactCluster.map((link) => (
