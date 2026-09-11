@@ -1,54 +1,18 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Clock3, Mail, MapPin, Phone, Printer } from "lucide-react";
 
 import { ContactForm } from "@/components/contact-form";
 import { FacebookIcon } from "@/components/facebook-icon";
 import { PageHero } from "@/components/page-hero";
-import { site } from "@/lib/site";
+import { formatOfficeAddress, offices, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Reach Meadowlark Home Care in Missoula: phone, fax, office address, and a contact form for care or careers.",
+    "Reach Meadowlark Home Care in Missoula or Great Falls: phone, office address, and a contact form for care or careers.",
   alternates: { canonical: "/contact" },
 };
-
-const details = [
-  {
-    icon: Phone,
-    label: "Phone",
-    value: site.phone,
-    href: site.phoneHref,
-  },
-  {
-    icon: Printer,
-    label: "Fax",
-    value: site.fax,
-  },
-  {
-    icon: Mail,
-    label: "Careers email",
-    value: site.careersEmail,
-    href: site.careersEmailHref,
-  },
-  {
-    icon: MapPin,
-    label: "Office",
-    value: `${site.address.street}\n${site.address.city}, ${site.address.state} ${site.address.postalCode}`,
-    href: site.mapsUrl,
-  },
-  {
-    icon: FacebookIcon,
-    label: "Facebook",
-    value: "Meadowlark Home Care",
-    href: site.facebookUrl,
-  },
-  {
-    icon: Clock3,
-    label: "Hiring areas",
-    value: "Missoula office · hiring also in the Great Falls area",
-  },
-] as const;
 
 export default function ContactPage() {
   return (
@@ -56,52 +20,98 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Ask about care at home, or joining the team."
-        description="Call, fax, visit the Missoula office, or send a message. Caregivers apply on AxisCare."
+        description="Call either office, visit in person, or send a message. Caregivers apply on a short form."
       />
 
       <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
         <div className="grid gap-8 rounded-[1.5rem] border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5 sm:p-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
-              Missoula office
+              Two offices
             </p>
             <h2 className="mt-2 text-3xl">How to reach us</h2>
             <p className="mt-3 text-base text-muted-foreground">
               Applying to work with us? Use{" "}
-              <a
+              <Link
                 href={site.applyUrl}
-                target="_blank"
-                rel="noreferrer"
                 className="font-medium text-primary underline-offset-4 hover:underline"
               >
                 Apply online
-              </a>{" "}
-              in the header — that is our AxisCare caregiver application.
+              </Link>{" "}
+              — a short mobile-friendly form.
             </p>
-            <ul className="mt-6 space-y-5">
-              {details.map((item) => (
-                <li key={item.label} className="flex gap-3">
-                  <item.icon className="mt-0.5 size-5 text-primary" aria-hidden="true" />
-                  <div>
-                    <p className="text-sm font-medium tracking-[0.12em] text-muted-foreground uppercase">
-                      {item.label}
-                    </p>
-                    {"href" in item && item.href ? (
+
+            <ul className="mt-6 space-y-6">
+              {offices.map((office) => (
+                <li key={office.id} className="rounded-2xl bg-teal/[0.05] p-4 ring-1 ring-foreground/5">
+                  <p className="font-heading text-xl">{office.name}</p>
+                  <div className="mt-3 space-y-3 text-base">
+                    <p className="flex gap-3">
+                      <MapPin className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
                       <a
-                        href={item.href}
-                        className="mt-1 block whitespace-pre-line text-base underline-offset-4 hover:underline"
-                        {...(item.href.startsWith("http")
-                          ? { target: "_blank", rel: "noreferrer" }
-                          : {})}
+                        href={office.mapsUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline-offset-4 hover:underline"
                       >
-                        {item.value}
+                        {formatOfficeAddress(office, "\n")}
                       </a>
-                    ) : (
-                      <p className="mt-1 whitespace-pre-line text-base">{item.value}</p>
-                    )}
+                    </p>
+                    <p className="flex gap-3">
+                      <Phone className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
+                      <a href={office.phoneHref} className="underline-offset-4 hover:underline">
+                        {office.phone}
+                      </a>
+                    </p>
+                    {office.fax ? (
+                      <p className="flex gap-3">
+                        <Printer className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>Fax {office.fax}</span>
+                      </p>
+                    ) : null}
                   </div>
                 </li>
               ))}
+
+              <li className="flex gap-3">
+                <Mail className="mt-0.5 size-5 text-primary" aria-hidden="true" />
+                <div>
+                  <p className="text-sm font-medium tracking-[0.12em] text-muted-foreground uppercase">
+                    Careers email
+                  </p>
+                  <a
+                    href={site.careersEmailHref}
+                    className="mt-1 block text-base underline-offset-4 hover:underline"
+                  >
+                    {site.careersEmail}
+                  </a>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <FacebookIcon className="mt-0.5 size-5 text-primary" aria-hidden="true" />
+                <div>
+                  <p className="text-sm font-medium tracking-[0.12em] text-muted-foreground uppercase">
+                    Facebook
+                  </p>
+                  <a
+                    href={site.facebookUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 block text-base underline-offset-4 hover:underline"
+                  >
+                    Meadowlark Home Care
+                  </a>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <Clock3 className="mt-0.5 size-5 text-primary" aria-hidden="true" />
+                <div>
+                  <p className="text-sm font-medium tracking-[0.12em] text-muted-foreground uppercase">
+                    Hiring
+                  </p>
+                  <p className="mt-1 text-base">Missoula and Great Falls</p>
+                </div>
+              </li>
             </ul>
           </div>
 
