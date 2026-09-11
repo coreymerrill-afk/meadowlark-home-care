@@ -44,7 +44,6 @@ function serviceIcon(id: ServiceId): LucideIcon {
       return assertNever(id);
   }
 }
-}
 
 function ServiceResourceLink({ link }: { link: ServiceLink }) {
   const className =
