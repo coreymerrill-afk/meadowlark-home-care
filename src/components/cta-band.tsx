@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 type CtaBandProps = {
   title?: string;
   body?: string;
-  /** Careers mode: primary Apply (AxisCare) + Call. Default: Request care + Call. */
+  /** Careers mode: primary Apply (/apply) + Call. Default: Request care + Call. */
   showApply?: boolean;
 };
 
