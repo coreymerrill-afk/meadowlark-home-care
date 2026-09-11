@@ -45,7 +45,7 @@ export default function HomePage() {
             Quality home care in Missoula.
           </h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85">
-            In-home personal care—mostly CFCS/PCS, VA, and private pay.
+            In-home personal care through CFCS/PCS, VA Community Care, and private pay.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
@@ -114,7 +114,7 @@ export default function HomePage() {
                 What we do
               </p>
               <h2 className="mt-2 max-w-xl text-3xl sm:text-4xl">
-                How we help people stay home.
+                Care at home.
               </h2>
             </div>
             <Link
