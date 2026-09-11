@@ -38,11 +38,30 @@ const details = [
     href: site.mapsUrl,
   },
   {
+    icon: FacebookGlyph,
+    label: "Facebook",
+    value: "Meadowlark Home Care",
+    href: site.facebookUrl,
+  },
+  {
     icon: Clock3,
     label: "Hiring areas",
     value: "Missoula office · hiring also in the Great Falls area",
   },
 ] as const;
+
+function FacebookGlyph({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H7v4h2v7h4v-7h3l1-4h-4V9c0-.6.4-1 1-1Z" />
+    </svg>
+  );
+}
 
 export default function ContactPage() {
   return (

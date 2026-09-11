@@ -6,7 +6,7 @@ type PageHeroProps = {
 
 export function PageHero({ eyebrow, title, description }: PageHeroProps) {
   return (
-    <section className="border-b border-border/70 bg-[linear-gradient(180deg,oklch(0.95_0.02_85),transparent)]">
+    <section className="border-b border-border bg-[linear-gradient(180deg,oklch(0.93_0.03_210),transparent)]">
       <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         {eyebrow ? (
           <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">

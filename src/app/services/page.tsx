@@ -75,12 +75,27 @@ export default function ServicesPage() {
         description="Nursing, Medicaid personal assistance, waiver services, and privately arranged care — all delivered in the home."
       />
 
+      <div className="mx-auto grid w-full max-w-6xl gap-3 px-4 pt-10 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+        {services.map((service) => (
+          <a
+            key={service.id}
+            href={`#${service.id}`}
+            className="rounded-2xl border-2 border-orange/70 bg-card px-4 py-5 text-center transition-colors hover:bg-orange/8"
+          >
+            <p className="font-heading text-lg">{service.title}</p>
+            <p className="mt-1 text-xs font-medium tracking-[0.12em] text-muted-foreground uppercase">
+              {service.eyebrow}
+            </p>
+          </a>
+        ))}
+      </div>
+
       <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-14 sm:px-6 sm:py-16">
         {services.map((service, index) => (
           <article
             key={service.id}
             id={service.id}
-            className="scroll-mt-24 rounded-[1.75rem] bg-card p-6 ring-1 ring-foreground/8 sm:p-10"
+            className="scroll-mt-36 rounded-[1.75rem] bg-card p-6 ring-1 ring-foreground/8 sm:p-10"
           >
             <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">
               {String(index + 1).padStart(2, "0")} · {service.eyebrow}

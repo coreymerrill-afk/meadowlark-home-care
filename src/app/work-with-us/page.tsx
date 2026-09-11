@@ -44,6 +44,16 @@ export default function WorkWithUsPage() {
         description="We hire in Missoula and the Great Falls area. If you prove yourself to us, we will do the same for you."
       />
 
+      <section className="border-b border-border bg-card">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <p className="max-w-xl text-sm text-muted-foreground">
+            Caregivers apply online through AxisCare. That is the same Apply
+            button used across the site.
+          </p>
+          <ApplyButton />
+        </div>
+      </section>
+
       <section className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:items-center">
         <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-secondary">
           <Image

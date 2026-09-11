@@ -57,31 +57,29 @@ A hidden honeypot field (`companyWebsite`) silently accepts bot submissions.
 3. Set the three email variables in Vercel (Production, Preview, and Development as needed).
 4. Send a test from `/contact`.
 
-## Deploy on Vercel
+## Deploy on Vercel (do this first)
 
 1. Push this repository to GitHub, GitLab, or Bitbucket.
 2. Import the project at [vercel.com/new](https://vercel.com/new).
-3. Framework preset: Next.js. Build command: `npm run build`. Output: default.
-4. Add environment variables from `.env.example`.
-5. Deploy. Confirm the five pages, mobile nav, and contact form on the preview URL.
-6. In the Vercel project, open **Settings → Domains** and add `meadowlarkhomecare.com` and `www.meadowlarkhomecare.com`.
+3. Framework preset: **Next.js**. Build command: `npm run build`. Output: default.
+4. Add environment variables from `.env.example` (`NEXT_PUBLIC_SITE_URL` plus Resend keys when email should go live).
+5. Deploy and open the Vercel preview URL.
+6. Check all five pages on a phone and a desktop, submit the contact form, and click **Apply online** (AxisCare).
+7. When the preview looks right, open **Settings → Domains** and add `meadowlarkhomecare.com` and `www.meadowlarkhomecare.com`. Copy the exact DNS records Vercel shows.
 
-Vercel will show the exact DNS records to copy. Use those values — do not guess IPs from older docs.
+The site is ready to preview and ship on Vercel before any DNS change.
 
-## HostGator DNS cutover
+## HostGator DNS cutover (later)
 
-Keep the HostGator site online until the Vercel domain is verified and the new site looks correct.
+HostGator access is available when you are ready to point the live domain. Keep the current HostGator site online until the Vercel domain shows a valid certificate and the new site looks correct.
 
-1. Find where DNS is hosted today. The domain may use HostGator nameservers, or a registrar such as GoDaddy.
-2. In Vercel, copy the records for the apex domain and `www`.
-3. In the current DNS panel, replace the HostGator **A** record for `@` and the **CNAME** (or A) for `www` with the Vercel records. Leave MX records alone if you still receive email through the current host or Google Workspace.
-4. If HostGator email is on the same account, confirm MX and SPF still point at the mail provider after the web records change.
-5. Wait for DNS to propagate (often minutes, sometimes up to 48 hours). Check with `dig meadowlarkhomecare.com` and `dig www.meadowlarkhomecare.com`.
-6. In Vercel, wait until both domains show a valid certificate.
-7. Browse the live site on a phone and a desktop. Submit the contact form.
-8. After cutover is confirmed, cancel or archive the HostGator web hosting. You can keep the HostGator account only for email or the domain registration if that is still where those live.
+1. In Vercel, copy the A / CNAME records for `@` and `www`.
+2. In HostGator (or the registrar that actually hosts DNS), replace only the web records. Leave MX and email records alone unless you intend to move mail.
+3. Wait for propagation. Confirm with `dig meadowlarkhomecare.com` and `dig www.meadowlarkhomecare.com`.
+4. Browse the live domain on a phone and a desktop, then submit the contact form.
+5. After cutover is confirmed, cancel or archive HostGator web hosting. Keep the account if the domain or email still lives there.
 
-If the domain uses HostGator nameservers and you would rather manage DNS in Vercel, change nameservers only after you have recreated MX and any other existing records in Vercel DNS.
+If you move nameservers to Vercel, recreate MX and any other existing records in Vercel DNS first.
 
 ## Content notes
 
