@@ -3,6 +3,7 @@
 import { Resend } from "resend";
 import { z } from "zod";
 
+import { type ContactState } from "@/lib/contact";
 import { inquiryTypes, site } from "@/lib/site";
 
 const contactSchema = z.object({
@@ -17,18 +18,6 @@ const contactSchema = z.object({
     .max(4000),
   companyWebsite: z.string().optional(),
 });
-
-export type ContactState = {
-  status: "idle" | "success" | "error";
-  message: string;
-  fieldErrors?: Partial<Record<keyof z.infer<typeof contactSchema>, string>>;
-  mode?: "sent" | "preview";
-};
-
-export const initialContactState: ContactState = {
-  status: "idle",
-  message: "",
-};
 
 export async function submitContact(
   _prev: ContactState,

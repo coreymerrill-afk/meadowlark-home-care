@@ -2,14 +2,12 @@
 
 import { useActionState, type ReactNode } from "react";
 
-import {
-  initialContactState,
-  submitContact,
-} from "@/app/actions/contact";
+import { submitContact } from "@/app/actions/contact";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { initialContactState } from "@/lib/contact";
 import { inquiryTypes } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
