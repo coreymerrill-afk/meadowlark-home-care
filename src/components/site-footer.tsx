@@ -83,16 +83,17 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-5 text-xs leading-relaxed text-white/60 sm:px-6">
           <p>
-            Eligibility decided by the state or VA, not Meadowlark. Confirm on
-            official .gov pages.{" "}
+            Eligibility is decided by the state or VA, not Meadowlark. Confirm
+            details on official .gov pages.{" "}
             <a
               href={site.mapsUrl}
               className="underline-offset-4 hover:underline"
               target="_blank"
               rel="noreferrer"
             >
-              800 Kensington Ave Ste LL3
+              {site.address.street}
             </a>
+            {`, ${site.address.city}, ${site.address.state} ${site.address.postalCode}`}
             {" · "}
             <a href={site.phoneHref} className="underline-offset-4 hover:underline">
               {site.phone}

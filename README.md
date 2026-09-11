@@ -84,7 +84,7 @@ If you move nameservers to Vercel, recreate MX and any other existing records in
 ## Content notes
 
 - About has no testimonials.
-- Services uses four Compass cards (CFCS/PCS, HCBS waiver, nursing, private pay & VA / third party), a How to get started strip, and a footer disclaimer that eligibility is decided by the state or VA—not Meadowlark.
+- Services uses four Corey-confirmed cards: agency-based CFCS/PCS (entitlement); Big Sky / SDMI / DD waivers; skilled nursing; and private pay / insurance / VA Community Care. Meadowlark is not a hospice provider. Footer: eligibility is decided by the state or VA—not Meadowlark.
 - The primary **Apply online** CTA is AxisCare: [4170.axiscare.com caregiver application](https://4170.axiscare.com/?caregivers-applications.php).
 - The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) is linked as a secondary option on Work With Us.
 - Facebook: [facebook.com/meadowlarkhomecare](https://www.facebook.com/meadowlarkhomecare/).

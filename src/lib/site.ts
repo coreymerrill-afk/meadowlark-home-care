@@ -4,7 +4,7 @@ export const site = {
   tagline: "Quality home care in Missoula",
   missionLine: "Quality care through compassion and innovation",
   description:
-    "Meadowlark Home Care provides in-home skilled nursing, agency-based Montana CFCS/PCS, Medicaid HCBS waiver supports, private-pay care, and help navigating VA and other coverage in Missoula, Montana.",
+    "Meadowlark Home Care provides agency-based Montana CFCS/PCS, Big Sky / SDMI / DD waiver supports, skilled nursing, private-pay non-skilled care, and VA Community Care in Missoula, Montana.",
   foundedYear: 2015,
   founders: [
     { name: "Corey Merrill", role: "Co-founder" },
@@ -31,6 +31,8 @@ export const site = {
   hiringAreas: ["Missoula", "Great Falls"],
   opaPhone: "1-888-706-1535",
   opaPhoneHref: "tel:+18887061535",
+  ddpPhone: "406-444-2995",
+  ddpPhoneHref: "tel:+14064442995",
   mountainPacific: {
     cfcsAssessment: { label: "1-800-219-7035", href: "tel:+18002197035" },
     waiverScreening: [
@@ -56,6 +58,10 @@ export const site = {
       "https://www.va.gov/Geriatrics/pages/Skilled_Home_Health_Care.asp",
     vaCommunityCare:
       "https://www.va.gov/resources/eligibility-for-community-care-outside-va/",
+    vaMontana: "https://www.va.gov/montana-health-care/",
+    sdmiWaiver: "https://dphhs.mt.gov/BHDD/mentalhealthservices/SDMI/",
+    ddWaiver:
+      "https://dphhs.mt.gov/BHDD/DisabilityServices/developmentaldisabilities/MedicaidDDP0208WaiverServices",
   },
 } as const;
 
