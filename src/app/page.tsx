@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, HeartHandshake, Home, Users } from "lucide-react";
+import { ArrowRight, HeartHandshake, Shield, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
@@ -14,13 +14,14 @@ function teaserIcon(id: HomeTeaserId): LucideIcon {
   switch (id) {
     case "cfcs-pcs":
       return HeartHandshake;
-    case "hcbs-waiver":
-      return Home;
+    case "va":
+      return Shield;
     case "private-pay":
       return Users;
     default:
       return assertNever(id);
   }
+}
 }
 
 export default function HomePage() {
