@@ -121,7 +121,6 @@ export function SiteHeader() {
                 >
                   Call {site.phone}
                 </a>
-                <ApplyButton className="w-full justify-center" />
                 <a
                   href={site.facebookUrl}
                   target="_blank"

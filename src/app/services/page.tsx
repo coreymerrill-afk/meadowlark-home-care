@@ -155,7 +155,7 @@ export default function ServicesPage() {
             <a
               key={service.id}
               href={`#${service.id}`}
-              className="rounded-2xl border-l-4 border-teal bg-card px-4 py-4 text-left shadow-[0_10px_28px_-14px_rgba(0,52,65,0.18)] ring-1 ring-foreground/5 transition-colors hover:bg-teal/[0.04]"
+              className="rounded-2xl border-l-[5px] border-teal bg-card px-4 py-4 text-left shadow-[0_10px_28px_-14px_rgba(0,52,65,0.18)] ring-1 ring-foreground/5 transition-colors hover:bg-teal/[0.04]"
             >
               <Icon className="size-5 text-teal" aria-hidden="true" />
               <p className="mt-3 font-heading text-base leading-snug">
@@ -176,7 +176,7 @@ export default function ServicesPage() {
             <article
               key={service.id}
               id={service.id}
-              className="scroll-mt-36 rounded-[1.5rem] border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.2)] ring-1 ring-foreground/5 sm:p-8"
+              className="scroll-mt-36 rounded-[1.5rem] border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.2)] ring-1 ring-foreground/5 sm:p-8"
             >
               <div className="flex flex-wrap items-center gap-2">
                 <Icon className="size-5 text-teal" aria-hidden="true" />

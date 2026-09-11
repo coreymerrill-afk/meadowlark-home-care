@@ -41,7 +41,7 @@ export default function HomePage() {
           alt="A caregiver holding the hand of an older woman outdoors"
           fill
           priority
-          className="object-cover object-[center_28%]"
+          className="object-cover object-[36%_18%] sm:object-[40%_22%] lg:object-[center_28%]"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-teal/55 via-teal/30 to-teal/10" />
@@ -137,7 +137,7 @@ export default function HomePage() {
               <Link
                 key={service.id}
                 href={`/services#${service.id}`}
-                className="group flex h-full flex-col rounded-2xl border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5 transition-colors hover:bg-card/80"
+                className="group flex h-full flex-col rounded-2xl border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5 transition-colors hover:bg-card/80"
               >
                 <Icon className="size-6 text-primary" aria-hidden="true" />
                 <h3 className="mt-4 text-2xl">{service.chip ?? service.program}</h3>
@@ -192,12 +192,13 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-5 text-sm text-muted-foreground">
-              <Link href="/contact" className="font-medium text-primary underline-offset-4 hover:underline">
-                Ask us about access
-              </Link>{" "}
-              when you call or send a message.
-            </p>
+            <Link
+              href="/contact"
+              className="mt-5 inline-flex items-center gap-1.5 text-base font-semibold text-primary underline-offset-4 hover:underline"
+            >
+              Ask us about access
+              <ArrowRight className="size-4" />
+            </Link>
           </div>
         </div>
       </section>

@@ -66,7 +66,7 @@ export default function WorkWithUsPage() {
             </p>
           </div>
           <div className="flex flex-col items-start gap-2">
-            <ApplyButton>Apply on AxisCare</ApplyButton>
+            <ApplyButton className="hidden sm:inline-flex">Apply on AxisCare</ApplyButton>
             <a
               href={site.hireologyUrl}
               target="_blank"
@@ -112,7 +112,7 @@ export default function WorkWithUsPage() {
             {culture.map((item) => (
               <div
                 key={item.title}
-                className="flex h-full flex-col rounded-2xl border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5"
+                className="flex h-full flex-col rounded-2xl border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5"
               >
                 <item.icon className="size-6 text-primary" aria-hidden="true" />
                 <h3 className="mt-4 text-2xl">{item.title}</h3>
@@ -127,7 +127,7 @@ export default function WorkWithUsPage() {
             {benefits.map((item) => (
               <div
                 key={item.title}
-                className="rounded-2xl border-l-4 border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5"
+                className="rounded-2xl border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5"
               >
                 <h3 className="text-2xl">{item.title}</h3>
                 <p className="mt-2 text-base leading-relaxed text-muted-foreground">
