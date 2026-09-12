@@ -82,7 +82,7 @@ Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `
 
 Handbook / HIPAA / AxisCare PDFs are **not** Drive links. They are served from `/staff/docs/handbook`, `/staff/docs/hipaa`, `/staff/docs/axiscare-guide`, and `/staff/docs/axiscare-tip-sheet` after a valid portal session.
 
-Exact Google Cloud + Resend steps: **[STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md)**.
+Google OAuth leftover (exact redirect URIs): **[STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md)**.
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
