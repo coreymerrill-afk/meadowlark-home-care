@@ -1,6 +1,8 @@
 # Staff portal auth setup
 
-Google Workspace SSO + magic-link for `/login` and `/staff`. Auth.js (NextAuth v5) is in `src/auth.ts`. Callbacks live at `/api/auth/*`.
+Google SSO + magic-link for `/login` and `/staff`. Auth.js (NextAuth v5) is in `src/auth.ts`. Callbacks live at `/api/auth/*`.
+
+Google is **not** domain-locked. Personal Gmail (and other Google accounts) work if the email is an admin or on the caregiver whitelist. Do not set `hd=` and do not use an Internal-only OAuth client.
 
 **Do not regenerate `AUTH_SECRET`.** It is already set on Vercel Production + Preview.
 
@@ -17,6 +19,7 @@ Google Workspace SSO + magic-link for `/login` and `/staff`. Auth.js (NextAuth v
 | `AUTH_TRUST_HOST` | Optional. `src/auth.ts` already sets `trustHost: true`. |
 | `AUTH_GOOGLE_ID` | **Not set — Corey** |
 | `AUTH_GOOGLE_SECRET` | **Not set — Corey** |
+| `STAFF_ADMIN_EMAILS` | Optional. Comma-separated admin list. If unset, defaults are `cmerrill@meadowlarkhomecare.com` and `corey.merrill@gmail.com`. Setting the env **replaces** those defaults, so include every admin. |
 | `AUTH_RESEND_KEY` | Not required (see below). |
 
 ## Resend key names (confirmed in code)
@@ -80,14 +83,15 @@ Optional apex origin/callback only if the site is ever served on `https://meadow
 
 ## Google Cloud OAuth (Corey)
 
-1. Open [Google Cloud Console](https://console.cloud.google.com/) as a Meadowlark Workspace admin (`cmerrill@meadowlarkhomecare.com`).
-2. Create or select a project (example: **Meadowlark Home Care**). For **Internal** users, the project must belong to the `meadowlarkhomecare.com` Workspace org — not a personal Gmail project.
+1. Open [Google Cloud Console](https://console.cloud.google.com/) as a Meadowlark Workspace admin (`googleadmin@…` / the real Workspace login).
+2. Create or select a project (example: **Meadowlark Home Care**).
 3. **Branding / consent**
    - Current UI: **Google Auth Platform → Branding**
    - Older UI: **APIs & Services → OAuth consent screen**
-   - User type: **Internal** (Workspace-only). If Internal is unavailable, use External + test users; the app still rejects non-`@meadowlarkhomecare.com` Google accounts (`hd=meadowlarkhomecare.com` in `src/auth.ts`).
+   - User type: **External** (required). **Internal** would lock Google to `@meadowlarkhomecare.com` and block personal Gmail admins and caregivers. The app then allows only admin or whitelist emails — not every Google account.
+   - If the client is still in Testing, add each Google account you need (including `corey.merrill@gmail.com`) as a test user, or publish the app. `openid` / `email` / `profile` only.
    - App name: `Meadowlark Staff Portal`
-   - Support / developer email: Corey’s Meadowlark address
+   - Support / developer email: a Workspace admin address that can open Cloud Console
    - Authorized domain: `meadowlarkhomecare.com`
    - Homepage: `https://www.meadowlarkhomecare.com`
    - Scopes: Google defaults only (`openid`, `email`, `profile`). No Drive/Gmail.
@@ -118,10 +122,10 @@ Then **Redeploy** Production.
 ## Smoke test after Google vars are live
 
 1. Open `https://www.meadowlarkhomecare.com/login`.
-2. **Google:** `cmerrill@meadowlarkhomecare.com` → `/staff` as admin (Forms hub visible).
-3. Other Workspace accounts not on `src/data/staff-whitelist.csv` may sign in but see **Request access**.
-4. Personal Gmail is rejected (`workspace-only`).
-5. **Magic link:** an Active whitelist email should already send (uses existing `RESEND_API_KEY` + `CONTACT_FROM_EMAIL`). Link expires in 20 minutes at `/login/verify`.
+2. **Google admin:** `corey.merrill@gmail.com` or `cmerrill@meadowlarkhomecare.com` → `/staff` as admin (Forms hub visible).
+3. **Google caregiver:** a personal Gmail/Yahoo-Google account on `src/data/staff-whitelist.csv` → `/staff` as caregiver.
+4. A Google account that is not admin and not on the whitelist is rejected (`not-whitelisted`) and can use **Request access** on `/login`.
+5. **Magic link:** an admin or Active whitelist email should already send (uses existing `RESEND_API_KEY` + `CONTACT_FROM_EMAIL`). Link expires in 20 minutes at `/login/verify`.
 
 ## Corey leftover
 

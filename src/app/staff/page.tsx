@@ -44,7 +44,7 @@ export default async function StaffPortalPage({ searchParams }: StaffPageProps) 
       );
     case "none":
       return (
-        <WorkspaceRequestAccess
+        <SignedInRequestAccess
           email={session.email}
           name={session.name}
           notice={notice}
@@ -129,7 +129,7 @@ function portalCards(includeForms: boolean): {
   return cards;
 }
 
-function WorkspaceRequestAccess({
+function SignedInRequestAccess({
   email,
   name,
   notice,
@@ -145,9 +145,9 @@ function WorkspaceRequestAccess({
       </p>
       <h1 className="mt-4 text-4xl sm:text-5xl">This account isn’t on the portal list</h1>
       <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-        You’re signed in with a Meadowlark Workspace account, but this email
-        isn’t an admin and isn’t on the active caregiver whitelist yet. Ask HR
-        to add you, or send a request below.
+        You’re signed in, but this email isn’t an admin and isn’t on the
+        active caregiver whitelist yet. Ask HR to add you, or send a request
+        below.
       </p>
       {notice ? (
         <p

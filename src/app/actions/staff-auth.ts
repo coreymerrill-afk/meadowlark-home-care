@@ -17,11 +17,7 @@ import { loginErrorMessage } from "@/lib/login-errors";
 import { createMagicLinkToken } from "@/lib/magic-link";
 import { getRequestOrigin } from "@/lib/request-origin";
 import { site } from "@/lib/site";
-import {
-  isWorkspaceEmail,
-  resolveStaffRole,
-  safeNextPath,
-} from "@/lib/staff-access";
+import { resolveStaffRole, safeNextPath } from "@/lib/staff-access";
 
 export type MagicLinkState = {
   status: "idle" | "success" | "error";
@@ -92,10 +88,9 @@ export async function sendMagicLink(
   const role = resolveStaffRole(email);
 
   if (role === "none") {
-    const code = isWorkspaceEmail(email) ? "workspace-magic" : "not-whitelisted";
     return {
       status: "error",
-      message: loginErrorMessage(code) ?? "Request access below.",
+      message: loginErrorMessage("not-whitelisted") ?? "Request access below.",
     };
   }
 

@@ -4,6 +4,8 @@ Do not commit real secrets. Do not regenerate `AUTH_SECRET`.
 
 Google click-path and exact redirect URIs: [STAFF_AUTH_SETUP.md](../STAFF_AUTH_SETUP.md).
 
+Google sign-in is **not** locked to `@meadowlarkhomecare.com`. The app allows the same people as magic-link: admin (`STAFF_ADMIN_EMAILS` or the two default addresses) or the AxisCare caregiver whitelist.
+
 ## Already set
 
 | Variable | Scope | Notes |
@@ -21,10 +23,15 @@ Google click-path and exact redirect URIs: [STAFF_AUTH_SETUP.md](../STAFF_AUTH_S
 
 Optional later: copy the same value to `AUTH_RESEND_KEY`. Not required.
 
+## Optional admin list
+
+`STAFF_ADMIN_EMAILS` — comma-separated. If unset, defaults are `cmerrill@meadowlarkhomecare.com` and `corey.merrill@gmail.com`. Setting the env replaces those defaults; include every admin address you want. Do not put secrets in this file.
+
 ## Leftover (Corey only)
 
 - `AUTH_GOOGLE_ID`
 - `AUTH_GOOGLE_SECRET`
+- Optionally `STAFF_ADMIN_EMAILS` on Production + Preview if you want to set the list explicitly
 
 Production redirect URI:
 

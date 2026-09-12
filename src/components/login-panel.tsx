@@ -39,7 +39,8 @@ export function LoginPanel({
           Continue with Google
         </Button>
         <p className="text-sm text-muted-foreground">
-          Meadowlark Workspace accounts ending in @meadowlarkhomecare.com.
+          Personal Gmail or a Meadowlark Workspace account, if that email is
+          an admin or on the caregiver list.
         </p>
         {!googleEnabled ? (
           <p className="text-sm text-muted-foreground">
@@ -76,7 +77,7 @@ export function LoginPanel({
             aria-hidden="true"
           />
           <div className="space-y-2">
-            <Label htmlFor="magic-email">Personal email on the caregiver list</Label>
+            <Label htmlFor="magic-email">Email on the admin or caregiver list</Label>
             <Input
               id="magic-email"
               name="email"
@@ -112,8 +113,8 @@ export function LoginPanel({
             </p>
           ) : (
             <p className="text-sm text-muted-foreground">
-              We’ll only send a link if your email is on the AxisCare ACTIVE
-              caregiver list.
+              We’ll only send a link if your email is an admin or on the
+              AxisCare ACTIVE caregiver list.
             </p>
           )}
         </form>
@@ -122,8 +123,8 @@ export function LoginPanel({
       <div className="border-t border-border pt-8">
         <h2 className="font-heading text-2xl">Request access</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Not on the list yet? Send a note to HR. Workspace users who can sign
-          in with Google but don’t have portal access land here too.
+          Not on the list yet? Send a note to HR. You can also use this form
+          if Google said this account isn’t approved.
         </p>
         <div className="mt-5">
           <RequestAccessForm />

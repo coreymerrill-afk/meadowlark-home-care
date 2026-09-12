@@ -16,7 +16,7 @@ The site replaces the previous HostGator pages with five public routes:
 Unlisted staff tools (not in the public nav, sitemap, or robots allow list).
 Header/footer **Login** goes to `/login`. `robots.txt` keeps `Disallow: /staff/`. Staff pages are noindex.
 
-- `/login` — Google Workspace SSO + magic-link + request access (emails `hr@meadowlarkhomecare.com`)
+- `/login` — Google SSO (any domain on the admin or caregiver list) + magic-link + request access (emails `hr@meadowlarkhomecare.com`)
 - `/staff` — post-login landing (caregiver links; admin also sees the Forms hub and extra AxisCare tools)
 - `/staff/docs/*` — authenticated PDFs (handbook, HIPAA, AxisCare guide, tip sheet). Not in `public/`.
 - `/staff/forms` — **admin-only** forms hub
@@ -62,13 +62,13 @@ Without `RESEND_API_KEY`, the form still validates and submits. It logs the mess
 
 ## Staff auth
 
-Auth.js (NextAuth v5) with JWT sessions. Google OAuth is for `@meadowlarkhomecare.com` Workspace accounts. Magic links use the existing Resend client and a short-lived signed token (no database adapter — the Auth.js Resend email provider would need one).
+Auth.js (NextAuth v5) with JWT sessions. Google OAuth is **not** domain-locked: any Google account can sign in if the email is an admin or on the caregiver whitelist. Magic links use the same allow list (existing Resend client and a short-lived signed token; no database adapter — the Auth.js Resend email provider would need one).
 
 | Role | Who |
 | --- | --- |
-| `admin` | `cmerrill@meadowlarkhomecare.com` (override with `STAFF_ADMIN_EMAILS`) |
-| `caregiver` | Any signed-in email on the AxisCare ACTIVE whitelist (case-insensitive) |
-| no portal role | Workspace SSO succeeded, but the email is not admin and not on the whitelist. They stay signed in and see **Request access** on `/staff` instead of portal links. Personal emails that are not on the list never get a magic link. |
+| `admin` | `cmerrill@meadowlarkhomecare.com` and `corey.merrill@gmail.com` (override with comma-separated `STAFF_ADMIN_EMAILS`) |
+| `caregiver` | Any signed-in email on the AxisCare ACTIVE whitelist (case-insensitive), Google or magic-link |
+| no portal role | Google/magic-link is rejected with a not-whitelisted error. Request access stays on `/login`. A leftover session with no role still sees **Request access** on `/staff`. |
 
 `/staff/*` is gated in `src/proxy.ts` and again in the staff layout. Unauthenticated visitors go to `/login?next=...`. Caregivers who open `/staff/forms` are sent back to `/staff`.
 
@@ -78,7 +78,7 @@ Whitelist sources (merged):
 2. `STAFF_WHITELIST_EMAILS` (optional extra emails)
 3. `src/data/caregiver-whitelist.json` (optional extras)
 
-Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `role=admin` does not grant admin by itself; admin remains `cmerrill@meadowlarkhomecare.com` (Natalie Redman is a caregiver in this export).
+Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `role=admin` does not grant admin by itself; admin remains `STAFF_ADMIN_EMAILS` or the two default addresses (Natalie Redman is a caregiver in this export).
 
 Handbook / HIPAA / AxisCare PDFs are **not** Drive links. They are served from `/staff/docs/handbook`, `/staff/docs/hipaa`, `/staff/docs/axiscare-guide`, and `/staff/docs/axiscare-tip-sheet` after a valid portal session.
 
@@ -92,7 +92,7 @@ Google OAuth leftover (exact redirect URIs): **[STAFF_AUTH_SETUP.md](./STAFF_AUT
 | `AUTH_URL` | Recommended on Vercel | Canonical origin. Production/Preview: `https://www.meadowlarkhomecare.com`. |
 | `AUTH_TRUST_HOST` | Recommended on Vercel | Set `true`. Auth.js host trust (`src/auth.ts` also sets `trustHost: true`). |
 | `STAFF_WHITELIST_EMAILS` | Optional | Extra Active caregiver emails on top of the CSV. |
-| `STAFF_ADMIN_EMAILS` | Optional | Defaults to `cmerrill@meadowlarkhomecare.com`. |
+| `STAFF_ADMIN_EMAILS` | Optional | Comma-separated admin emails. Defaults to `cmerrill@meadowlarkhomecare.com,corey.merrill@gmail.com`. Setting this replaces the defaults, so include every admin address. |
 
 The production build succeeds if Google/Resend/Auth secrets are missing. Sign-in and magic-link actions return a clear configuration error at runtime instead of crashing the app.
 
