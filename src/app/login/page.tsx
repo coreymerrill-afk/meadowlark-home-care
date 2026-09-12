@@ -46,8 +46,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       </p>
       <h1 className="mt-4 text-4xl sm:text-5xl">Staff login</h1>
       <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-        Office staff use a Meadowlark Google account. Caregivers on the active
-        AxisCare list can get a sign-in link at their personal email.
+        Office staff sign in with any Google account on the admin list.
+        Caregivers on the active AxisCare list can use Google or a sign-in
+        link at that same email.
       </p>
 
       {error ? (

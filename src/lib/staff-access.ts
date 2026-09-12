@@ -16,13 +16,17 @@ export type StaffAccess = {
 };
 
 export const DEFAULT_STAFF_ADMIN_EMAIL = "cmerrill@meadowlarkhomecare.com";
-export const WORKSPACE_EMAIL_DOMAIN = "meadowlarkhomecare.com";
+export const DEFAULT_STAFF_ADMIN_EMAILS = [
+  DEFAULT_STAFF_ADMIN_EMAIL,
+  "corey.merrill@gmail.com",
+] as const;
 
 /**
- * Workspace SSO users who are not admin and not on the caregiver whitelist
- * may sign in with Google, then see a request-access panel on `/staff`
- * (instead of portal links). They can also use Request access on `/login`
- * without signing in.
+ * Google and magic-link both require admin or the caregiver whitelist.
+ * `STAFF_ADMIN_EMAILS` is a comma-separated list and replaces these
+ * defaults when set. Anyone can use Request access on `/login` without
+ * signing in. A leftover session with no portal role still sees
+ * request-access on `/staff`.
  */
 export function parseEmailList(
   value: string | undefined,
@@ -35,14 +39,10 @@ export function parseEmailList(
 }
 
 export function getAdminEmails(): string[] {
-  return parseEmailList(process.env.STAFF_ADMIN_EMAILS, [
-    DEFAULT_STAFF_ADMIN_EMAIL,
-  ]);
-}
-
-export function isWorkspaceEmail(email: string): boolean {
-  const normalized = normalizeEmail(email);
-  return normalized.endsWith(`@${WORKSPACE_EMAIL_DOMAIN}`);
+  return parseEmailList(
+    process.env.STAFF_ADMIN_EMAILS,
+    DEFAULT_STAFF_ADMIN_EMAILS
+  );
 }
 
 export function isStaffAdmin(email: string): boolean {

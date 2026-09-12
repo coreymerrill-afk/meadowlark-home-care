@@ -2,18 +2,18 @@ import { AUTH_MISSING_MESSAGE } from "@/lib/auth-env";
 
 const LOGIN_ERRORS: Record<string, string> = {
   "workspace-only":
-    "Use a Meadowlark Google account (@meadowlarkhomecare.com), or a magic link if your personal email is on the caregiver list.",
+    "That Google account isn’t on the admin or caregiver list. Request access below.",
   "google-unconfigured": AUTH_MISSING_MESSAGE.google,
   "auth-unconfigured": AUTH_MISSING_MESSAGE.secret,
   "magic-unconfigured": AUTH_MISSING_MESSAGE.magic,
   "invalid-link": "That sign-in link is invalid. Request a new one below.",
   "expired-link": "That sign-in link expired. Request a new one below.",
   "not-whitelisted":
-    "That email isn’t on the active caregiver list yet. Request access below, or use Google if you have a Meadowlark Workspace account.",
+    "That email isn’t on the admin or active caregiver list yet. Request access below.",
   "workspace-magic":
-    "Use Google sign-in with your Meadowlark account. If you don’t have portal access yet, request access below.",
+    "That email isn’t on the admin or caregiver list yet. Request access below.",
   AccessDenied:
-    "Sign-in was denied. Use a Meadowlark Workspace account, a whitelisted personal email, or request access.",
+    "Sign-in was denied. Use a Google account or email on the admin or caregiver list, or request access.",
   Configuration: AUTH_MISSING_MESSAGE.secret,
   CredentialsSignin: "That sign-in link is invalid or expired. Request a new one.",
   Verification: "That sign-in link is no longer valid.",

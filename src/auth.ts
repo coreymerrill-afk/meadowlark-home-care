@@ -4,11 +4,7 @@ import Google from "next-auth/providers/google";
 
 import { authJsSecret, isGoogleAuthConfigured } from "@/lib/auth-env";
 import { verifyMagicLinkToken } from "@/lib/magic-link";
-import {
-  isWorkspaceEmail,
-  resolveStaffRole,
-  WORKSPACE_EMAIL_DOMAIN,
-} from "@/lib/staff-access";
+import { resolveStaffRole } from "@/lib/staff-access";
 
 function googleProvider() {
   if (!isGoogleAuthConfigured()) {
@@ -21,7 +17,6 @@ function googleProvider() {
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
       authorization: {
         params: {
-          hd: WORKSPACE_EMAIL_DOMAIN,
           prompt: "select_account",
         },
       },
@@ -78,8 +73,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
 
       if (account?.provider === "google") {
-        if (!isWorkspaceEmail(email)) {
-          return "/login?error=workspace-only";
+        if (resolveStaffRole(email) === "none") {
+          return "/login?error=not-whitelisted";
         }
         return true;
       }
