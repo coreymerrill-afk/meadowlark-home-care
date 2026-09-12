@@ -20,12 +20,17 @@ export default function StaffFormsPage() {
       <p className="w-fit rounded-full bg-orange/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-orange uppercase">
         Staff only
       </p>
-      <h1 className="mt-4 text-4xl sm:text-5xl">Staff forms</h1>
+      <p className="mt-4 text-sm font-medium text-primary">
+        <Link href="/staff" className="underline-offset-4 hover:underline">
+          Staff portal
+        </Link>
+        <span className="text-muted-foreground"> / Forms</span>
+      </p>
+      <h1 className="mt-3 text-4xl sm:text-5xl">Staff forms</h1>
       <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
         Internal Meadowlark tools for completing Medicaid / SLTC paperwork.
-        These pages are not linked from the public site — bookmark what you
-        use. Sign in with your Meadowlark Google account
-        (@meadowlarkhomecare.com) when a tool asks.
+        Admin only. When a tool asks, use your Meadowlark Google account
+        (@meadowlarkhomecare.com).
       </p>
 
       <article className="mt-8 rounded-[1.5rem] border-l-[5px] border-teal bg-card p-6 shadow-[0_10px_28px_-14px_rgba(0,52,65,0.22)] ring-1 ring-foreground/5 sm:p-8">

@@ -1,0 +1,114 @@
+import {
+  isWhitelistedCaregiver,
+  normalizeEmail,
+} from "@/lib/caregiver-whitelist";
+import { site } from "@/lib/site";
+
+export const STAFF_ROLES = ["admin", "caregiver", "none"] as const;
+export type StaffRole = (typeof STAFF_ROLES)[number];
+
+export type StaffAccess = {
+  email: string;
+  role: StaffRole;
+  isAdmin: boolean;
+  isCaregiver: boolean;
+  canAccessPortal: boolean;
+};
+
+export const DEFAULT_STAFF_ADMIN_EMAIL = "cmerrill@meadowlarkhomecare.com";
+export const WORKSPACE_EMAIL_DOMAIN = "meadowlarkhomecare.com";
+
+/**
+ * Workspace SSO users who are not admin and not on the caregiver whitelist
+ * may sign in with Google, then see a request-access panel on `/staff`
+ * (instead of portal links). They can also use Request access on `/login`
+ * without signing in.
+ */
+export function parseEmailList(
+  value: string | undefined,
+  fallback: readonly string[] = []
+): string[] {
+  const source = value?.trim()
+    ? value.split(",")
+    : fallback;
+  return source.map((part) => normalizeEmail(part)).filter(Boolean);
+}
+
+export function getAdminEmails(): string[] {
+  return parseEmailList(process.env.STAFF_ADMIN_EMAILS, [
+    DEFAULT_STAFF_ADMIN_EMAIL,
+  ]);
+}
+
+export function isWorkspaceEmail(email: string): boolean {
+  const normalized = normalizeEmail(email);
+  return normalized.endsWith(`@${WORKSPACE_EMAIL_DOMAIN}`);
+}
+
+export function isStaffAdmin(email: string): boolean {
+  return getAdminEmails().includes(normalizeEmail(email));
+}
+
+export function resolveStaffRole(email: string): StaffRole {
+  const normalized = normalizeEmail(email);
+  if (!normalized) {
+    return "none";
+  }
+  if (isStaffAdmin(normalized)) {
+    return "admin";
+  }
+  if (isWhitelistedCaregiver(normalized)) {
+    return "caregiver";
+  }
+  return "none";
+}
+
+export function getStaffAccess(email: string): StaffAccess {
+  const normalized = normalizeEmail(email);
+  const role = resolveStaffRole(normalized);
+  const isAdmin = role === "admin";
+  const isCaregiver = role === "caregiver" || isAdmin;
+
+  return {
+    email: normalized,
+    role,
+    isAdmin,
+    isCaregiver,
+    canAccessPortal: isAdmin || role === "caregiver",
+  };
+}
+
+/** Only allow in-app staff/login paths as post-login redirects. */
+export function safeNextPath(next: string | null | undefined): string {
+  if (!next) {
+    return "/staff";
+  }
+
+  const trimmed = next.trim();
+  if (
+    !trimmed.startsWith("/") ||
+    trimmed.startsWith("//") ||
+    trimmed.includes("://") ||
+    trimmed.includes("\\")
+  ) {
+    return "/staff";
+  }
+
+  if (trimmed === "/login" || trimmed.startsWith("/login?")) {
+    return "/staff";
+  }
+
+  return trimmed;
+}
+
+export function staffLoginUrl(next?: string | null): string {
+  const dest = safeNextPath(next);
+  if (dest === "/staff") {
+    return "/login";
+  }
+  return `/login?next=${encodeURIComponent(dest)}`;
+}
+
+export function requestAccessInbox(): string {
+  return process.env.CONTACT_TO_EMAIL ?? site.careersEmail;
+}
