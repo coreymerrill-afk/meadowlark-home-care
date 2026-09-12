@@ -3,7 +3,14 @@ import Link from "next/link";
 import { ApplyButton } from "@/components/apply-button";
 import { FacebookIcon } from "@/components/facebook-icon";
 import { Logo } from "@/components/logo";
-import { formatOfficeAddress, legalLinks, navLinks, offices, site } from "@/lib/site";
+import {
+  formatOfficeAddress,
+  legalLinks,
+  navLinks,
+  offices,
+  site,
+  staffLoginLink,
+} from "@/lib/site";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -81,6 +88,14 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href={staffLoginLink.href}
+                className="text-white/80 hover:underline"
+              >
+                {staffLoginLink.label}
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

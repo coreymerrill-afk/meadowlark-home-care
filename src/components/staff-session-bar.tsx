@@ -1,6 +1,9 @@
+import Link from "next/link";
+
 import { signOutStaff } from "@/app/actions/staff-auth";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import type { StaffSession } from "@/lib/staff-session";
+import { cn } from "@/lib/utils";
 
 function roleLabel(role: StaffSession["role"]): string {
   switch (role) {
@@ -28,15 +31,28 @@ export function StaffSessionBar({ session }: { session: StaffSession }) {
           </span>
           {roleLabel(session.role)}
         </p>
-        <form action={signOutStaff}>
-          <Button
-            type="submit"
-            variant="outline"
-            className="h-10 rounded-full px-4"
-          >
-            Sign out
-          </Button>
-        </form>
+        <div className="flex flex-wrap items-center gap-2">
+          {session.canAccessPortal ? (
+            <Link
+              href="/login/set-password"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "h-10 rounded-full px-4"
+              )}
+            >
+              Set or change password
+            </Link>
+          ) : null}
+          <form action={signOutStaff}>
+            <Button
+              type="submit"
+              variant="outline"
+              className="h-10 rounded-full px-4"
+            >
+              Sign out
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );

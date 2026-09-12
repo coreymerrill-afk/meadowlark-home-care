@@ -32,6 +32,11 @@ const nextConfig: NextConfig = {
         destination: "/work-with-us",
         permanent: true,
       },
+      {
+        source: "/request-access",
+        destination: "/login/request-access",
+        permanent: false,
+      },
     ];
   },
 };

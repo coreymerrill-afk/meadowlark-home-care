@@ -5,6 +5,7 @@ import Google from "next-auth/providers/google";
 import { authJsSecret, isGoogleAuthConfigured } from "@/lib/auth-env";
 import { verifyMagicLinkToken } from "@/lib/magic-link";
 import { resolveStaffRole } from "@/lib/staff-access";
+import { verifyPassword } from "@/lib/staff-passwords";
 
 function googleProvider() {
   if (!isGoogleAuthConfigured()) {
@@ -64,6 +65,39 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         };
       },
     }),
+    Credentials({
+      id: "password",
+      name: "Email and password",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        const email =
+          typeof credentials?.email === "string"
+            ? credentials.email.trim().toLowerCase()
+            : "";
+        const password =
+          typeof credentials?.password === "string" ? credentials.password : "";
+
+        if (!email || !password) {
+          return null;
+        }
+
+        const role = resolveStaffRole(email);
+        const valid = await verifyPassword(email, password);
+        if (role === "none" || !valid) {
+          return null;
+        }
+
+        return {
+          id: email,
+          email,
+          name: email,
+          role,
+        };
+      },
+    }),
   ],
   callbacks: {
     async signIn({ user, account }) {
@@ -79,7 +113,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return true;
       }
 
-      if (account?.provider === "magic-link") {
+      if (
+        account?.provider === "magic-link" ||
+        account?.provider === "password"
+      ) {
         return resolveStaffRole(email) !== "none";
       }
 

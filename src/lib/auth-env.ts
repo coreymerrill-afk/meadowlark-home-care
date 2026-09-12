@@ -5,6 +5,8 @@ export const AUTH_MISSING_MESSAGE = {
     "Google sign-in is not configured. Set AUTH_SECRET, AUTH_GOOGLE_ID, and AUTH_GOOGLE_SECRET.",
   magic:
     "Email sign-in is not configured. Set AUTH_SECRET and RESEND_API_KEY (or AUTH_RESEND_KEY).",
+  password:
+    "Password sign-in is not configured. Set AUTH_SECRET and BLOB_READ_WRITE_TOKEN on Vercel (local uses .data/).",
 } as const;
 
 export function getAuthSecret(): string {
@@ -33,6 +35,12 @@ export function getResendApiKey(): string {
 
 export function isMagicLinkConfigured(): boolean {
   return Boolean(getAuthSecret() && getResendApiKey());
+}
+
+export function isPasswordAuthConfigured(): boolean {
+  const hasBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim());
+  const localStoreOk = !process.env.VERCEL;
+  return Boolean(getAuthSecret() && (hasBlob || localStoreOk));
 }
 
 export function getAuthFromEmail(): string {

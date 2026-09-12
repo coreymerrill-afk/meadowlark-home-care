@@ -1,9 +1,15 @@
+export type StaffResourceLink = {
+  label: string;
+  href: string;
+};
+
 export type StaffResource = {
   title: string;
   href: string;
   description: string;
   external: boolean;
   note?: string;
+  extraLinks?: StaffResourceLink[];
 };
 
 /**
@@ -57,61 +63,62 @@ export const caregiverResources: StaffResource[] = [
   ...caregiverAppResources,
 ];
 
-export const adminFormResources: StaffResource[] = [
+export const adminPrimaryResources: StaffResource[] = [
+  {
+    title: "AxisCare",
+    href: "https://4170.axiscare.com",
+    description: "AxisCare web home (server 4170).",
+    external: true,
+  },
+  {
+    title: "Qliq",
+    href: "https://www.qliqsoft.com/",
+    description:
+      "HIPAA-compliant QliqSOFT messaging. Sign in on the website, or install QliqCHAT Secure Texting (current QliqSECURE product).",
+    external: true,
+    extraLinks: [
+      {
+        label: "App Store",
+        href: "https://apps.apple.com/app/qliqchat-secure-texting/id1520485466",
+      },
+      {
+        label: "Google Play",
+        href: "https://play.google.com/store/apps/details?id=com.qliqsoft.qliqchat",
+      },
+    ],
+  },
+  {
+    title: "Employee Navigator",
+    href: "https://www.employeenavigator.com/benefits/Account/Login",
+    description: "Benefits enrollment and documents.",
+    external: true,
+  },
+  {
+    title: "Hireology",
+    href: "https://app.hireology.com/",
+    description: "Hiring and applicant tracking.",
+    external: true,
+  },
+  {
+    title: "ADP",
+    href: "https://workforcenow.adp.com",
+    description: "Pay, time, and tax documents.",
+    external: true,
+  },
+  {
+    title: "Employment forms",
+    href: "/staff/employment-forms",
+    description:
+      "On-hire / employment PDFs for office staff. Not rolled out to caregivers yet.",
+    external: false,
+  },
+];
+
+export const adminSecondaryResources: StaffResource[] = [
   {
     title: "Forms hub",
     href: "/staff/forms",
     description: "Internal Medicaid / SLTC tools, including the phone form filler.",
     external: false,
   },
-];
-
-export const adminAxisCareResources: StaffResource[] = [
-  {
-    title: "AxisCare home",
-    href: "https://4170.axiscare.com",
-    description: "AxisCare web home (server 4170).",
-    external: true,
-  },
-  {
-    title: "Scheduling",
-    href: "https://4170.axiscare.com/?scheduling-calendar-active-customer.php",
-    description: "Active customer scheduling calendar.",
-    external: true,
-  },
-  {
-    title: "Caregiver schedules report",
-    href: "https://4170.axiscare.com/?/report/weekly/caregiver",
-    description: "Weekly caregiver schedule report.",
-    external: true,
-  },
-  {
-    title: "Clock in/out report",
-    href: "https://4170.axiscare.com/?reports-telephony-all_clock_ins_outs.php",
-    description: "All clock-in and clock-out activity.",
-    external: true,
-  },
-  {
-    title: "Documents",
-    href: "https://4170.axiscare.com/?/reports/documents",
-    description: "AxisCare documents report.",
-    external: true,
-  },
-  {
-    title: "Forms",
-    href: "https://4170.axiscare.com/?/report/forms",
-    description: "AxisCare forms report.",
-    external: true,
-  },
-  {
-    title: "Caregivers list",
-    href: "https://4170.axiscare.com/?caregivers.php",
-    description: "AxisCare caregiver roster.",
-    external: true,
-  },
-];
-
-export const adminResources: StaffResource[] = [
-  ...adminFormResources,
-  ...adminAxisCareResources,
 ];

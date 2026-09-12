@@ -43,6 +43,22 @@ export function StaffResourceCard({
       {resource.note ? (
         <p className="mt-3 text-sm text-muted-foreground">{resource.note}</p>
       ) : null}
+      {resource.extraLinks?.length ? (
+        <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+          {resource.extraLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-teal underline-offset-4 hover:underline"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : null}
       {usePlainAnchor ? (
         <a
           href={resource.href}

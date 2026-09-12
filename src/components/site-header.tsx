@@ -16,7 +16,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { navLinks, offices, site } from "@/lib/site";
+import { navLinks, offices, site, staffLoginLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -34,7 +34,7 @@ export function SiteHeader() {
         </Link>
 
         <nav
-          className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 md:flex"
+          className="hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex"
           aria-label="Primary"
         >
           {navLinks.map((link) => {
@@ -48,7 +48,7 @@ export function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm font-medium transition-colors lg:px-3",
+                  "whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
                   active
                     ? "bg-white/15 text-white"
                     : "text-white/80 hover:bg-white/10 hover:text-white"
@@ -60,30 +60,7 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="ml-auto flex items-center gap-1.5 md:ml-0">
-          <div className="hidden items-center gap-1 lg:flex">
-            {offices.map((office) => (
-              <a
-                key={office.id}
-                href={office.phoneHref}
-                className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2 py-2 text-xs font-medium text-white/90 hover:bg-white/10 xl:text-sm"
-                title={`${office.name} office`}
-              >
-                <Phone className="size-3.5" aria-hidden="true" />
-                <span className="hidden xl:inline">{office.name}</span>
-                {office.phone}
-              </a>
-            ))}
-          </div>
-          <a
-            href={site.facebookUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="hidden size-9 items-center justify-center rounded-full text-white/90 hover:bg-white/10 md:inline-flex"
-            aria-label="Meadowlark Home Care on Facebook"
-          >
-            <FacebookIcon className="size-4" />
-          </a>
+        <div className="ml-auto flex items-center gap-2">
           <ApplyButton compact>Apply</ApplyButton>
           <Sheet>
             <SheetTrigger
@@ -91,7 +68,7 @@ export function SiteHeader() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-white hover:bg-white/10 hover:text-white md:hidden"
+                  className="text-white hover:bg-white/10 hover:text-white"
                   aria-label="Open menu"
                 />
               }
@@ -103,7 +80,7 @@ export function SiteHeader() {
                 <SheetTitle className="sr-only">Site menu</SheetTitle>
                 <Logo />
               </SheetHeader>
-              <nav className="flex flex-col gap-1 px-4" aria-label="Mobile">
+              <nav className="flex flex-col gap-1 px-4 md:hidden" aria-label="Mobile">
                 {navLinks.map((link) => (
                   <SheetClose
                     key={link.href}
@@ -118,7 +95,20 @@ export function SiteHeader() {
                   </SheetClose>
                 ))}
               </nav>
-              <div className="mt-4 flex flex-col gap-2 px-4">
+              <div className="mt-2 flex flex-col gap-2 px-4">
+                <SheetClose
+                  render={
+                    <Link
+                      href={staffLoginLink.href}
+                      className={cn(
+                        buttonVariants({ variant: "default", size: "lg" }),
+                        "h-12 justify-center rounded-full bg-teal text-white hover:bg-teal/90"
+                      )}
+                    />
+                  }
+                >
+                  {staffLoginLink.label}
+                </SheetClose>
                 {offices.map((office) => (
                   <a
                     key={office.id}
@@ -128,6 +118,7 @@ export function SiteHeader() {
                       "h-12 justify-center rounded-full"
                     )}
                   >
+                    <Phone className="size-4" aria-hidden="true" />
                     Call {office.name} {office.phone}
                   </a>
                 ))}

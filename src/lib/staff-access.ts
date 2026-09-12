@@ -22,11 +22,11 @@ export const DEFAULT_STAFF_ADMIN_EMAILS = [
 ] as const;
 
 /**
- * Google and magic-link both require admin or the caregiver whitelist.
- * `STAFF_ADMIN_EMAILS` is a comma-separated list and replaces these
- * defaults when set. Anyone can use Request access on `/login` without
- * signing in. A leftover session with no portal role still sees
- * request-access on `/staff`.
+ * Google, magic-link, and password all require admin or the caregiver
+ * whitelist. `STAFF_ADMIN_EMAILS` is a comma-separated list and replaces
+ * these defaults when set. Anyone can use Request access on
+ * `/login/request-access` without signing in. A leftover session with no
+ * portal role still sees request-access on `/staff`.
  */
 export function parseEmailList(
   value: string | undefined,
@@ -94,7 +94,11 @@ export function safeNextPath(next: string | null | undefined): string {
     return "/staff";
   }
 
-  if (trimmed === "/login" || trimmed.startsWith("/login?")) {
+  if (
+    trimmed === "/login" ||
+    trimmed.startsWith("/login?") ||
+    trimmed.startsWith("/login/")
+  ) {
     return "/staff";
   }
 

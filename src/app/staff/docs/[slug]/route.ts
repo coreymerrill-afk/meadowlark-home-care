@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { isStaffDocSlug, readStaffDoc } from "@/lib/staff-docs";
+import { isStaffDocSlug, readStaffDoc, staffDocs } from "@/lib/staff-docs";
 import { staffLoginUrl } from "@/lib/staff-access";
 import { getOptionalStaffSession } from "@/lib/staff-session";
 
@@ -28,6 +28,10 @@ export async function GET(request: Request, context: StaffDocContext) {
 
   if (!isStaffDocSlug(slug)) {
     return new NextResponse("Not found", { status: 404 });
+  }
+
+  if (staffDocs[slug].audience === "admin" && session.role !== "admin") {
+    return NextResponse.redirect(new URL("/staff?notice=admin-only", request.url));
   }
 
   const result = await readStaffDoc(slug);
