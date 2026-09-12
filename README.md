@@ -82,12 +82,15 @@ Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `
 
 Handbook / HIPAA / AxisCare PDFs are **not** Drive links. They are served from `/staff/docs/handbook`, `/staff/docs/hipaa`, `/staff/docs/axiscare-guide`, and `/staff/docs/axiscare-tip-sheet` after a valid portal session.
 
+Exact Google Cloud + Resend steps: **[STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md)**.
+
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `AUTH_SECRET` | Runtime sign-in | Session + magic-link signing. Generate with `npx auth secret`. |
-| `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google SSO | Google Cloud OAuth client. Redirect URI: `{origin}/api/auth/callback/google`. |
-| `AUTH_RESEND_KEY` | Optional | Magic-link + request-access email. Falls back to `RESEND_API_KEY`. |
-| `AUTH_URL` | Optional | Override public origin for callbacks and magic-link URLs. |
+| `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google SSO | Google Cloud OAuth client. Production redirect: `https://www.meadowlarkhomecare.com/api/auth/callback/google`. |
+| `AUTH_RESEND_KEY` | Magic-link / request access | Preferred Resend key. Falls back to `RESEND_API_KEY`. Contact/apply read `RESEND_API_KEY` only. |
+| `AUTH_URL` | Recommended on Vercel | Canonical origin. Production/Preview: `https://www.meadowlarkhomecare.com`. |
+| `AUTH_TRUST_HOST` | Recommended on Vercel | Set `true`. Auth.js host trust (`src/auth.ts` also sets `trustHost: true`). |
 | `STAFF_WHITELIST_EMAILS` | Optional | Extra Active caregiver emails on top of the CSV. |
 | `STAFF_ADMIN_EMAILS` | Optional | Defaults to `cmerrill@meadowlarkhomecare.com`. |
 
@@ -121,7 +124,7 @@ Corey must do this once (about five minutes):
 
    `NEXT_PUBLIC_SITE_URL` = `https://www.meadowlarkhomecare.com`
 
-   Staff auth env vars: see [docs/staff-auth-vercel.md](docs/staff-auth-vercel.md). Google OAuth (`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`) is still Corey-only. The AxisCare Active whitelist is in `src/data/staff-whitelist.csv`.
+   Staff auth: [STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md). Claimed Vercel env status: [docs/staff-auth-vercel.md](docs/staff-auth-vercel.md). Google OAuth (`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`) is Corey-only. The AxisCare Active whitelist is in `src/data/staff-whitelist.csv`.
 
    Do not set this to localhost. Redeploy Production after saving so metadata rebuilds.
 5. In **Settings → Domains**, add:
@@ -179,6 +182,7 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 ## Project layout
 
 ```
+STAFF_AUTH_SETUP.md Google OAuth + Resend + Vercel env checklist
 src/app/            App Router pages, sitemap, robots, contact/apply/staff actions
 src/auth.ts         Auth.js config (Google + magic-link credentials)
 src/proxy.ts        Unauthenticated /staff/* → /login?next=...
