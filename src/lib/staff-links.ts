@@ -7,42 +7,41 @@ export type StaffResource = {
 };
 
 /**
- * Caregiver portal links. Drive files may need Meadowlark domain
- * sharing before personal-email caregivers can open them.
+ * Caregiver documents are hosted in-repo and served only through
+ * authenticated `/staff/docs/*` handlers — not Google Drive.
  */
-export const caregiverResources: StaffResource[] = [
+export const staffDocumentResources: StaffResource[] = [
   {
     title: "Employee Handbook",
-    href: "https://drive.google.com/file/d/12mXEa4drk2qGCbMc7HIJv8t8DM1fvuPs/view",
+    href: "/staff/docs/handbook",
     description: "Policies and expectations for Meadowlark caregivers.",
-    external: true,
-    note: "Google Drive — domain share may be required.",
+    external: false,
   },
   {
     title: "HIPAA Confidentiality Agreement",
-    href: "https://drive.google.com/file/d/12U_LCDEsgPE_4fxWMtUyU5awLWcPWedn/view",
+    href: "/staff/docs/hipaa",
     description: "Read and keep a copy of the confidentiality agreement.",
-    external: true,
-    note: "Google Drive — domain share may be required.",
+    external: false,
   },
   {
     title: "AxisCare Mobile Caregiver Guide",
-    href: "https://drive.google.com/file/d/16e-mMuAA8VqfjfgN8HAgEg8KnJIt4Hqo/view",
+    href: "/staff/docs/axiscare-guide",
     description: "How to use the AxisCare mobile app for visits.",
-    external: true,
-    note: "Google Drive — domain share may be required.",
+    external: false,
   },
   {
     title: "AxisCare tip sheet",
-    href: "https://drive.google.com/file/d/1LiuKCY8Or_YCC0AQrtG3J64xY36jh2Fm/view",
+    href: "/staff/docs/axiscare-tip-sheet",
     description: "Short reference for common AxisCare tasks.",
-    external: true,
-    note: "Google Drive — domain share may be required.",
+    external: false,
   },
+];
+
+export const caregiverAppResources: StaffResource[] = [
   {
     title: "AxisCare web",
     href: "https://4170.axiscare.com",
-    description: "Open AxisCare in the browser (server 4170).",
+    description: "Open AxisCare in the browser. The mobile app uses server 4170.",
     external: true,
   },
   {
@@ -53,11 +52,66 @@ export const caregiverResources: StaffResource[] = [
   },
 ];
 
-export const adminResources: StaffResource[] = [
+export const caregiverResources: StaffResource[] = [
+  ...staffDocumentResources,
+  ...caregiverAppResources,
+];
+
+export const adminFormResources: StaffResource[] = [
   {
     title: "Forms hub",
     href: "/staff/forms",
     description: "Internal Medicaid / SLTC tools, including the phone form filler.",
     external: false,
   },
+];
+
+export const adminAxisCareResources: StaffResource[] = [
+  {
+    title: "AxisCare home",
+    href: "https://4170.axiscare.com",
+    description: "AxisCare web home (server 4170).",
+    external: true,
+  },
+  {
+    title: "Scheduling",
+    href: "https://4170.axiscare.com/?scheduling-calendar-active-customer.php",
+    description: "Active customer scheduling calendar.",
+    external: true,
+  },
+  {
+    title: "Caregiver schedules report",
+    href: "https://4170.axiscare.com/?/report/weekly/caregiver",
+    description: "Weekly caregiver schedule report.",
+    external: true,
+  },
+  {
+    title: "Clock in/out report",
+    href: "https://4170.axiscare.com/?reports-telephony-all_clock_ins_outs.php",
+    description: "All clock-in and clock-out activity.",
+    external: true,
+  },
+  {
+    title: "Documents",
+    href: "https://4170.axiscare.com/?/reports/documents",
+    description: "AxisCare documents report.",
+    external: true,
+  },
+  {
+    title: "Forms",
+    href: "https://4170.axiscare.com/?/report/forms",
+    description: "AxisCare forms report.",
+    external: true,
+  },
+  {
+    title: "Caregivers list",
+    href: "https://4170.axiscare.com/?caregivers.php",
+    description: "AxisCare caregiver roster.",
+    external: true,
+  },
+];
+
+export const adminResources: StaffResource[] = [
+  ...adminFormResources,
+  ...adminAxisCareResources,
 ];

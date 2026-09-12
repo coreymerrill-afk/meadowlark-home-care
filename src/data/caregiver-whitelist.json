@@ -1,10 +1,7 @@
 {
   "_readme": [
-    "Placeholder AxisCare ACTIVE caregiver whitelist.",
-    "TODO: Ingest the real AxisCare export (email, name, status=ACTIVE).",
-    "Do not enable the production staff gate / merge until this list is loaded.",
-    "Emails are matched case-insensitively. Only status=ACTIVE entries count.",
-    "You can also set STAFF_WHITELIST_EMAILS as a comma-separated env list."
+    "Optional extras only. The AxisCare Active list lives in src/data/staff-whitelist.csv.",
+    "Emails are matched case-insensitively. status must be Active to count."
   ],
   "caregivers": []
 }

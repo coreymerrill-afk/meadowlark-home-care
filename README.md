@@ -17,11 +17,12 @@ Unlisted staff tools (not in the public nav, sitemap, or robots allow list).
 Header/footer **Login** goes to `/login`. `robots.txt` keeps `Disallow: /staff/`. Staff pages are noindex.
 
 - `/login` — Google Workspace SSO + magic-link + request access (emails `hr@meadowlarkhomecare.com`)
-- `/staff` — post-login landing (caregiver links; admin also sees the Forms hub)
+- `/staff` — post-login landing (caregiver links; admin also sees the Forms hub and extra AxisCare tools)
+- `/staff/docs/*` — authenticated PDFs (handbook, HIPAA, AxisCare guide, tip sheet). Not in `public/`.
 - `/staff/forms` — **admin-only** forms hub
 - `/staff/forms/sltc` — SLTC phone form filler entry (Apps Script CTA; Meadowlark Google account required)
 
-**Do not enable the production staff gate / merge until the AxisCare ACTIVE whitelist is loaded.** The JSON list ships empty on purpose.
+Staff documents live in `content/staff-docs/` and are served only after login. Do not put them in `public/`. PDF binaries may still be pending a follow-up URL drop; routes return 503 until the files are committed.
 
 ## Local development
 
@@ -73,10 +74,13 @@ Auth.js (NextAuth v5) with JWT sessions. Google OAuth is for `@meadowlarkhomecar
 
 Whitelist sources (merged):
 
-1. `STAFF_WHITELIST_EMAILS` (comma-separated env)
-2. `src/data/caregiver-whitelist.json` (placeholder empty list)
+1. `src/data/staff-whitelist.csv` — AxisCare **Active** export (`email`, `name`, `status`, `role`)
+2. `STAFF_WHITELIST_EMAILS` (optional extra emails)
+3. `src/data/caregiver-whitelist.json` (optional extras)
 
-TODO: ingest AxisCare ACTIVE CSV (`email`, `name`, `status=ACTIVE`). See `src/data/axiscare-active.example.csv`. Drive handbook/HIPAA/AxisCare files may need domain sharing before personal-email caregivers can open them.
+Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `role=admin` does not grant admin by itself; admin remains `cmerrill@meadowlarkhomecare.com` (Natalie Redman is a caregiver in this export).
+
+Handbook / HIPAA / AxisCare PDFs are **not** Drive links. They are served from `/staff/docs/handbook`, `/staff/docs/hipaa`, `/staff/docs/axiscare-guide`, and `/staff/docs/axiscare-tip-sheet` after a valid portal session.
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
@@ -84,7 +88,7 @@ TODO: ingest AxisCare ACTIVE CSV (`email`, `name`, `status=ACTIVE`). See `src/da
 | `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google SSO | Google Cloud OAuth client. Redirect URI: `{origin}/api/auth/callback/google`. |
 | `AUTH_RESEND_KEY` | Optional | Magic-link + request-access email. Falls back to `RESEND_API_KEY`. |
 | `AUTH_URL` | Optional | Override public origin for callbacks and magic-link URLs. |
-| `STAFF_WHITELIST_EMAILS` | Until CSV ingest | Extra ACTIVE caregiver emails. |
+| `STAFF_WHITELIST_EMAILS` | Optional | Extra Active caregiver emails on top of the CSV. |
 | `STAFF_ADMIN_EMAILS` | Optional | Defaults to `cmerrill@meadowlarkhomecare.com`. |
 
 The production build succeeds if Google/Resend/Auth secrets are missing. Sign-in and magic-link actions return a clear configuration error at runtime instead of crashing the app.
@@ -115,7 +119,7 @@ Corey must do this once (about five minutes):
 
    `NEXT_PUBLIC_SITE_URL` = `https://www.meadowlarkhomecare.com`
 
-   For staff login (after the AxisCare ACTIVE whitelist is loaded): `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, and `RESEND_API_KEY` or `AUTH_RESEND_KEY`. See **Staff auth** below. Do not turn this on in production until the whitelist is real.
+   For staff login: `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, and `RESEND_API_KEY` or `AUTH_RESEND_KEY`. See **Staff auth** below. The AxisCare Active whitelist is in `src/data/staff-whitelist.csv`.
 
    Do not set this to localhost. Redeploy Production after saving so metadata rebuilds.
 5. In **Settings → Domains**, add:
@@ -176,7 +180,8 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 src/app/            App Router pages, sitemap, robots, contact/apply/staff actions
 src/auth.ts         Auth.js config (Google + magic-link credentials)
 src/proxy.ts        Unauthenticated /staff/* → /login?next=...
-src/data/           Caregiver whitelist placeholder + AxisCare CSV example
+src/data/           AxisCare Active whitelist CSV + optional JSON extras
+content/staff-docs/ Authenticated PDFs (not publicly fetchable)
 src/components/     Header, footer, form, shared sections, shadcn/ui
 src/lib/site.ts     Business details used across pages
 public/images/      Page photography

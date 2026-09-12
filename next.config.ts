@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/*": ["./src/data/staff-whitelist.csv"],
+    "/staff/docs/*": ["./content/staff-docs/**"],
+  },
   async redirects() {
     return [
       {

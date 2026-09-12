@@ -15,9 +15,12 @@ export function StaffResourceCard({
   const border =
     accent === "orange" ? "border-orange" : "border-teal";
 
+  const isDocument = resource.href.startsWith("/staff/docs/");
+  const usePlainAnchor = resource.external || isDocument;
+
   const action = (
     <>
-      {resource.external ? "Open" : "Go to"} {resource.title}
+      {usePlainAnchor ? "Open" : "Go to"} {resource.title}
       {resource.external ? (
         <ArrowUpRight className="size-4" />
       ) : (
@@ -40,11 +43,11 @@ export function StaffResourceCard({
       {resource.note ? (
         <p className="mt-3 text-sm text-muted-foreground">{resource.note}</p>
       ) : null}
-      {resource.external ? (
+      {usePlainAnchor ? (
         <a
           href={resource.href}
-          target="_blank"
-          rel="noreferrer"
+          target={resource.external ? "_blank" : undefined}
+          rel={resource.external ? "noreferrer" : undefined}
           className={cn(
             buttonVariants({ variant: "cta", size: "lg" }),
             "mt-6 h-12 rounded-full px-6 text-base"

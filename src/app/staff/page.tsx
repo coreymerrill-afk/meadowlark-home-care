@@ -5,7 +5,11 @@ import { StaffResourceCard } from "@/components/staff-resource-card";
 import { staffNoticeMessage } from "@/lib/login-errors";
 import { assertNever } from "@/lib/site";
 import { staffRobots } from "@/lib/staff";
-import { adminResources, caregiverResources } from "@/lib/staff-links";
+import {
+  adminResources,
+  caregiverResources,
+  type StaffResource,
+} from "@/lib/staff-links";
 import { requireStaffSession } from "@/lib/staff-session";
 
 export const metadata: Metadata = {
@@ -69,7 +73,7 @@ function StaffPortalLinks({
       <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
         {includeForms
           ? "Handbook, AxisCare, ADP, and the internal forms hub."
-          : "Handbook, HIPAA, AxisCare, and ADP. Drive files may need Meadowlark sharing before they open."}
+          : "Handbook, HIPAA, AxisCare, and ADP. Documents open only while you are signed in."}
       </p>
 
       {notice ? (
@@ -82,21 +86,47 @@ function StaffPortalLinks({
       ) : null}
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
-        {includeForms
-          ? adminResources.map((resource) => (
-              <StaffResourceCard
-                key={resource.href}
-                resource={resource}
-                accent="orange"
-              />
-            ))
-          : null}
-        {caregiverResources.map((resource) => (
-          <StaffResourceCard key={resource.href} resource={resource} />
+        {portalCards(includeForms).map(({ resource, accent }) => (
+          <StaffResourceCard
+            key={resource.href}
+            resource={resource}
+            accent={accent}
+          />
         ))}
       </div>
     </section>
   );
+}
+
+function portalCards(includeForms: boolean): {
+  resource: StaffResource;
+  accent: "teal" | "orange";
+}[] {
+  const cards: { resource: StaffResource; accent: "teal" | "orange" }[] = [];
+  const seen = new Set<string>();
+
+  const push = (
+    resource: StaffResource,
+    accent: "teal" | "orange"
+  ) => {
+    if (seen.has(resource.href)) {
+      return;
+    }
+    seen.add(resource.href);
+    cards.push({ resource, accent });
+  };
+
+  if (includeForms) {
+    for (const resource of adminResources) {
+      push(resource, resource.href === "/staff/forms" ? "orange" : "teal");
+    }
+  }
+
+  for (const resource of caregiverResources) {
+    push(resource, "teal");
+  }
+
+  return cards;
 }
 
 function WorkspaceRequestAccess({
