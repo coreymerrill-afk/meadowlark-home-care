@@ -63,9 +63,9 @@ export default async function EmploymentFormsPage() {
       </p>
       <h1 className="mt-3 text-4xl sm:text-5xl">Employment forms</h1>
       <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        On-hire packet for office staff. Visible to admins only — including
-        Corey Merrill test accounts — not caregivers yet. Place AxisCare PDF
-        exports in <code className="text-foreground">content/staff-docs/</code>.
+        On-hire packet for office staff. Visible to admins only — not
+        caregivers yet. Place AxisCare PDF exports in{" "}
+        <code className="text-foreground">content/staff-docs/</code>.
       </p>
 
       <h2 className="mt-10 text-2xl">Already in the portal</h2>
