@@ -22,7 +22,7 @@ Header/footer **Login** goes to `/login`. `robots.txt` keeps `Disallow: /staff/`
 - `/staff/forms` — **admin-only** forms hub
 - `/staff/forms/sltc` — SLTC phone form filler entry (Apps Script CTA; Meadowlark Google account required)
 
-Staff documents live in `content/staff-docs/` and are served only after login. Do not put them in `public/`. PDF binaries may still be pending a follow-up URL drop; routes return 503 until the files are committed.
+Staff documents live in `content/staff-docs/` and are served only after login. Do not put them in `public/`. HIPAA, AxisCare mobile guide, and tip sheet are committed. The employee handbook route is live and returns 503 until `employee-handbook.pdf` is added.
 
 ## Local development
 

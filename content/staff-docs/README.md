@@ -12,3 +12,5 @@ Place the binaries here, then they are served only by auth-checked route handler
 | `/staff/docs/axiscare-tip-sheet` | `axiscare-tip-sheet.pdf` |
 
 Do not use Google Drive “anyone with the link.” If a file is missing, the route returns 503 until the PDF is committed.
+
+Currently committed: HIPAA, AxisCare mobile guide, AxisCare tip sheet. Employee handbook is still pending.
