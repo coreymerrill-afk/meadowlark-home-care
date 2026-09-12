@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/*": ["./src/data/staff-whitelist.csv"],
     "/staff/docs/*": ["./content/staff-docs/**"],
+    "/staff/employment-forms/*": ["./content/staff-docs/**"],
+    "/staff/employment-forms/*/*": ["./content/staff-docs/employment-forms/**"],
   },
   async redirects() {
     return [

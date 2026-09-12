@@ -109,7 +109,7 @@ export const adminPrimaryResources: StaffResource[] = [
     title: "Employment forms",
     href: "/staff/employment-forms",
     description:
-      "On-hire / employment PDFs for office staff. Not rolled out to caregivers yet.",
+      "On-hire templates plus Natalie Redman’s latest packet. Admin only.",
     external: false,
   },
 ];
