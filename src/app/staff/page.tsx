@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { RequestAccessForm } from "@/components/request-access-form";
 import { StaffResourceCard } from "@/components/staff-resource-card";
@@ -6,10 +7,11 @@ import { staffNoticeMessage } from "@/lib/login-errors";
 import { assertNever } from "@/lib/site";
 import { staffRobots } from "@/lib/staff";
 import {
-  adminResources,
+  adminPrimaryResources,
+  adminSecondaryResources,
   caregiverResources,
-  type StaffResource,
 } from "@/lib/staff-links";
+import { hasPasswordHash } from "@/lib/staff-passwords";
 import { requireStaffSession } from "@/lib/staff-session";
 
 export const metadata: Metadata = {
@@ -32,19 +34,28 @@ export default async function StaffPortalPage({ searchParams }: StaffPageProps) 
     ? params.notice[0]
     : params.notice;
   const notice = staffNoticeMessage(noticeCode);
+  const passwordSet = session.canAccessPortal
+    ? await hasPasswordHash(session.email)
+    : true;
 
   switch (session.role) {
     case "admin":
+      return (
+        <AdminPortal
+          notice={notice}
+          showPasswordHint={!passwordSet}
+        />
+      );
     case "caregiver":
       return (
-        <StaffPortalLinks
-          includeForms={session.role === "admin"}
+        <CaregiverPortal
           notice={notice}
+          showPasswordHint={!passwordSet}
         />
       );
     case "none":
       return (
-        <SignedInRequestAccess
+        <WorkspaceRequestAccess
           email={session.email}
           name={session.name}
           notice={notice}
@@ -55,27 +66,98 @@ export default async function StaffPortalPage({ searchParams }: StaffPageProps) 
   }
 }
 
-function StaffPortalLinks({
-  includeForms,
+function AdminPortal({
   notice,
+  showPasswordHint,
 }: {
-  includeForms: boolean;
   notice: string | null;
+  showPasswordHint: boolean;
 }) {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
       <p className="w-fit rounded-full bg-orange/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-orange uppercase">
         Staff portal
       </p>
-      <h1 className="mt-4 text-4xl sm:text-5xl">
-        {includeForms ? "Office tools" : "Caregiver tools"}
-      </h1>
+      <h1 className="mt-4 text-4xl sm:text-5xl">Office tools</h1>
       <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        {includeForms
-          ? "Handbook, AxisCare, ADP, and the internal forms hub."
-          : "Handbook, HIPAA, AxisCare, and ADP. Documents open only while you are signed in."}
+        AxisCare, Qliq, benefits, hiring, payroll, and employment forms.
       </p>
 
+      <PortalNotices notice={notice} showPasswordHint={showPasswordHint} />
+
+      <div className="mt-8 grid gap-5 sm:grid-cols-2">
+        {adminPrimaryResources.map((resource) => (
+          <StaffResourceCard
+            key={resource.href}
+            resource={resource}
+            accent={resource.href === "/staff/employment-forms" ? "orange" : "teal"}
+          />
+        ))}
+      </div>
+
+      <p className="mt-10 text-sm text-muted-foreground">
+        Medicaid / SLTC tools:{" "}
+        {adminSecondaryResources.map((resource, index) => (
+          <span key={resource.href}>
+            {index > 0 ? " · " : null}
+            <Link
+              href={resource.href}
+              className="font-medium text-teal underline-offset-4 hover:underline"
+            >
+              {resource.title}
+            </Link>
+          </span>
+        ))}
+        {" · "}
+        <Link
+          href="/staff/forms/sltc"
+          className="font-medium text-teal underline-offset-4 hover:underline"
+        >
+          SLTC phone form filler
+        </Link>
+      </p>
+    </section>
+  );
+}
+
+function CaregiverPortal({
+  notice,
+  showPasswordHint,
+}: {
+  notice: string | null;
+  showPasswordHint: boolean;
+}) {
+  return (
+    <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+      <p className="w-fit rounded-full bg-orange/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-orange uppercase">
+        Staff portal
+      </p>
+      <h1 className="mt-4 text-4xl sm:text-5xl">Caregiver tools</h1>
+      <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        Handbook, HIPAA, AxisCare, and ADP. Documents open only while you are
+        signed in.
+      </p>
+
+      <PortalNotices notice={notice} showPasswordHint={showPasswordHint} />
+
+      <div className="mt-8 grid gap-5 sm:grid-cols-2">
+        {caregiverResources.map((resource) => (
+          <StaffResourceCard key={resource.href} resource={resource} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PortalNotices({
+  notice,
+  showPasswordHint,
+}: {
+  notice: string | null;
+  showPasswordHint: boolean;
+}) {
+  return (
+    <>
       {notice ? (
         <p
           role="status"
@@ -84,52 +166,26 @@ function StaffPortalLinks({
           {notice}
         </p>
       ) : null}
-
-      <div className="mt-8 grid gap-5 sm:grid-cols-2">
-        {portalCards(includeForms).map(({ resource, accent }) => (
-          <StaffResourceCard
-            key={resource.href}
-            resource={resource}
-            accent={accent}
-          />
-        ))}
-      </div>
-    </section>
+      {showPasswordHint ? (
+        <p
+          role="status"
+          className="mt-6 max-w-2xl rounded-xl bg-teal/[0.07] px-4 py-3 text-sm text-foreground"
+        >
+          No password yet.{" "}
+          <Link
+            href="/login/set-password"
+            className="font-medium text-teal underline-offset-4 hover:underline"
+          >
+            Set one
+          </Link>{" "}
+          so you can sign in with email and a password manager next time.
+        </p>
+      ) : null}
+    </>
   );
 }
 
-function portalCards(includeForms: boolean): {
-  resource: StaffResource;
-  accent: "teal" | "orange";
-}[] {
-  const cards: { resource: StaffResource; accent: "teal" | "orange" }[] = [];
-  const seen = new Set<string>();
-
-  const push = (
-    resource: StaffResource,
-    accent: "teal" | "orange"
-  ) => {
-    if (seen.has(resource.href)) {
-      return;
-    }
-    seen.add(resource.href);
-    cards.push({ resource, accent });
-  };
-
-  if (includeForms) {
-    for (const resource of adminResources) {
-      push(resource, resource.href === "/staff/forms" ? "orange" : "teal");
-    }
-  }
-
-  for (const resource of caregiverResources) {
-    push(resource, "teal");
-  }
-
-  return cards;
-}
-
-function SignedInRequestAccess({
+function WorkspaceRequestAccess({
   email,
   name,
   notice,

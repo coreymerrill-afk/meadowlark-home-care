@@ -90,7 +90,7 @@ export async function sendMagicLink(
   if (role === "none") {
     return {
       status: "error",
-      message: loginErrorMessage("not-whitelisted") ?? "Request access below.",
+      message: loginErrorMessage("not-whitelisted") ?? "Request access.",
     };
   }
 

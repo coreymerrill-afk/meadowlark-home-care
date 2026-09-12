@@ -5,11 +5,12 @@ import { LoginPanel } from "@/components/login-panel";
 import {
   isGoogleAuthConfigured,
   isMagicLinkConfigured,
+  isPasswordAuthConfigured,
 } from "@/lib/auth-env";
 import { loginErrorMessage } from "@/lib/login-errors";
+import { staffRobots } from "@/lib/staff";
 import { safeNextPath } from "@/lib/staff-access";
 import { getOptionalStaffSession } from "@/lib/staff-session";
-import { staffRobots } from "@/lib/staff";
 
 export const metadata: Metadata = {
   title: "Staff login",
@@ -46,9 +47,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       </p>
       <h1 className="mt-4 text-4xl sm:text-5xl">Staff login</h1>
       <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-        Office staff sign in with any Google account on the admin list.
-        Caregivers on the active AxisCare list can use Google or a sign-in
-        link at that same email.
+        Sign in with Google, a password, or an email link. Admins are
+        recognized automatically when their email is on the admin list.
       </p>
 
       {error ? (
@@ -65,6 +65,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           next={next}
           googleEnabled={isGoogleAuthConfigured()}
           magicEnabled={isMagicLinkConfigured()}
+          passwordEnabled={isPasswordAuthConfigured()}
         />
       </div>
     </section>

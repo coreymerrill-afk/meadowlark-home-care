@@ -27,10 +27,15 @@ Optional later: copy the same value to `AUTH_RESEND_KEY`. Not required.
 
 `STAFF_ADMIN_EMAILS` — comma-separated. If unset, defaults are `cmerrill@meadowlarkhomecare.com` and `corey.merrill@gmail.com`. Setting the env replaces those defaults; include every admin address you want. Do not put secrets in this file.
 
+## Password store
+
+`BLOB_READ_WRITE_TOKEN` — not set. Needed only for email/password on Vercel. Local/dev writes hashes to `.data/` without this token. Setup: [STAFF_AUTH_SETUP.md](../STAFF_AUTH_SETUP.md).
+
 ## Leftover (Corey only)
 
 - `AUTH_GOOGLE_ID`
 - `AUTH_GOOGLE_SECRET`
+- `BLOB_READ_WRITE_TOKEN` (password sign-in / set / reset on Vercel)
 - Optionally `STAFF_ADMIN_EMAILS` on Production + Preview if you want to set the list explicitly
 
 Production redirect URI:

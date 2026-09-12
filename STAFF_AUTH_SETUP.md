@@ -1,12 +1,12 @@
 # Staff portal auth setup
 
-Google SSO + magic-link for `/login` and `/staff`. Auth.js (NextAuth v5) is in `src/auth.ts`. Callbacks live at `/api/auth/*`.
+Google SSO + email/password + magic-link for `/login` and `/staff`. Auth.js (NextAuth v5) is in `src/auth.ts`. Callbacks live at `/api/auth/*`.
 
 Google is **not** domain-locked. Personal Gmail (and other Google accounts) work if the email is an admin or on the caregiver whitelist. Do not set `hd=` and do not use an Internal-only OAuth client.
 
 **Do not regenerate `AUTH_SECRET`.** It is already set on Vercel Production + Preview.
 
-**Leftover for Corey:** create a Google OAuth Web client and paste `AUTH_GOOGLE_ID` + `AUTH_GOOGLE_SECRET` into Vercel. Resend is already wired.
+**Leftover for Corey:** create a Google OAuth Web client and paste `AUTH_GOOGLE_ID` + `AUTH_GOOGLE_SECRET` into Vercel. For password sign-in on Vercel, also add a Blob store token (`BLOB_READ_WRITE_TOKEN`). Resend is already wired.
 
 ## Vercel status (`meadowlark-home-care`)
 
@@ -21,6 +21,7 @@ Google is **not** domain-locked. Personal Gmail (and other Google accounts) work
 | `AUTH_GOOGLE_SECRET` | **Not set — Corey** |
 | `STAFF_ADMIN_EMAILS` | Optional. Comma-separated admin list. If unset, defaults are `cmerrill@meadowlarkhomecare.com` and `corey.merrill@gmail.com`. Setting the env **replaces** those defaults, so include every admin. |
 | `AUTH_RESEND_KEY` | Not required (see below). |
+| `BLOB_READ_WRITE_TOKEN` | **Not set — Corey** if you want password sign-in on Vercel. |
 
 ## Resend key names (confirmed in code)
 
@@ -122,15 +123,43 @@ Then **Redeploy** Production.
 ## Smoke test after Google vars are live
 
 1. Open `https://www.meadowlarkhomecare.com/login`.
-2. **Google admin:** `corey.merrill@gmail.com` or `cmerrill@meadowlarkhomecare.com` → `/staff` as admin (Forms hub visible).
+2. **Google admin:** `corey.merrill@gmail.com` or `cmerrill@meadowlarkhomecare.com` → `/staff` as admin (five office tools + employment forms).
 3. **Google caregiver:** a personal Gmail/Yahoo-Google account on `src/data/staff-whitelist.csv` → `/staff` as caregiver.
-4. A Google account that is not admin and not on the whitelist is rejected (`not-whitelisted`) and can use **Request access** on `/login`.
+4. A Google account that is not admin and not on the whitelist is rejected (`not-whitelisted`) and can use **Request access** at `/login/request-access`.
 5. **Magic link:** an admin or Active whitelist email should already send (uses existing `RESEND_API_KEY` + `CONTACT_FROM_EMAIL`). Link expires in 20 minutes at `/login/verify`.
+6. **Password:** after Google or a magic-link session, use **Set or change password** in the staff bar, or **Forgot / set a password** on `/login`. First-time users should not try to invent a password on the login card.
+
+## Password store (Vercel Blob)
+
+No database. Password hashes are bcrypt (`bcryptjs`, cost 10) in a private JSON blob.
+
+| Environment | Store |
+| --- | --- |
+| Local / `next dev` | `.data/staff-password-hashes.json` (gitignored). Created on first save. |
+| Vercel Production / Preview | Private Blob object `staff/password-hashes.json`. Requires `BLOB_READ_WRITE_TOKEN`. |
+
+Without the Blob token, Vercel deploys still serve Google + magic-link. Password sign-in / set / reset show a configuration error instead of writing to an ephemeral filesystem.
+
+### Set / reset path
+
+1. Allowed email only (`resolveStaffRole !== "none"` — admin list or AxisCare whitelist).
+2. User requests a link from `/login/set-password`, or sets a password while already signed in (Google / magic-link / existing password).
+3. Email link is a 60-minute signed JWT (`purpose: mlhc-password-reset`), same `AUTH_SECRET` + Resend pattern as magic-link.
+4. `/login/set-password?token=…` saves the bcrypt hash and signs the user in.
+
+Do not store plaintext. Do not commit `.data/`.
+
+### Corey leftover for Blob
+
+1. Vercel project → **Storage → Blob → Create**.
+2. Copy the read-write token → `BLOB_READ_WRITE_TOKEN` on Production + Preview.
+3. Redeploy. Then sign in with Google or a magic link and set a password.
 
 ## Corey leftover
 
 - [ ] Create the Google OAuth **Web** client with the production (and localhost) redirect URIs above.
 - [ ] Set `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET` on Vercel Production + Preview.
+- [ ] (Password) Create a Vercel Blob store and set `BLOB_READ_WRITE_TOKEN` on Production + Preview.
 - [ ] Redeploy Production and run the Google smoke test.
 
 Optional, not blocking: mirror `RESEND_API_KEY` → `AUTH_RESEND_KEY`. Do not regenerate `AUTH_SECRET`.

@@ -16,10 +16,12 @@ The site replaces the previous HostGator pages with five public routes:
 Unlisted staff tools (not in the public nav, sitemap, or robots allow list).
 Header/footer **Login** goes to `/login`. `robots.txt` keeps `Disallow: /staff/`. Staff pages are noindex.
 
-- `/login` — Google SSO (any domain on the admin or caregiver list) + magic-link + request access (emails `hr@meadowlarkhomecare.com`)
-- `/staff` — post-login landing (caregiver links; admin also sees the Forms hub and extra AxisCare tools)
-- `/staff/docs/*` — authenticated PDFs (handbook, HIPAA, AxisCare guide, tip sheet). Not in `public/`.
-- `/staff/forms` — **admin-only** forms hub
+- `/login` — Google SSO + email/password + magic-link. Request access is on `/login/request-access` (emails `hr@meadowlarkhomecare.com`)
+- `/login/set-password` — forgot / first-time set password (email link or signed-in session)
+- `/staff` — post-login landing (caregiver docs; admin sees AxisCare, Qliq, Employee Navigator, Hireology, ADP, and employment forms)
+- `/staff/docs/*` — authenticated PDFs (handbook, HIPAA, AxisCare guide, tip sheet, admin employment forms). Not in `public/`.
+- `/staff/employment-forms` — **admin-only** on-hire PDF hub
+- `/staff/forms` — **admin-only** forms hub (quiet link from admin landing)
 - `/staff/forms/sltc` — SLTC phone form filler entry (Apps Script CTA; Meadowlark Google account required)
 
 Staff documents live in `content/staff-docs/` and are served only after login. Do not put them in `public/`. All four PDFs (handbook, HIPAA, AxisCare mobile guide, tip sheet) are committed.
@@ -62,13 +64,13 @@ Without `RESEND_API_KEY`, the form still validates and submits. It logs the mess
 
 ## Staff auth
 
-Auth.js (NextAuth v5) with JWT sessions. Google OAuth is **not** domain-locked: any Google account can sign in if the email is an admin or on the caregiver whitelist. Magic links use the same allow list (existing Resend client and a short-lived signed token; no database adapter — the Auth.js Resend email provider would need one).
+Auth.js (NextAuth v5) with JWT sessions. Google OAuth is **not** domain-locked: any Google account can sign in if the email is an admin or on the caregiver whitelist. Magic links and email/password use the same allow list. Magic-link tokens are short-lived JWTs (no database adapter). Password hashes are bcrypt in a private Vercel Blob JSON file (local `.data/` fallback). See [STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md).
 
 | Role | Who |
 | --- | --- |
 | `admin` | `cmerrill@meadowlarkhomecare.com` and `corey.merrill@gmail.com` (override with comma-separated `STAFF_ADMIN_EMAILS`) |
 | `caregiver` | Any signed-in email on the AxisCare ACTIVE whitelist (case-insensitive), Google or magic-link |
-| no portal role | Google/magic-link is rejected with a not-whitelisted error. Request access stays on `/login`. A leftover session with no role still sees **Request access** on `/staff`. |
+| no portal role | Google/magic-link/password is rejected with a not-whitelisted error. Request access is on `/login/request-access`. A leftover session with no role still sees **Request access** on `/staff`. |
 
 `/staff/*` is gated in `src/proxy.ts` and again in the staff layout. Unauthenticated visitors go to `/login?next=...`. Caregivers who open `/staff/forms` are sent back to `/staff`.
 
@@ -93,6 +95,7 @@ Google OAuth leftover (exact redirect URIs): **[STAFF_AUTH_SETUP.md](./STAFF_AUT
 | `AUTH_TRUST_HOST` | Recommended on Vercel | Set `true`. Auth.js host trust (`src/auth.ts` also sets `trustHost: true`). |
 | `STAFF_WHITELIST_EMAILS` | Optional | Extra Active caregiver emails on top of the CSV. |
 | `STAFF_ADMIN_EMAILS` | Optional | Comma-separated admin emails. Defaults to `cmerrill@meadowlarkhomecare.com,corey.merrill@gmail.com`. Setting this replaces the defaults, so include every admin address. |
+| `BLOB_READ_WRITE_TOKEN` | Password on Vercel | Private Blob store for bcrypt hashes. Local/dev uses `.data/staff-password-hashes.json` (gitignored). |
 
 The production build succeeds if Google/Resend/Auth secrets are missing. Sign-in and magic-link actions return a clear configuration error at runtime instead of crashing the app.
 
@@ -124,7 +127,7 @@ Corey must do this once (about five minutes):
 
    `NEXT_PUBLIC_SITE_URL` = `https://www.meadowlarkhomecare.com`
 
-   Staff leftover is Google OAuth only (`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`). Steps and redirect URIs: [STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md). `AUTH_SECRET` and Resend (`RESEND_API_KEY`) are already on Vercel — do not regenerate the secret. Whitelist: `src/data/staff-whitelist.csv`.
+   Staff leftover is Google OAuth (`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`) plus optional Blob (`BLOB_READ_WRITE_TOKEN`) for password hashes. Steps: [STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md). `AUTH_SECRET` and Resend (`RESEND_API_KEY`) are already on Vercel — do not regenerate the secret. Whitelist: `src/data/staff-whitelist.csv`.
 
    Do not set this to localhost. Redeploy Production after saving so metadata rebuilds.
 5. In **Settings → Domains**, add:
