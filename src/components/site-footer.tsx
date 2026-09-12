@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ApplyButton } from "@/components/apply-button";
 import { FacebookIcon } from "@/components/facebook-icon";
 import { Logo } from "@/components/logo";
-import { formatOfficeAddress, navLinks, offices, site } from "@/lib/site";
+import { formatOfficeAddress, legalLinks, navLinks, offices, site } from "@/lib/site";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -113,6 +113,17 @@ export function SiteFooter() {
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p>
               © {year} {site.legalName}. All rights reserved.
+              {legalLinks.map((link) => (
+                <span key={link.href}>
+                  {" · "}
+                  <Link
+                    href={link.href}
+                    className="underline-offset-4 hover:underline"
+                  >
+                    {link.label}
+                  </Link>
+                </span>
+              ))}
             </p>
             <p>Missoula & Great Falls, Montana</p>
           </div>

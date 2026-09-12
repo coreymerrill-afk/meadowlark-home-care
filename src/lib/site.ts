@@ -158,6 +158,11 @@ export const navLinks = [
   { href: "/login", label: "Login" },
 ] as const;
 
+export const legalLinks = [
+  { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+] as const;
+
 export const inquiryTypes = [
   "Request care",
   "Join the team",
