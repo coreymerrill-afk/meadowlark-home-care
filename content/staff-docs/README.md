@@ -13,4 +13,4 @@ Place the binaries here, then they are served only by auth-checked route handler
 
 Do not use Google Drive “anyone with the link.” If a file is missing, the route returns 503 until the PDF is committed.
 
-Currently committed: HIPAA, AxisCare mobile guide, AxisCare tip sheet. Employee handbook is still pending.
+All four documents are committed: employee handbook, HIPAA, AxisCare mobile guide, and AxisCare tip sheet.
