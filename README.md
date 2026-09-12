@@ -88,7 +88,7 @@ Exact Google Cloud + Resend steps: **[STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md
 | --- | --- | --- |
 | `AUTH_SECRET` | Runtime sign-in | Session + magic-link signing. Generate with `npx auth secret`. |
 | `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google SSO | Google Cloud OAuth client. Production redirect: `https://www.meadowlarkhomecare.com/api/auth/callback/google`. |
-| `AUTH_RESEND_KEY` | Magic-link / request access | Preferred Resend key. Falls back to `RESEND_API_KEY`. Contact/apply read `RESEND_API_KEY` only. |
+| `AUTH_RESEND_KEY` | Optional | Preferred staff Resend key. Falls back to `RESEND_API_KEY` (already on Vercel). Contact/apply read `RESEND_API_KEY` only. |
 | `AUTH_URL` | Recommended on Vercel | Canonical origin. Production/Preview: `https://www.meadowlarkhomecare.com`. |
 | `AUTH_TRUST_HOST` | Recommended on Vercel | Set `true`. Auth.js host trust (`src/auth.ts` also sets `trustHost: true`). |
 | `STAFF_WHITELIST_EMAILS` | Optional | Extra Active caregiver emails on top of the CSV. |
@@ -124,7 +124,7 @@ Corey must do this once (about five minutes):
 
    `NEXT_PUBLIC_SITE_URL` = `https://www.meadowlarkhomecare.com`
 
-   Staff auth: [STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md). Claimed Vercel env status: [docs/staff-auth-vercel.md](docs/staff-auth-vercel.md). Google OAuth (`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`) is Corey-only. The AxisCare Active whitelist is in `src/data/staff-whitelist.csv`.
+   Staff leftover is Google OAuth only (`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`). Steps and redirect URIs: [STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md). `AUTH_SECRET` and Resend (`RESEND_API_KEY`) are already on Vercel — do not regenerate the secret. Whitelist: `src/data/staff-whitelist.csv`.
 
    Do not set this to localhost. Redeploy Production after saving so metadata rebuilds.
 5. In **Settings → Domains**, add:
