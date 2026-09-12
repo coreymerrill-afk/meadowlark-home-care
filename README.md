@@ -93,6 +93,8 @@ Handbook / HIPAA / AxisCare PDFs are **not** Drive links. They are served from `
 
 The production build succeeds if Google/Resend/Auth secrets are missing. Sign-in and magic-link actions return a clear configuration error at runtime instead of crashing the app.
 
+Vercel env status (what is already set vs Corey-only Google OAuth) is in [docs/staff-auth-vercel.md](docs/staff-auth-vercel.md).
+
 A hidden honeypot field (`companyWebsite`) silently accepts bot submissions.
 
 ### Resend setup
@@ -119,7 +121,7 @@ Corey must do this once (about five minutes):
 
    `NEXT_PUBLIC_SITE_URL` = `https://www.meadowlarkhomecare.com`
 
-   For staff login: `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, and `RESEND_API_KEY` or `AUTH_RESEND_KEY`. See **Staff auth** below. The AxisCare Active whitelist is in `src/data/staff-whitelist.csv`.
+   Staff auth env vars: see [docs/staff-auth-vercel.md](docs/staff-auth-vercel.md). Google OAuth (`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`) is still Corey-only. The AxisCare Active whitelist is in `src/data/staff-whitelist.csv`.
 
    Do not set this to localhost. Redeploy Production after saving so metadata rebuilds.
 5. In **Settings → Domains**, add:
@@ -182,6 +184,7 @@ src/auth.ts         Auth.js config (Google + magic-link credentials)
 src/proxy.ts        Unauthenticated /staff/* → /login?next=...
 src/data/           AxisCare Active whitelist CSV + optional JSON extras
 content/staff-docs/ Authenticated PDFs (not publicly fetchable)
+docs/               Staff auth Vercel env notes
 src/components/     Header, footer, form, shared sections, shadcn/ui
 src/lib/site.ts     Business details used across pages
 public/images/      Page photography
