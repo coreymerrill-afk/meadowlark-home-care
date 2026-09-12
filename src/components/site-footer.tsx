@@ -60,6 +60,11 @@ export function SiteFooter() {
           <h2 className="font-heading text-lg text-white">Contact</h2>
           <ul className="mt-3 space-y-2 text-sm text-white/80">
             <li>
+              <a href={site.contactEmailHref} className="hover:underline">
+                {site.contactEmail}
+              </a>
+            </li>
+            <li>
               <a href={site.careersEmailHref} className="hover:underline">
                 {site.careersEmail}
               </a>

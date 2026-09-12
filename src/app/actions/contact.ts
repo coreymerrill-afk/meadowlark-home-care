@@ -4,6 +4,7 @@ import { Resend } from "resend";
 import { z } from "zod";
 
 import { type ContactState } from "@/lib/contact";
+import { contactInbox, publicFromEmail } from "@/lib/mail";
 import { inquiryTypes, site } from "@/lib/site";
 
 const contactSchema = z.object({
@@ -58,10 +59,8 @@ export async function submitContact(
 
   const payload = parsed.data;
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL ?? site.careersEmail;
-  const from =
-    process.env.CONTACT_FROM_EMAIL ??
-    "Meadowlark Home Care <noreply@meadowlarkhomecare.com>";
+  const to = contactInbox();
+  const from = publicFromEmail();
 
   const text = [
     `Name: ${payload.name}`,

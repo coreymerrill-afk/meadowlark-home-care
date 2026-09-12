@@ -14,7 +14,7 @@ Google sign-in is **not** locked to `@meadowlarkhomecare.com`. The app allows th
 | `AUTH_URL` | Production (`https://www.meadowlarkhomecare.com`); Preview being set to the same | Pins Google + magic-link origin to www. |
 | `RESEND_API_KEY` | Production + Preview | Contact/apply. Staff email falls back to this. |
 | `CONTACT_FROM_EMAIL` | Production + Preview | From address for staff + public forms. |
-| `CONTACT_TO_EMAIL` | Production + Preview | Request-access inbox (default `hr@`). |
+| `CONTACT_TO_EMAIL` | Production + Preview | Public **contact** inbox. Should be `info@meadowlarkhomecare.com`. Request-access and employment applications go to `hr@`, not this variable. |
 | `NEXT_PUBLIC_SITE_URL` | Production | `https://www.meadowlarkhomecare.com` |
 
 ## Resend: no extra key required

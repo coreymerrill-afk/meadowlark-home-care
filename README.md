@@ -7,7 +7,7 @@ The site replaces the previous HostGator pages with five public routes:
 - `/` — home, services overview, dual CTAs
 - `/about` — founders and mission
 - `/services` — four Compass cards: CFCS/PCS, HCBS waiver, nursing, private pay & VA / third party
-- `/apply` — short caregiver application (name, phone, email, preferred office, optional note)
+- `/apply` — short employment application (contact, office, position, availability, experience, license/transport, work eligibility, optional notes)
 - `/work-with-us` — hiring areas, PTO, raises, advancement, short `/apply` form
 - `/contact` — office details and a working contact form
 
@@ -49,16 +49,16 @@ npm run start    # serve the production build
 npm run lint     # ESLint
 ```
 
-## Contact form environment variables
+## Contact and apply email
 
-The form posts to a server action in `src/app/actions/contact.ts`.
+The public contact form posts to `src/app/actions/contact.ts`. Employment applications post to `src/app/actions/apply.ts` and always email HR.
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | **Required on Vercel Production before DNS cutover** | Must be `https://www.meadowlarkhomecare.com`. Drives canonical URLs, `og:url`, sitemap, and the sitemap line in `robots.txt`. Localhost values from `.env.local` are ignored on production builds. If unset, the build falls back to `VERCEL_PROJECT_PRODUCTION_URL` / `VERCEL_URL`, then `https://www.meadowlarkhomecare.com`. |
 | `RESEND_API_KEY` | For live email | Sends submissions through [Resend](https://resend.com). |
 | `CONTACT_FROM_EMAIL` | With Resend | Must use a domain verified in Resend. Example: `Meadowlark Home Care <noreply@meadowlarkhomecare.com>`. |
-| `CONTACT_TO_EMAIL` | With Resend | Inbox that receives messages. Defaults to `hr@meadowlarkhomecare.com`. |
+| `CONTACT_TO_EMAIL` | With Resend | Inbox for the **general contact** form. Defaults to `info@meadowlarkhomecare.com`. Employment applications go to `hr@meadowlarkhomecare.com` (`site.careersEmail`) and do not use this variable. |
 
 Without `RESEND_API_KEY`, the form still validates and submits. It logs the message on the server and returns a preview-mode success so local and Vercel preview deploys are usable before email is configured.
 
@@ -177,7 +177,8 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 - Do not use the old slogan “Quality care through compassion and innovation” anywhere on public pages. Footer line: “Home care for Missoula families since 2015.”
 - About has no testimonials and states the founders’ origin once (2015, Corey Merrill and Natalie Redman).
 - Services uses four Compass cards: agency-based CFCS/PCS (formerly CFC/PAS); HCBS Big Sky / SDMI / DD; skilled nursing; and private pay / insurance / VA Community Care with respite.Respite is offered. Shared eligibility disclaimer: the state or VA decides — not Meadowlark. Confirm on .gov pages.
-- The primary **Apply online** CTA is the short `/apply` form (emails HR via Resend). AxisCare URL kept in `site.axisCareApplyUrl` as optional backup only.
+- The primary **Apply online** CTA is the short `/apply` form (emails `hr@meadowlarkhomecare.com` via Resend). AxisCare URL kept in `site.axisCareApplyUrl` as optional backup only.
+- General contact form emails `info@meadowlarkhomecare.com` (`CONTACT_TO_EMAIL`, defaulting to `site.contactEmail`). Do not point that env at HR.
 - The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) is linked as a secondary option on Work With Us.
 - Facebook: [facebook.com/meadowlarkhomecare](https://www.facebook.com/meadowlarkhomecare/).
 - Contact form success copy is always visitor-facing. It never surfaces HostGator-style “server encountered an error” text. Without `RESEND_API_KEY`, submissions still succeed and are logged on the server.
