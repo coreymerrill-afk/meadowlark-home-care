@@ -13,10 +13,16 @@ The site replaces the previous HostGator pages with five public routes:
 
 `/careers` and the old `.html` HostGator paths redirect to these routes.
 
-Unlisted staff tools (not in the public nav, sitemap, or robots allow list):
+Unlisted staff tools (not in the public nav, sitemap, or robots allow list).
+Header/footer **Login** goes to `/login`. `robots.txt` keeps `Disallow: /staff/`. Staff pages are noindex.
 
-- `/staff/forms` — internal forms hub
-- `/staff/forms/sltc` — SLTC phone form filler entry (Meadowlark Google account required)
+- `/login` — Google Workspace SSO + magic-link + request access (emails `hr@meadowlarkhomecare.com`)
+- `/staff` — post-login landing (caregiver links; admin also sees the Forms hub and extra AxisCare tools)
+- `/staff/docs/*` — authenticated PDFs (handbook, HIPAA, AxisCare guide, tip sheet). Not in `public/`.
+- `/staff/forms` — **admin-only** forms hub
+- `/staff/forms/sltc` — SLTC phone form filler entry (Apps Script CTA; Meadowlark Google account required)
+
+Staff documents live in `content/staff-docs/` and are served only after login. Do not put them in `public/`. All four PDFs (handbook, HIPAA, AxisCare mobile guide, tip sheet) are committed.
 
 ## Local development
 
@@ -54,6 +60,44 @@ The form posts to a server action in `src/app/actions/contact.ts`.
 
 Without `RESEND_API_KEY`, the form still validates and submits. It logs the message on the server and returns a preview-mode success so local and Vercel preview deploys are usable before email is configured.
 
+## Staff auth
+
+Auth.js (NextAuth v5) with JWT sessions. Google OAuth is for `@meadowlarkhomecare.com` Workspace accounts. Magic links use the existing Resend client and a short-lived signed token (no database adapter — the Auth.js Resend email provider would need one).
+
+| Role | Who |
+| --- | --- |
+| `admin` | `cmerrill@meadowlarkhomecare.com` (override with `STAFF_ADMIN_EMAILS`) |
+| `caregiver` | Any signed-in email on the AxisCare ACTIVE whitelist (case-insensitive) |
+| no portal role | Workspace SSO succeeded, but the email is not admin and not on the whitelist. They stay signed in and see **Request access** on `/staff` instead of portal links. Personal emails that are not on the list never get a magic link. |
+
+`/staff/*` is gated in `src/proxy.ts` and again in the staff layout. Unauthenticated visitors go to `/login?next=...`. Caregivers who open `/staff/forms` are sent back to `/staff`.
+
+Whitelist sources (merged):
+
+1. `src/data/staff-whitelist.csv` — AxisCare **Active** export (`email`, `name`, `status`, `role`)
+2. `STAFF_WHITELIST_EMAILS` (optional extra emails)
+3. `src/data/caregiver-whitelist.json` (optional extras)
+
+Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `role=admin` does not grant admin by itself; admin remains `cmerrill@meadowlarkhomecare.com` (Natalie Redman is a caregiver in this export).
+
+Handbook / HIPAA / AxisCare PDFs are **not** Drive links. They are served from `/staff/docs/handbook`, `/staff/docs/hipaa`, `/staff/docs/axiscare-guide`, and `/staff/docs/axiscare-tip-sheet` after a valid portal session.
+
+Google OAuth leftover (exact redirect URIs): **[STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md)**.
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `AUTH_SECRET` | Runtime sign-in | Session + magic-link signing. Generate with `npx auth secret`. |
+| `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google SSO | Google Cloud OAuth client. Production redirect: `https://www.meadowlarkhomecare.com/api/auth/callback/google`. |
+| `AUTH_RESEND_KEY` | Optional | Preferred staff Resend key. Falls back to `RESEND_API_KEY` (already on Vercel). Contact/apply read `RESEND_API_KEY` only. |
+| `AUTH_URL` | Recommended on Vercel | Canonical origin. Production/Preview: `https://www.meadowlarkhomecare.com`. |
+| `AUTH_TRUST_HOST` | Recommended on Vercel | Set `true`. Auth.js host trust (`src/auth.ts` also sets `trustHost: true`). |
+| `STAFF_WHITELIST_EMAILS` | Optional | Extra Active caregiver emails on top of the CSV. |
+| `STAFF_ADMIN_EMAILS` | Optional | Defaults to `cmerrill@meadowlarkhomecare.com`. |
+
+The production build succeeds if Google/Resend/Auth secrets are missing. Sign-in and magic-link actions return a clear configuration error at runtime instead of crashing the app.
+
+Vercel env status (what is already set vs Corey-only Google OAuth) is in [docs/staff-auth-vercel.md](docs/staff-auth-vercel.md).
+
 A hidden honeypot field (`companyWebsite`) silently accepts bot submissions.
 
 ### Resend setup
@@ -79,6 +123,8 @@ Corey must do this once (about five minutes):
 4. In **Settings → Environment Variables**, add for **Production** (and Preview if you want matching metadata):
 
    `NEXT_PUBLIC_SITE_URL` = `https://www.meadowlarkhomecare.com`
+
+   Staff leftover is Google OAuth only (`AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET`). Steps and redirect URIs: [STAFF_AUTH_SETUP.md](./STAFF_AUTH_SETUP.md). `AUTH_SECRET` and Resend (`RESEND_API_KEY`) are already on Vercel — do not regenerate the secret. Whitelist: `src/data/staff-whitelist.csv`.
 
    Do not set this to localhost. Redeploy Production after saving so metadata rebuilds.
 5. In **Settings → Domains**, add:
@@ -136,7 +182,13 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 ## Project layout
 
 ```
-src/app/            App Router pages, sitemap, robots, contact action
+STAFF_AUTH_SETUP.md Google OAuth + Resend + Vercel env checklist
+src/app/            App Router pages, sitemap, robots, contact/apply/staff actions
+src/auth.ts         Auth.js config (Google + magic-link credentials)
+src/proxy.ts        Unauthenticated /staff/* → /login?next=...
+src/data/           AxisCare Active whitelist CSV + optional JSON extras
+content/staff-docs/ Authenticated PDFs (not publicly fetchable)
+docs/               Staff auth Vercel env notes
 src/components/     Header, footer, form, shared sections, shadcn/ui
 src/lib/site.ts     Business details used across pages
 public/images/      Page photography

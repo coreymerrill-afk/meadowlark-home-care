@@ -1,0 +1,7 @@
+{
+  "_readme": [
+    "Optional extras only. The AxisCare Active list lives in src/data/staff-whitelist.csv.",
+    "Emails are matched case-insensitively. status must be Active to count."
+  ],
+  "caregivers": []
+}

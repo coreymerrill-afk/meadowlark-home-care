@@ -22,8 +22,12 @@ export default function SltcFormEntryPage() {
         Staff only
       </p>
       <p className="mt-4 text-sm font-medium text-primary">
+        <Link href="/staff" className="underline-offset-4 hover:underline">
+          Staff portal
+        </Link>
+        <span className="text-muted-foreground"> / </span>
         <Link href="/staff/forms" className="underline-offset-4 hover:underline">
-          Staff forms
+          Forms
         </Link>
         <span className="text-muted-foreground"> / SLTC</span>
       </p>
