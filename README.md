@@ -7,7 +7,7 @@ The site replaces the previous HostGator pages with five public routes:
 - `/` — home, services overview, dual CTAs
 - `/about` — founders and mission
 - `/services` — four Compass cards: CFCS/PCS, HCBS waiver, nursing, private pay & VA / third party
-- `/apply` — short employment application (contact, office, position, availability, experience, license/transport, work eligibility, optional notes)
+- `/apply` — employment application (Caregiver or Nurse, Hireology openings, availability, work history, references, optional notes)
 - `/work-with-us` — hiring areas, PTO, raises, advancement, short `/apply` form
 - `/contact` — office details and a working contact form
 
@@ -47,6 +47,8 @@ npm run dev      # development server
 npm run build    # production build
 npm run start    # serve the production build
 npm run lint     # ESLint
+npm run test     # Apply form + Hireology listing checks
+npm run refresh:hireology-jobs  # Update src/data/hireology-jobs.json
 ```
 
 ## Contact and apply email
@@ -179,7 +181,7 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 - Services uses four Compass cards: agency-based CFCS/PCS (formerly CFC/PAS); HCBS Big Sky / SDMI / DD; skilled nursing; and private pay / insurance / VA Community Care with respite.Respite is offered. Shared eligibility disclaimer: the state or VA decides — not Meadowlark. Confirm on .gov pages.
 - The primary **Apply online** CTA is the short `/apply` form (emails `hr@meadowlarkhomecare.com` via Resend). AxisCare URL kept in `site.axisCareApplyUrl` as optional backup only.
 - Contact form: **Request care** and **General** email `info@meadowlarkhomecare.com` (`CONTACT_TO_EMAIL`, defaulting to `site.contactEmail`). **Join the team** emails `hr@`. Do not point `CONTACT_TO_EMAIL` at HR.
-- The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) is linked as a secondary option on Work With Us.
+- `/apply` lists current Hireology openings from `src/data/hireology-jobs.json` (refresh with `npm run refresh:hireology-jobs`; see [docs/hireology-jobs.md](docs/hireology-jobs.md)). The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) stays a quiet secondary browse-all link.
 - Facebook: [facebook.com/meadowlarkhomecare](https://www.facebook.com/meadowlarkhomecare/).
 - Contact form success copy is always visitor-facing. It never surfaces HostGator-style “server encountered an error” text. Without `RESEND_API_KEY`, submissions still succeed and are logged on the server.
 
@@ -190,9 +192,9 @@ STAFF_AUTH_SETUP.md Google OAuth + Resend + Vercel env checklist
 src/app/            App Router pages, sitemap, robots, contact/apply/staff actions
 src/auth.ts         Auth.js config (Google + magic-link credentials)
 src/proxy.ts        Unauthenticated /staff/* → /login?next=...
-src/data/           AxisCare Active whitelist CSV + optional JSON extras
+src/data/           AxisCare Active whitelist CSV, Hireology openings JSON, optional extras
 content/staff-docs/ Authenticated PDFs (not publicly fetchable); Natalie packet in employment-forms/natalie-redman/
-docs/               Staff auth Vercel env notes
+docs/               Staff auth Vercel env notes; Hireology openings refresh
 src/components/     Header, footer, form, shared sections, shadcn/ui
 src/lib/site.ts     Business details used across pages
 public/images/      Page photography

@@ -180,8 +180,7 @@ export const applyOfficeOptions = [
 
 export const applyPositionOptions = [
   "Caregiver",
-  "Office",
-  "Other",
+  "Nurse",
 ] as const;
 
 export const applyAvailabilityOptions = [
