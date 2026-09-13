@@ -1,0 +1,60 @@
+{
+  "kept": [
+    {
+      "type": "16 Hour PCA class",
+      "kept": "16 Hour PCA class-2022-09-16.pdf",
+      "as": "pca-16-hour-class.pdf",
+      "date": "2022-09-16"
+    },
+    {
+      "type": "4 Hour Field Orientation",
+      "kept": "4 Hour Field Orientation-2022-09-16.pdf",
+      "as": "field-orientation-4-hour.pdf",
+      "date": "2022-09-16"
+    },
+    {
+      "type": "BIA Service Requirements",
+      "kept": "BIA Service Requirements-2022-09-16.pdf",
+      "as": "bia-service-requirements.pdf",
+      "date": "2022-09-16"
+    },
+    {
+      "type": "Insurance Coverages",
+      "kept": "Insurance Coverages-2022-09-20.pdf",
+      "as": "insurance-coverages.pdf",
+      "date": "2022-09-20"
+    },
+    {
+      "type": "On Hire Documents",
+      "kept": "On Hire Documents-2025-12-02.pdf",
+      "as": "on-hire-documents.pdf",
+      "date": "2025-12-02"
+    },
+    {
+      "type": "Orientation Checklist",
+      "kept": "Orientation Checklist-2026-02-02.pdf",
+      "as": "orientation-checklist.pdf",
+      "date": "2026-02-02"
+    },
+    {
+      "type": "PCA Competency Test",
+      "kept": "PCA Competency Test-2022-09-16-1211.pdf",
+      "as": "pca-competency-test.pdf",
+      "date": "2022-09-16"
+    }
+  ],
+  "skipped": [
+    {
+      "type": "On Hire Documents",
+      "skipped": "On Hire Documents-2025-07-18.pdf",
+      "date": "2025-07-18",
+      "reason": "older duplicate"
+    },
+    {
+      "type": "Orientation Checklist",
+      "skipped": "Orientation Checklist-2024-07-01.pdf",
+      "date": "2024-07-01",
+      "reason": "older duplicate"
+    }
+  ]
+}
