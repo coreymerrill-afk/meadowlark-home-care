@@ -118,13 +118,17 @@ export default function WorkWithUsPage() {
           </div>
 
           <p className="mt-8 text-sm text-muted-foreground">
-            Missoula or Great Falls questions:{" "}
+            Hiring questions:{" "}
             <a href={site.careersEmailHref} className="font-medium text-primary underline-offset-4 hover:underline">
               {site.careersEmail}
             </a>
-            . You can also{" "}
+            . Looking for care? Email{" "}
+            <a href={site.contactEmailHref} className="font-medium text-primary underline-offset-4 hover:underline">
+              {site.contactEmail}
+            </a>{" "}
+            or{" "}
             <Link href="/contact" className="font-medium text-primary underline-offset-4 hover:underline">
-              send a message
+              Contact
             </Link>
             .
           </p>

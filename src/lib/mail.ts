@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { assertNever, type InquiryType, site } from "@/lib/site";
 
 export const DEFAULT_FROM_EMAIL =
   "Meadowlark Home Care <noreply@meadowlarkhomecare.com>";
@@ -15,6 +15,19 @@ export function contactInbox() {
 /** Public employment applications — always HR, not CONTACT_TO_EMAIL. */
 export function applyInbox() {
   return site.careersEmail;
+}
+
+/** Contact form: care + general → info@; join the team → hr@. */
+export function inboxForInquiry(inquiryType: InquiryType) {
+  switch (inquiryType) {
+    case "Request care":
+    case "General":
+      return contactInbox();
+    case "Join the team":
+      return applyInbox();
+    default:
+      return assertNever(inquiryType);
+  }
 }
 
 export function escapeHtml(value: string) {

@@ -8,7 +8,7 @@ import { offices, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Apply",
   description:
-    "Apply to work with Meadowlark Home Care in Missoula or Great Falls. Short mobile-friendly application.",
+    "Apply to work with Meadowlark Home Care in Missoula or Great Falls. Short form — HR will follow up.",
   alternates: { canonical: "/apply" },
 };
 
@@ -18,7 +18,7 @@ export default function ApplyPage() {
       <PageHero
         eyebrow="Careers"
         title="Apply to join the team."
-        description="Missoula or Great Falls. A short form — we will follow up."
+        description="Missoula or Great Falls. Short form — HR will follow up."
       />
 
       <section className="mx-auto w-full max-w-2xl px-4 py-10 sm:px-6 sm:py-12">
@@ -26,7 +26,7 @@ export default function ApplyPage() {
           <ApplyForm />
         </div>
         <p className="mt-6 text-sm text-muted-foreground">
-          Questions? Call{" "}
+          Hiring questions? Call{" "}
           {offices.map((office, i) => (
             <span key={office.id}>
               {i > 0 ? " or " : null}
@@ -39,12 +39,15 @@ export default function ApplyPage() {
           <a href={site.careersEmailHref} className="font-medium text-primary underline-offset-4 hover:underline">
             {site.careersEmail}
           </a>
-          . Listed roles also appear on{" "}
+          .
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground/80">
+          Listed roles also appear on{" "}
           <a
             href={site.hireologyUrl}
             target="_blank"
             rel="noreferrer"
-            className="font-medium text-primary underline-offset-4 hover:underline"
+            className="underline-offset-4 hover:underline"
           >
             Hireology
           </a>

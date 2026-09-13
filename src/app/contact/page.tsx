@@ -77,7 +77,7 @@ export default function ContactPage() {
                 <Mail className="mt-0.5 size-5 text-primary" aria-hidden="true" />
                 <div>
                   <p className="text-sm font-medium tracking-[0.12em] text-muted-foreground uppercase">
-                    General email
+                    Care / general
                   </p>
                   <a
                     href={site.contactEmailHref}
@@ -91,8 +91,14 @@ export default function ContactPage() {
                 <Mail className="mt-0.5 size-5 text-primary" aria-hidden="true" />
                 <div>
                   <p className="text-sm font-medium tracking-[0.12em] text-muted-foreground uppercase">
-                    Careers email
+                    Careers
                   </p>
+                  <Link
+                    href={site.applyUrl}
+                    className="mt-1 block text-base underline-offset-4 hover:underline"
+                  >
+                    Apply online
+                  </Link>
                   <a
                     href={site.careersEmailHref}
                     className="mt-1 block text-base underline-offset-4 hover:underline"
@@ -132,9 +138,15 @@ export default function ContactPage() {
           <div className="lg:col-span-7 lg:border-l lg:border-border/80 lg:pl-8">
             <h2 className="text-3xl">Send a message</h2>
             <p className="mt-2 text-base text-muted-foreground">
-              Questions about care or the office go here. Applying to work with
-              us? Use the short application instead — we will follow up by phone
-              or email.
+              Care and general messages go to {site.contactEmail}. Join the team
+              goes to HR. Applying? Use{" "}
+              <Link
+                href={site.applyUrl}
+                className="font-medium text-primary underline-offset-4 hover:underline"
+              >
+                Apply online
+              </Link>
+              .
             </p>
             <div className="relative mt-6">
               <ContactForm />
