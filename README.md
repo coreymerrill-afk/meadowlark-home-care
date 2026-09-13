@@ -68,7 +68,7 @@ Auth.js (NextAuth v5) with JWT sessions. Google OAuth is **not** domain-locked: 
 
 | Role | Who |
 | --- | --- |
-| `admin` | `cmerrill@meadowlarkhomecare.com`, `corey.merrill@gmail.com`, and `nredman@meadowlarkhomecare.com` (override with comma-separated `STAFF_ADMIN_EMAILS`; that env **replaces** the defaults, so include all three) |
+| `admin` | `cmerrill@meadowlarkhomecare.com`, `corey.merrill@gmail.com`, `nredman@meadowlarkhomecare.com`, and `nredman44@gmail.com` (override with comma-separated `STAFF_ADMIN_EMAILS`; that env **replaces** the defaults, so include all four) |
 | `caregiver` | Any signed-in email on the AxisCare ACTIVE whitelist (case-insensitive), Google or magic-link |
 | no portal role | Google/magic-link/password is rejected with a not-whitelisted error. Request access is on `/login/request-access`. A leftover session with no role still sees **Request access** on `/staff`. |
 
@@ -80,7 +80,7 @@ Whitelist sources (merged):
 2. `STAFF_WHITELIST_EMAILS` (optional extra emails)
 3. `src/data/caregiver-whitelist.json` (optional extras)
 
-Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `role=admin` does not grant admin by itself; admin remains `STAFF_ADMIN_EMAILS` or the three default addresses (Corey’s work email, Corey’s Gmail, and Natalie Redman). The AxisCare CSV may still list Natalie as a caregiver — default admin emails win.
+Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `role=admin` does not grant admin by itself; admin remains `STAFF_ADMIN_EMAILS` or the four default addresses (Corey’s work email, Corey’s Gmail, and Natalie Redman’s work + Gmail). The AxisCare CSV may still list Natalie as a caregiver — default admin emails win.
 
 Handbook / HIPAA / AxisCare PDFs are **not** Drive links. They are served from `/staff/docs/handbook`, `/staff/docs/hipaa`, `/staff/docs/axiscare-guide`, and `/staff/docs/axiscare-tip-sheet` after a valid portal session.
 
@@ -94,7 +94,7 @@ Google OAuth leftover (exact redirect URIs): **[STAFF_AUTH_SETUP.md](./STAFF_AUT
 | `AUTH_URL` | Recommended on Vercel | Canonical origin. Production/Preview: `https://www.meadowlarkhomecare.com`. |
 | `AUTH_TRUST_HOST` | Recommended on Vercel | Set `true`. Auth.js host trust (`src/auth.ts` also sets `trustHost: true`). |
 | `STAFF_WHITELIST_EMAILS` | Optional | Extra Active caregiver emails on top of the CSV. |
-| `STAFF_ADMIN_EMAILS` | Optional | Comma-separated admin emails. Defaults to `cmerrill@meadowlarkhomecare.com,corey.merrill@gmail.com,nredman@meadowlarkhomecare.com`. Setting this replaces the defaults, so include all three. |
+| `STAFF_ADMIN_EMAILS` | Optional | Comma-separated admin emails. Defaults to `cmerrill@meadowlarkhomecare.com,corey.merrill@gmail.com,nredman@meadowlarkhomecare.com,nredman44@gmail.com`. Setting this replaces the defaults, so include all four. |
 | `BLOB_READ_WRITE_TOKEN` | Password on Vercel | Private Blob store for bcrypt hashes. Local/dev uses `.data/staff-password-hashes.json` (gitignored). |
 
 The production build succeeds if Google/Resend/Auth secrets are missing. Sign-in and magic-link actions return a clear configuration error at runtime instead of crashing the app.

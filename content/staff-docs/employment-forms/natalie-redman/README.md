@@ -1,6 +1,6 @@
 # Natalie Redman employment forms
 
-Admin-only PDFs for Natalie Redman (`nredman@meadowlarkhomecare.com`).
+Admin-only PDFs for Natalie Redman (`nredman@meadowlarkhomecare.com` or `nredman44@gmail.com`). Either signed-in admin identity maps to `/staff/employment-forms/natalie-redman`.
 Do not put these in `public/`.
 
 Drop the latest AxisCare / HR exports in this folder, then commit. Empty

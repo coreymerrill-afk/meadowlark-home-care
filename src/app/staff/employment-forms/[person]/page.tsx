@@ -6,6 +6,7 @@ import { StaffResourceCard } from "@/components/staff-resource-card";
 import {
   EMPLOYMENT_FORM_PEOPLE,
   EMPLOYMENT_FORM_SLOTS,
+  formatEmploymentFormPersonEmails,
   getEmploymentFormPerson,
   isEmploymentFormPersonSlug,
   listPersonEmploymentForms,
@@ -80,8 +81,9 @@ export default async function EmploymentPersonPage({
       </p>
       <h1 className="mt-3 text-4xl sm:text-5xl">{person.name}</h1>
       <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        Latest employment PDFs for {person.name} ({person.email}). Every admin
-        can open these, including Natalie. Drop files into{" "}
+        Latest employment PDFs for {person.name} (
+        {formatEmploymentFormPersonEmails(person)}). Every admin can open
+        these, including Natalie. Drop files into{" "}
         <code className="text-foreground">
           content/staff-docs/employment-forms/{person.slug}/
         </code>

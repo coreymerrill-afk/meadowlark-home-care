@@ -4,6 +4,8 @@ import Link from "next/link";
 import { StaffResourceCard } from "@/components/staff-resource-card";
 import {
   EMPLOYMENT_FORM_PEOPLE,
+  formatEmploymentFormPersonEmails,
+  getEmploymentFormPersonByEmail,
   listPersonEmploymentForms,
   personEmploymentFormsHref,
 } from "@/lib/employment-forms";
@@ -14,6 +16,7 @@ import {
   staffDocs,
 } from "@/lib/staff-docs";
 import type { StaffResource } from "@/lib/staff-links";
+import { requireAdminSession } from "@/lib/staff-session";
 
 export const metadata: Metadata = {
   title: "Employment forms",
@@ -39,10 +42,15 @@ const onHireRelated: StaffResource[] = [
 ];
 
 export default async function EmploymentFormsPage() {
+  const session = await requireAdminSession("/staff/employment-forms");
+  const signedInPerson = getEmploymentFormPersonByEmail(session.email);
+
   const peopleCards = await Promise.all(
     EMPLOYMENT_FORM_PEOPLE.map(async (person) => {
       const forms = await listPersonEmploymentForms(person.slug);
       const readyCount = forms.filter((form) => form.ready).length;
+      const emails = formatEmploymentFormPersonEmails(person);
+      const yours = signedInPerson?.slug === person.slug;
       const resource: StaffResource = {
         title: person.name,
         href: personEmploymentFormsHref(person.slug),
@@ -51,10 +59,11 @@ export default async function EmploymentFormsPage() {
             ? `${person.title}. ${readyCount} latest form${readyCount === 1 ? "" : "s"} ready to open.`
             : `${person.title}. Drop the latest AxisCare / HR PDFs into content/staff-docs/employment-forms/${person.slug}/.`,
         external: false,
-        note:
-          readyCount > 0
-            ? person.email
-            : `No PDFs in the repo yet · ${person.email}`,
+        note: yours
+          ? `Your packet · ${emails}`
+          : readyCount > 0
+            ? emails
+            : `No PDFs in the repo yet · ${emails}`,
       };
       return { resource, ready: readyCount > 0 };
     })
