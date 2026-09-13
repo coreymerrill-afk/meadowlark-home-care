@@ -92,7 +92,7 @@ export function ContactForm() {
           rows={6}
           aria-invalid={Boolean(state.fieldErrors?.message)}
           className="min-h-40 bg-card text-base"
-          placeholder="Tell us a little about the care you need, or the role you are interested in."
+          placeholder="Tell us a little about the care you need, or your question. Applying? Use the short application."
         />
       </Field>
 

@@ -124,5 +124,7 @@ export function staffLoginUrl(next?: string | null): string {
 }
 
 export function requestAccessInbox(): string {
-  return process.env.CONTACT_TO_EMAIL ?? site.careersEmail;
+  // CONTACT_TO_EMAIL is the public contact inbox (info@). Staff access
+  // requests stay with HR.
+  return site.careersEmail;
 }

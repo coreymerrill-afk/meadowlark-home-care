@@ -38,7 +38,7 @@ Because `RESEND_API_KEY` is already on Vercel, magic-link and request-access ema
 
 Optional later: mirror the same key to `AUTH_RESEND_KEY` on Production + Preview if you want Auth.js-style naming. Not required. Do not create a second Resend key unless you intend to rotate.
 
-From address for staff mail is `CONTACT_FROM_EMAIL` (already set). Inbox for request-access is `CONTACT_TO_EMAIL` or `hr@meadowlarkhomecare.com`.
+From address for staff mail is `CONTACT_FROM_EMAIL` (already set). Inbox for request-access is `hr@meadowlarkhomecare.com` (`site.careersEmail`). `CONTACT_TO_EMAIL` is the public contact form inbox (`info@`).
 
 ## Exact Google redirect URIs
 

@@ -67,6 +67,8 @@ export const site = {
   phone: "(406) 926-3447",
   phoneHref: "tel:+14069263447",
   fax: "(406) 926-1501",
+  contactEmail: "info@meadowlarkhomecare.com",
+  contactEmailHref: "mailto:info@meadowlarkhomecare.com",
   careersEmail: "hr@meadowlarkhomecare.com",
   careersEmailHref: "mailto:hr@meadowlarkhomecare.com",
   applyUrl: "/apply",
@@ -176,8 +178,34 @@ export const applyOfficeOptions = [
   "Either",
 ] as const;
 
+export const applyPositionOptions = [
+  "Caregiver",
+  "Office",
+  "Other",
+] as const;
+
+export const applyAvailabilityOptions = [
+  "Full-time",
+  "Part-time",
+  "PRN",
+] as const;
+
+export const applyExperienceOptions = [
+  "None yet",
+  "Less than 1 year",
+  "1–2 years",
+  "3–5 years",
+  "6+ years",
+] as const;
+
+export const applyYesNoOptions = ["Yes", "No"] as const;
+
 export type InquiryType = (typeof inquiryTypes)[number];
 export type ApplyOffice = (typeof applyOfficeOptions)[number];
+export type ApplyPosition = (typeof applyPositionOptions)[number];
+export type ApplyAvailability = (typeof applyAvailabilityOptions)[number];
+export type ApplyExperience = (typeof applyExperienceOptions)[number];
+export type ApplyYesNo = (typeof applyYesNoOptions)[number];
 
 export function formatOfficeAddress(office: Office, separator = ", ") {
   const zip = office.postalCode ? ` ${office.postalCode}` : "";

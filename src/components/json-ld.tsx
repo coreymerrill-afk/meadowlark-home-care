@@ -10,7 +10,7 @@ export function LocalBusinessJsonLd() {
     url: site.url,
     telephone: offices.map((o) => o.phone),
     faxNumber: site.fax,
-    email: site.careersEmail,
+    email: site.contactEmail,
     foundingDate: String(site.foundedYear),
     founder: site.founders.map((founder) => ({
       "@type": "Person",
