@@ -19,7 +19,7 @@ Google is **not** domain-locked. Personal Gmail (and other Google accounts) work
 | `AUTH_TRUST_HOST` | Optional. `src/auth.ts` already sets `trustHost: true`. |
 | `AUTH_GOOGLE_ID` | **Not set — Corey** |
 | `AUTH_GOOGLE_SECRET` | **Not set — Corey** |
-| `STAFF_ADMIN_EMAILS` | Optional. Comma-separated admin list. If unset, defaults are `cmerrill@meadowlarkhomecare.com`, `corey.merrill@gmail.com`, and `nredman@meadowlarkhomecare.com`. Setting the env **replaces** those defaults, so include all three. |
+| `STAFF_ADMIN_EMAILS` | Optional. Comma-separated admin list. If unset, defaults are `cmerrill@meadowlarkhomecare.com`, `corey.merrill@gmail.com`, `nredman@meadowlarkhomecare.com`, and `nredman44@gmail.com`. Setting the env **replaces** those defaults, so include all four. |
 | `AUTH_RESEND_KEY` | Not required (see below). |
 | `BLOB_READ_WRITE_TOKEN` | **Not set — Corey** if you want password sign-in on Vercel. |
 
@@ -90,7 +90,7 @@ Optional apex origin/callback only if the site is ever served on `https://meadow
    - Current UI: **Google Auth Platform → Branding**
    - Older UI: **APIs & Services → OAuth consent screen**
    - User type: **External** (required). **Internal** would lock Google to `@meadowlarkhomecare.com` and block personal Gmail admins and caregivers. The app then allows only admin or whitelist emails — not every Google account.
-   - If the client is still in Testing, add each Google account you need (including `corey.merrill@gmail.com` and `nredman@meadowlarkhomecare.com`) as a test user, or publish the app. `openid` / `email` / `profile` only.
+   - If the client is still in Testing, add each Google account you need (including `corey.merrill@gmail.com`, `nredman@meadowlarkhomecare.com`, and `nredman44@gmail.com`) as a test user, or publish the app. `openid` / `email` / `profile` only.
    - App name: `Meadowlark Staff Portal`
    - Support / developer email: a Workspace admin address that can open Cloud Console
    - Authorized domain: `meadowlarkhomecare.com`
@@ -123,7 +123,7 @@ Then **Redeploy** Production.
 ## Smoke test after Google vars are live
 
 1. Open `https://www.meadowlarkhomecare.com/login`.
-2. **Google admin:** `corey.merrill@gmail.com`, `cmerrill@meadowlarkhomecare.com`, or `nredman@meadowlarkhomecare.com` → `/staff` as admin (office tools + employment forms, including Natalie’s packet).
+2. **Google admin:** `corey.merrill@gmail.com`, `cmerrill@meadowlarkhomecare.com`, `nredman@meadowlarkhomecare.com`, or `nredman44@gmail.com` → `/staff` as admin (office tools + employment forms, including Natalie’s packet).
 3. **Google caregiver:** a personal Gmail/Yahoo-Google account on `src/data/staff-whitelist.csv` → `/staff` as caregiver.
 4. A Google account that is not admin and not on the whitelist is rejected (`not-whitelisted`) and can use **Request access** at `/login/request-access`.
 5. **Magic link:** an admin or Active whitelist email should already send (uses existing `RESEND_API_KEY` + `CONTACT_FROM_EMAIL`). Link expires in 20 minutes at `/login/verify`.

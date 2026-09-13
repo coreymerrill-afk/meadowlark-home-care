@@ -1,13 +1,13 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 
-import { NATALIE_REDMAN_ADMIN_EMAIL } from "@/lib/staff-access";
+import { NATALIE_REDMAN_ADMIN_EMAILS } from "@/lib/staff-access";
 
 export const EMPLOYMENT_FORM_PEOPLE = [
   {
     slug: "natalie-redman",
     name: "Natalie Redman",
-    email: NATALIE_REDMAN_ADMIN_EMAIL,
+    emails: NATALIE_REDMAN_ADMIN_EMAILS,
     title: "Co-founder",
   },
 ] as const;
@@ -70,6 +70,10 @@ export function getEmploymentFormPerson(
   slug: string
 ): EmploymentFormPerson | undefined {
   return EMPLOYMENT_FORM_PEOPLE.find((person) => person.slug === slug);
+}
+
+export function formatPersonEmails(person: EmploymentFormPerson): string {
+  return person.emails.join(" or ");
 }
 
 export function employmentFormsDirectory(personSlug: string): string {

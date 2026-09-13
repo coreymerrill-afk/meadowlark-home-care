@@ -4,6 +4,7 @@ import Link from "next/link";
 import { StaffResourceCard } from "@/components/staff-resource-card";
 import {
   EMPLOYMENT_FORM_PEOPLE,
+  formatPersonEmails,
   listPersonEmploymentForms,
   personEmploymentFormsHref,
 } from "@/lib/employment-forms";
@@ -53,8 +54,8 @@ export default async function EmploymentFormsPage() {
         external: false,
         note:
           readyCount > 0
-            ? person.email
-            : `No PDFs in the repo yet · ${person.email}`,
+            ? formatPersonEmails(person)
+            : `No PDFs in the repo yet · ${formatPersonEmails(person)}`,
       };
       return { resource, ready: readyCount > 0 };
     })
