@@ -16,15 +16,19 @@ export type StaffAccess = {
 };
 
 export const DEFAULT_STAFF_ADMIN_EMAIL = "cmerrill@meadowlarkhomecare.com";
+export const COREY_GMAIL_ADMIN_EMAIL = "corey.merrill@gmail.com";
+export const NATALIE_REDMAN_ADMIN_EMAIL = "nredman@meadowlarkhomecare.com";
 export const DEFAULT_STAFF_ADMIN_EMAILS = [
   DEFAULT_STAFF_ADMIN_EMAIL,
-  "corey.merrill@gmail.com",
+  COREY_GMAIL_ADMIN_EMAIL,
+  NATALIE_REDMAN_ADMIN_EMAIL,
 ] as const;
 
 /**
  * Google, magic-link, and password all require admin or the caregiver
  * whitelist. `STAFF_ADMIN_EMAILS` is a comma-separated list and replaces
- * these defaults when set. Anyone can use Request access on
+ * these defaults when set — include Corey (work + Gmail) and Natalie
+ * Redman if you override it. Anyone can use Request access on
  * `/login/request-access` without signing in. A leftover session with no
  * portal role still sees request-access on `/staff`.
  */

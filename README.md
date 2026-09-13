@@ -20,7 +20,7 @@ Header/footer **Login** goes to `/login`. `robots.txt` keeps `Disallow: /staff/`
 - `/login/set-password` — forgot / first-time set password (email link or signed-in session)
 - `/staff` — post-login landing (caregiver docs; admin sees AxisCare, Qliq, Employee Navigator, Hireology, ADP, and employment forms)
 - `/staff/docs/*` — authenticated PDFs (handbook, HIPAA, AxisCare guide, tip sheet, admin employment forms). Not in `public/`.
-- `/staff/employment-forms` — **admin-only** on-hire PDF hub
+- `/staff/employment-forms` — **admin-only** on-hire hub (shared templates + Natalie Redman’s packet at `/staff/employment-forms/natalie-redman`)
 - `/staff/forms` — **admin-only** forms hub (quiet link from admin landing)
 - `/staff/forms/sltc` — SLTC phone form filler entry (Apps Script CTA; Meadowlark Google account required)
 
@@ -68,7 +68,7 @@ Auth.js (NextAuth v5) with JWT sessions. Google OAuth is **not** domain-locked: 
 
 | Role | Who |
 | --- | --- |
-| `admin` | `cmerrill@meadowlarkhomecare.com` and `corey.merrill@gmail.com` (override with comma-separated `STAFF_ADMIN_EMAILS`) |
+| `admin` | `cmerrill@meadowlarkhomecare.com`, `corey.merrill@gmail.com`, and `nredman@meadowlarkhomecare.com` (override with comma-separated `STAFF_ADMIN_EMAILS`; that env **replaces** the defaults, so include all three) |
 | `caregiver` | Any signed-in email on the AxisCare ACTIVE whitelist (case-insensitive), Google or magic-link |
 | no portal role | Google/magic-link/password is rejected with a not-whitelisted error. Request access is on `/login/request-access`. A leftover session with no role still sees **Request access** on `/staff`. |
 
@@ -80,7 +80,7 @@ Whitelist sources (merged):
 2. `STAFF_WHITELIST_EMAILS` (optional extra emails)
 3. `src/data/caregiver-whitelist.json` (optional extras)
 
-Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `role=admin` does not grant admin by itself; admin remains `STAFF_ADMIN_EMAILS` or the two default addresses (Natalie Redman is a caregiver in this export).
+Only `status=Active` rows with a non-empty email count (case-insensitive). CSV `role=admin` does not grant admin by itself; admin remains `STAFF_ADMIN_EMAILS` or the three default addresses (Corey’s work email, Corey’s Gmail, and Natalie Redman). The AxisCare CSV may still list Natalie as a caregiver — default admin emails win.
 
 Handbook / HIPAA / AxisCare PDFs are **not** Drive links. They are served from `/staff/docs/handbook`, `/staff/docs/hipaa`, `/staff/docs/axiscare-guide`, and `/staff/docs/axiscare-tip-sheet` after a valid portal session.
 
@@ -94,7 +94,7 @@ Google OAuth leftover (exact redirect URIs): **[STAFF_AUTH_SETUP.md](./STAFF_AUT
 | `AUTH_URL` | Recommended on Vercel | Canonical origin. Production/Preview: `https://www.meadowlarkhomecare.com`. |
 | `AUTH_TRUST_HOST` | Recommended on Vercel | Set `true`. Auth.js host trust (`src/auth.ts` also sets `trustHost: true`). |
 | `STAFF_WHITELIST_EMAILS` | Optional | Extra Active caregiver emails on top of the CSV. |
-| `STAFF_ADMIN_EMAILS` | Optional | Comma-separated admin emails. Defaults to `cmerrill@meadowlarkhomecare.com,corey.merrill@gmail.com`. Setting this replaces the defaults, so include every admin address. |
+| `STAFF_ADMIN_EMAILS` | Optional | Comma-separated admin emails. Defaults to `cmerrill@meadowlarkhomecare.com,corey.merrill@gmail.com,nredman@meadowlarkhomecare.com`. Setting this replaces the defaults, so include all three. |
 | `BLOB_READ_WRITE_TOKEN` | Password on Vercel | Private Blob store for bcrypt hashes. Local/dev uses `.data/staff-password-hashes.json` (gitignored). |
 
 The production build succeeds if Google/Resend/Auth secrets are missing. Sign-in and magic-link actions return a clear configuration error at runtime instead of crashing the app.
@@ -190,7 +190,7 @@ src/app/            App Router pages, sitemap, robots, contact/apply/staff actio
 src/auth.ts         Auth.js config (Google + magic-link credentials)
 src/proxy.ts        Unauthenticated /staff/* → /login?next=...
 src/data/           AxisCare Active whitelist CSV + optional JSON extras
-content/staff-docs/ Authenticated PDFs (not publicly fetchable)
+content/staff-docs/ Authenticated PDFs (not publicly fetchable); Natalie packet in employment-forms/natalie-redman/
 docs/               Staff auth Vercel env notes
 src/components/     Header, footer, form, shared sections, shadcn/ui
 src/lib/site.ts     Business details used across pages

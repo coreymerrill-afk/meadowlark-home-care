@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { StaffResourceCard } from "@/components/staff-resource-card";
+import {
+  EMPLOYMENT_FORM_PEOPLE,
+  listPersonEmploymentForms,
+  personEmploymentFormsHref,
+} from "@/lib/employment-forms";
 import { staffRobots } from "@/lib/staff";
 import {
   employmentFormSlugs,
@@ -12,7 +17,8 @@ import type { StaffResource } from "@/lib/staff-links";
 
 export const metadata: Metadata = {
   title: "Employment forms",
-  description: "On-hire and employment PDFs for Meadowlark office staff.",
+  description:
+    "Admin-only on-hire templates and Natalie Redman’s latest employment PDFs.",
   robots: staffRobots,
   alternates: { canonical: "/staff/employment-forms" },
 };
@@ -33,6 +39,27 @@ const onHireRelated: StaffResource[] = [
 ];
 
 export default async function EmploymentFormsPage() {
+  const peopleCards = await Promise.all(
+    EMPLOYMENT_FORM_PEOPLE.map(async (person) => {
+      const forms = await listPersonEmploymentForms(person.slug);
+      const readyCount = forms.filter((form) => form.ready).length;
+      const resource: StaffResource = {
+        title: person.name,
+        href: personEmploymentFormsHref(person.slug),
+        description:
+          readyCount > 0
+            ? `${person.title}. ${readyCount} latest form${readyCount === 1 ? "" : "s"} ready to open.`
+            : `${person.title}. Drop the latest AxisCare / HR PDFs into content/staff-docs/employment-forms/${person.slug}/.`,
+        external: false,
+        note:
+          readyCount > 0
+            ? person.email
+            : `No PDFs in the repo yet · ${person.email}`,
+      };
+      return { resource, ready: readyCount > 0 };
+    })
+  );
+
   const employmentCards = await Promise.all(
     employmentFormSlugs.map(async (slug) => {
       const result = await readStaffDoc(slug);
@@ -41,8 +68,8 @@ export default async function EmploymentFormsPage() {
         title: staffDocs[slug].title,
         href: `/staff/docs/${slug}`,
         description: ready
-          ? "Authenticated PDF. Opens only while you are signed in as admin."
-          : `Drop ${staffDocs[slug].file} into content/staff-docs/ to publish this form. AxisCare export was not available in this environment.`,
+          ? "Shared blank / office template. Opens only while you are signed in as admin."
+          : `Drop ${staffDocs[slug].file} into content/staff-docs/ to publish this shared template.`,
         external: false,
         note: ready ? undefined : "PDF not in the repo yet.",
       };
@@ -63,10 +90,30 @@ export default async function EmploymentFormsPage() {
       </p>
       <h1 className="mt-3 text-4xl sm:text-5xl">Employment forms</h1>
       <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        On-hire packet for office staff. Visible to admins only — not
-        caregivers yet. Place AxisCare PDF exports in{" "}
-        <code className="text-foreground">content/staff-docs/</code>.
+        Visible to every admin, including Natalie Redman. Person packets live
+        under{" "}
+        <code className="text-foreground">
+          content/staff-docs/employment-forms/
+        </code>
+        . AxisCare exports are pulled separately — drop the PDFs in when they
+        are ready.
       </p>
+
+      <h2 className="mt-10 text-2xl">People</h2>
+      <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted-foreground">
+        Open someone’s latest forms. New files in their folder show up here
+        after deploy; the newest match wins for I-9, W-4, direct deposit, and
+        emergency contact.
+      </p>
+      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        {peopleCards.map(({ resource, ready }) => (
+          <StaffResourceCard
+            key={resource.href}
+            resource={resource}
+            accent={ready ? "teal" : "orange"}
+          />
+        ))}
+      </div>
 
       <h2 className="mt-10 text-2xl">Already in the portal</h2>
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
@@ -75,10 +122,10 @@ export default async function EmploymentFormsPage() {
         ))}
       </div>
 
-      <h2 className="mt-10 text-2xl">On-hire forms to drop in</h2>
+      <h2 className="mt-10 text-2xl">Shared on-hire templates</h2>
       <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted-foreground">
-        These routes are wired. Files are missing until someone copies the
-        AxisCare / HR PDFs into the staff-docs folder.
+        Blank office copies, not a person’s signed packet. Routes are wired;
+        files are missing until someone copies the PDFs into staff-docs.
       </p>
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
         {employmentCards.map(({ resource, ready }) => (

@@ -26,7 +26,9 @@ type WhitelistFile = {
  * Only rows with a non-empty email and status=Active count.
  * CSV `role=admin` does not grant admin by itself — admin is still
  * `STAFF_ADMIN_EMAILS` (comma list) or the defaults
- * `cmerrill@meadowlarkhomecare.com` and `corey.merrill@gmail.com`.
+ * `cmerrill@meadowlarkhomecare.com`, `corey.merrill@gmail.com`, and
+ * `nredman@meadowlarkhomecare.com`. Setting the env replaces those
+ * defaults, so include all three.
  */
 function parseEnvEmails(value: string | undefined): CaregiverWhitelistEntry[] {
   if (!value?.trim()) {

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { isStaffPdfHref } from "@/lib/employment-forms";
 import type { StaffResource } from "@/lib/staff-links";
 import { cn } from "@/lib/utils";
 
@@ -15,8 +16,7 @@ export function StaffResourceCard({
   const border =
     accent === "orange" ? "border-orange" : "border-teal";
 
-  const isDocument = resource.href.startsWith("/staff/docs/");
-  const usePlainAnchor = resource.external || isDocument;
+  const usePlainAnchor = resource.external || isStaffPdfHref(resource.href);
 
   const action = (
     <>

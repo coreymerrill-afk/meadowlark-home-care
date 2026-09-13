@@ -17,9 +17,21 @@ Place the binaries here, then they are served only by auth-checked route handler
 
 Admin hub: `/staff/employment-forms`. Do not roll employment PDFs out to caregivers yet.
 
-## On-hire / AxisCare forms
+## Person packets (Natalie Redman)
 
-The four employment routes are scaffolded. AxisCare form PDFs were **not** scraped in this environment (no AxisCare credentials). To publish:
+Latest signed / AxisCare copies for a person live in a subfolder, not in the shared table above.
+
+| Route | Folder |
+| --- | --- |
+| `/staff/employment-forms/natalie-redman` | `employment-forms/natalie-redman/` |
+
+Preferred filenames in that folder: `i9.pdf`, `w4.pdf`, `direct-deposit.pdf`, `emergency-contact.pdf`. Any other `.pdf` also appears on her page. Newest matching file wins for a slot. See `employment-forms/natalie-redman/README.md`.
+
+AxisCare exports are pulled separately. Drop the PDFs in when they are ready. Empty files count as missing (503).
+
+## Shared on-hire templates
+
+The four `/staff/docs/employment-*` routes are scaffolded blank office copies. To publish:
 
 1. Export the PDF from AxisCare (or HR’s packet).
 2. Name it exactly as in the table.
