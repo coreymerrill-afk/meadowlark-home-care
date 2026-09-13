@@ -1,0 +1,61 @@
+{
+  "fetchedAt": "2026-09-13T00:54:17.161Z",
+  "source": "https://api.hireology.com/v2/public/careers/meadowlarkhomecare3",
+  "careersUrl": "https://careers.hireology.com/meadowlarkhomecare3",
+  "jobs": [
+    {
+      "id": "2492227",
+      "title": "PCA/CNA Needed",
+      "location": "Missoula, MT",
+      "employmentStatus": "Full Time - hourly",
+      "url": "https://careers.hireology.com/meadowlarkhomecare3/2492227/description",
+      "summary": "We are hiring for part-time and full-time positions to work with our agency. We have evenings and days available starting at $18.75/hour.",
+      "position": "Caregiver"
+    },
+    {
+      "id": "2568343",
+      "title": "PCA/CNA Needed",
+      "location": "Missoula, MT",
+      "employmentStatus": "Part Time - hourly",
+      "url": "https://careers.hireology.com/meadowlarkhomecare3/2568343/description",
+      "summary": "We are hiring for full time and part-time positions starting at $19.25/hr. Open availability is a plus; however, we are specifically seeking someone who is available to work Fridays, Saturdays, and Sundays.",
+      "position": "Caregiver"
+    },
+    {
+      "id": "2492230",
+      "title": "PCA/CNA Needed Home Care",
+      "location": "Missoula, MT",
+      "employmentStatus": "Full Time - hourly",
+      "url": "https://careers.hireology.com/meadowlarkhomecare3/2492230/description",
+      "summary": "We are hiring for full time and part-time positions starting at $19.25/hr. Being an in-home care provider means assisting our members with their activities of daily living (ADLs) and/or providing social supervision, homemaking, life coach and companion hours.",
+      "position": "Caregiver"
+    },
+    {
+      "id": "2492228",
+      "title": "LPN/RN Needed (Part-Time/Full-Time)",
+      "location": "Missoula, MT",
+      "employmentStatus": "Full Time - hourly",
+      "url": "https://careers.hireology.com/meadowlarkhomecare3/2492228/description",
+      "summary": "We are hiring for part-time and full-time positions to work with our agency. Our current nursing needs are shift work.",
+      "position": "Nurse"
+    },
+    {
+      "id": "2492229",
+      "title": "PCA/CNA Home Care",
+      "location": "Great Falls, MT",
+      "employmentStatus": "Full Time - hourly",
+      "url": "https://careers.hireology.com/meadowlarkhomecare3/2492229/description",
+      "summary": "We are hiring for full time and part-time positions starting at $19.25/hr. Open availability is a plus; however, we are specifically seeking someone who is available to work Fridays, Saturdays, and Sundays.",
+      "position": "Caregiver"
+    },
+    {
+      "id": "508576",
+      "title": "LPN/RN Needed (Part-Time/Full-Time)",
+      "location": "Great Falls, MT",
+      "employmentStatus": "Full Time - hourly",
+      "url": "https://careers.hireology.com/meadowlarkhomecare3/508576/description",
+      "summary": "We are hiring for part-time and full-time positions to work with our agency. We are currently looking more for shift work (4-12 hours).",
+      "position": "Nurse"
+    }
+  ]
+}

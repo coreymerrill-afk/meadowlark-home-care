@@ -1,13 +1,19 @@
 "use client";
 
-import { useActionState, type ReactNode } from "react";
+import { useActionState, useState, type ReactNode } from "react";
 
 import { submitApply } from "@/app/actions/apply";
 import { buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { initialApplyState } from "@/lib/apply";
+import { initialApplyState, type ApplyField } from "@/lib/apply";
+import {
+  GENERAL_HIREOLOGY_JOB_ID,
+  findHireologyJob,
+  officeFromHireologyLocation,
+  type HireologyJob,
+} from "@/lib/hireology-jobs";
 import {
   applyAvailabilityOptions,
   applyExperienceOptions,
@@ -15,11 +21,45 @@ import {
   applyPositionOptions,
   applyYesNoOptions,
   site,
+  type ApplyOffice,
+  type ApplyPosition,
 } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function ApplyForm() {
+export function ApplyForm({
+  jobs,
+  initialJobId,
+}: {
+  jobs: HireologyJob[];
+  initialJobId?: string;
+}) {
   const [state, action, pending] = useActionState(submitApply, initialApplyState);
+  const initialJob = findHireologyJob(initialJobId, jobs);
+  const [jobId, setJobId] = useState(
+    initialJob?.id ?? (jobs.length > 0 ? GENERAL_HIREOLOGY_JOB_ID : "")
+  );
+  const [position, setPosition] = useState<ApplyPosition | "">(
+    initialJob?.position ?? ""
+  );
+  const [office, setOffice] = useState<ApplyOffice>(
+    (initialJob && officeFromHireologyLocation(initialJob.location)) || "Either"
+  );
+  const [experience, setExperience] = useState("");
+
+  function selectJob(id: string) {
+    setJobId(id);
+    const job = findHireologyJob(id, jobs);
+    if (!job) {
+      return;
+    }
+    if (job.position) {
+      setPosition(job.position);
+    }
+    const nextOffice = officeFromHireologyLocation(job.location);
+    if (nextOffice) {
+      setOffice(nextOffice);
+    }
+  }
 
   if (state.status === "success") {
     return (
@@ -30,8 +70,10 @@ export function ApplyForm() {
     );
   }
 
+  const job1Required = experience !== "" && experience !== "None yet";
+
   return (
-    <form action={action} className="space-y-8" noValidate>
+    <form id="application" action={action} className="space-y-8" noValidate>
       <input
         type="text"
         name="companyWebsite"
@@ -40,6 +82,61 @@ export function ApplyForm() {
         className="hidden"
         aria-hidden="true"
       />
+
+      {jobs.length > 0 ? (
+        <FormSection title="Opening">
+          <fieldset className="space-y-3">
+            <legend className="text-sm font-medium">Which opening?</legend>
+            <div className="space-y-2">
+              {jobs.map((job) => (
+                <label
+                  key={job.id}
+                  className="flex cursor-pointer items-start gap-3 rounded-2xl bg-secondary px-4 py-3 text-sm ring-1 ring-foreground/10 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:checked]:bg-teal/[0.12] has-[:checked]:ring-teal"
+                >
+                  <input
+                    type="radio"
+                    name="hireologyJobId"
+                    value={job.id}
+                    required
+                    checked={jobId === job.id}
+                    onChange={() => selectJob(job.id)}
+                    className="sr-only"
+                  />
+                  <span>
+                    <span className="block font-medium">{job.title}</span>
+                    <span className="block text-muted-foreground">
+                      {job.location}
+                      {job.position ? ` · ${job.position}` : ""}
+                    </span>
+                  </span>
+                </label>
+              ))}
+              <label className="flex cursor-pointer items-start gap-3 rounded-2xl bg-secondary px-4 py-3 text-sm ring-1 ring-foreground/10 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:checked]:bg-teal/[0.12] has-[:checked]:ring-teal">
+                <input
+                  type="radio"
+                  name="hireologyJobId"
+                  value={GENERAL_HIREOLOGY_JOB_ID}
+                  required
+                  checked={jobId === GENERAL_HIREOLOGY_JOB_ID}
+                  onChange={() => selectJob(GENERAL_HIREOLOGY_JOB_ID)}
+                  className="sr-only"
+                />
+                <span>
+                  <span className="block font-medium">General application</span>
+                  <span className="block text-muted-foreground">
+                    Not applying to a listed opening
+                  </span>
+                </span>
+              </label>
+            </div>
+            {state.fieldErrors?.hireologyJobId ? (
+              <p className="text-sm text-destructive" role="alert">
+                {state.fieldErrors.hireologyJobId}
+              </p>
+            ) : null}
+          </fieldset>
+        </FormSection>
+      ) : null}
 
       <FormSection title="About you">
         <Field id="name" label="Name" error={state.fieldErrors?.name}>
@@ -84,7 +181,8 @@ export function ApplyForm() {
           name="office"
           options={applyOfficeOptions}
           error={state.fieldErrors?.office}
-          defaultValue="Either"
+          value={office}
+          onChange={(value) => setOffice(value as ApplyOffice)}
         />
       </FormSection>
 
@@ -94,6 +192,8 @@ export function ApplyForm() {
           name="position"
           options={applyPositionOptions}
           error={state.fieldErrors?.position}
+          value={position}
+          onChange={(value) => setPosition(value as ApplyPosition)}
         />
         <ChoiceGroup
           legend="Availability"
@@ -123,6 +223,8 @@ export function ApplyForm() {
           name="experience"
           options={applyExperienceOptions}
           error={state.fieldErrors?.experience}
+          value={experience}
+          onChange={setExperience}
         />
         <ChoiceGroup
           legend="Driver’s license and reliable transportation"
@@ -135,6 +237,53 @@ export function ApplyForm() {
           name="eligibleToWork"
           options={applyYesNoOptions}
           error={state.fieldErrors?.eligibleToWork}
+        />
+        <Field
+          id="certifications"
+          label="Certifications or license notes (optional)"
+          error={state.fieldErrors?.certifications}
+        >
+          <Input
+            id="certifications"
+            name="certifications"
+            maxLength={400}
+            placeholder="CNA, RN/LPN license #, other…"
+            aria-invalid={Boolean(state.fieldErrors?.certifications)}
+            className="h-12 bg-card"
+          />
+        </Field>
+      </FormSection>
+
+      <FormSection title="Recent work">
+        <p className="text-sm text-muted-foreground">
+          Most recent job
+          {job1Required ? "" : " — skip if you selected None yet"}.
+        </p>
+        <JobFields
+          prefix="job1"
+          required={job1Required}
+          errors={state.fieldErrors}
+        />
+        <p className="pt-2 text-sm text-muted-foreground">
+          Second job (optional)
+        </p>
+        <JobFields prefix="job2" errors={state.fieldErrors} />
+      </FormSection>
+
+      <FormSection title="References">
+        <p className="text-sm text-muted-foreground">
+          One reference is required. A second is helpful if you have one.
+        </p>
+        <ReferenceFields
+          prefix="ref1"
+          heading="Reference 1"
+          required
+          errors={state.fieldErrors}
+        />
+        <ReferenceFields
+          prefix="ref2"
+          heading="Reference 2 (optional)"
+          errors={state.fieldErrors}
         />
       </FormSection>
 
@@ -155,7 +304,7 @@ export function ApplyForm() {
         </Field>
         <Field
           id="note"
-          label="Why Meadowlark, or notes (optional)"
+          label="Other notes (optional)"
           error={state.fieldErrors?.note}
         >
           <Textarea
@@ -163,7 +312,7 @@ export function ApplyForm() {
             name="note"
             rows={3}
             maxLength={600}
-            placeholder="A sentence or two is plenty"
+            placeholder="Schedule questions, or anything else we should know"
             aria-invalid={Boolean(state.fieldErrors?.note)}
             className="bg-card"
           />
@@ -212,6 +361,157 @@ export function ApplyForm() {
   );
 }
 
+function JobFields({
+  prefix,
+  required = false,
+  errors,
+}: {
+  prefix: "job1" | "job2";
+  required?: boolean;
+  errors?: Partial<Record<ApplyField, string>>;
+}) {
+  const employer = `${prefix}Employer` as const;
+  const title = `${prefix}Title` as const;
+  const when = `${prefix}When` as const;
+  const duties = `${prefix}Duties` as const;
+
+  return (
+    <div className="space-y-4 rounded-2xl bg-secondary/60 p-4 ring-1 ring-foreground/5">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field
+          id={employer}
+          label={required ? "Employer" : "Employer (optional)"}
+          error={errors?.[employer]}
+        >
+          <Input
+            id={employer}
+            name={employer}
+            required={required}
+            maxLength={120}
+            autoComplete="organization"
+            aria-invalid={Boolean(errors?.[employer])}
+            className="h-12 bg-card"
+          />
+        </Field>
+        <Field
+          id={title}
+          label={required ? "Role / title" : "Role / title (optional)"}
+          error={errors?.[title]}
+        >
+          <Input
+            id={title}
+            name={title}
+            required={required}
+            maxLength={120}
+            autoComplete="organization-title"
+            aria-invalid={Boolean(errors?.[title])}
+            className="h-12 bg-card"
+          />
+        </Field>
+      </div>
+      <Field
+        id={when}
+        label="When, or years (optional)"
+        error={errors?.[when]}
+      >
+        <Input
+          id={when}
+          name={when}
+          maxLength={80}
+          placeholder="2023–2025, or 2 years"
+          aria-invalid={Boolean(errors?.[when])}
+          className="h-12 bg-card"
+        />
+      </Field>
+      <Field
+        id={duties}
+        label="Brief duties (optional)"
+        error={errors?.[duties]}
+      >
+        <Textarea
+          id={duties}
+          name={duties}
+          rows={2}
+          maxLength={400}
+          placeholder="Personal care, companionship…"
+          aria-invalid={Boolean(errors?.[duties])}
+          className="bg-card"
+        />
+      </Field>
+    </div>
+  );
+}
+
+function ReferenceFields({
+  prefix,
+  heading,
+  required = false,
+  errors,
+}: {
+  prefix: "ref1" | "ref2";
+  heading: string;
+  required?: boolean;
+  errors?: Partial<Record<ApplyField, string>>;
+}) {
+  const name = `${prefix}Name` as const;
+  const relationship = `${prefix}Relationship` as const;
+  const contact = `${prefix}Contact` as const;
+
+  return (
+    <div className="space-y-4 rounded-2xl bg-secondary/60 p-4 ring-1 ring-foreground/5">
+      <p className="text-sm font-medium">{heading}</p>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field
+          id={name}
+          label={required ? "Name" : "Name (optional)"}
+          error={errors?.[name]}
+        >
+          <Input
+            id={name}
+            name={name}
+            required={required}
+            maxLength={120}
+            autoComplete="off"
+            aria-invalid={Boolean(errors?.[name])}
+            className="h-12 bg-card"
+          />
+        </Field>
+        <Field
+          id={relationship}
+          label="Relationship (optional)"
+          error={errors?.[relationship]}
+        >
+          <Input
+            id={relationship}
+            name={relationship}
+            maxLength={80}
+            placeholder="Supervisor, coworker…"
+            autoComplete="off"
+            aria-invalid={Boolean(errors?.[relationship])}
+            className="h-12 bg-card"
+          />
+        </Field>
+      </div>
+      <Field
+        id={contact}
+        label={required ? "Phone or email" : "Phone or email (optional)"}
+        error={errors?.[contact]}
+      >
+        <Input
+          id={contact}
+          name={contact}
+          required={required}
+          maxLength={120}
+          placeholder="Phone or email"
+          autoComplete="off"
+          aria-invalid={Boolean(errors?.[contact])}
+          className="h-12 bg-card"
+        />
+      </Field>
+    </div>
+  );
+}
+
 function FormSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="space-y-5">
@@ -253,12 +553,16 @@ function ChoiceGroup({
   options,
   error,
   defaultValue,
+  value,
+  onChange,
 }: {
   legend: string;
   name: string;
   options: readonly string[];
   error?: string;
   defaultValue?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
   return (
     <fieldset className="space-y-3">
@@ -275,7 +579,11 @@ function ChoiceGroup({
               value={option}
               required
               className="sr-only"
-              defaultChecked={defaultValue === option}
+              checked={value === undefined ? undefined : value === option}
+              defaultChecked={
+                value === undefined ? defaultValue === option : undefined
+              }
+              onChange={onChange ? () => onChange(option) : undefined}
             />
             {option}
           </label>
