@@ -1,13 +1,21 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 
-import { NATALIE_REDMAN_ADMIN_EMAIL } from "@/lib/staff-access";
+import { normalizeEmail } from "@/lib/caregiver-whitelist";
+import {
+  NATALIE_REDMAN_ADMIN_EMAIL,
+  NATALIE_REDMAN_GMAIL_ADMIN_EMAIL,
+} from "@/lib/staff-access";
 
 export const EMPLOYMENT_FORM_PEOPLE = [
   {
     slug: "natalie-redman",
     name: "Natalie Redman",
     email: NATALIE_REDMAN_ADMIN_EMAIL,
+    emails: [
+      NATALIE_REDMAN_ADMIN_EMAIL,
+      NATALIE_REDMAN_GMAIL_ADMIN_EMAIL,
+    ],
     title: "Co-founder",
   },
 ] as const;
@@ -70,6 +78,38 @@ export function getEmploymentFormPerson(
   slug: string
 ): EmploymentFormPerson | undefined {
   return EMPLOYMENT_FORM_PEOPLE.find((person) => person.slug === slug);
+}
+
+export function employmentFormPersonEmails(
+  person: EmploymentFormPerson
+): readonly string[] {
+  return person.emails;
+}
+
+export function formatEmploymentFormPersonEmails(
+  person: EmploymentFormPerson
+): string {
+  return person.emails.join(", ");
+}
+
+/**
+ * Resolve a person packet from any of their admin identities. Natalie
+ * Redman’s packet is the same whether she signed in as
+ * nredman@meadowlarkhomecare.com or nredman44@gmail.com.
+ */
+export function getEmploymentFormPersonByEmail(
+  email: string
+): EmploymentFormPerson | undefined {
+  const normalized = normalizeEmail(email);
+  if (!normalized) {
+    return undefined;
+  }
+
+  return EMPLOYMENT_FORM_PEOPLE.find((person) =>
+    employmentFormPersonEmails(person).some(
+      (item) => normalizeEmail(item) === normalized
+    )
+  );
 }
 
 export function employmentFormsDirectory(personSlug: string): string {
