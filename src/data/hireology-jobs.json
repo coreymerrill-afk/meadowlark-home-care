@@ -1,24 +1,15 @@
 {
-  "fetchedAt": "2026-09-13T00:54:17.161Z",
-  "source": "https://api.hireology.com/v2/public/careers/meadowlarkhomecare3",
+  "fetchedAt": "2026-09-13T00:00:00.000Z",
+  "source": "https://careers.hireology.com/meadowlarkhomecare3",
   "careersUrl": "https://careers.hireology.com/meadowlarkhomecare3",
   "jobs": [
-    {
-      "id": "2492227",
-      "title": "PCA/CNA Needed",
-      "location": "Missoula, MT",
-      "employmentStatus": "Full Time - hourly",
-      "url": "https://careers.hireology.com/meadowlarkhomecare3/2492227/description",
-      "summary": "We are hiring for part-time and full-time positions to work with our agency. We have evenings and days available starting at $18.75/hour.",
-      "position": "Caregiver"
-    },
     {
       "id": "2568343",
       "title": "PCA/CNA Needed",
       "location": "Missoula, MT",
       "employmentStatus": "Part Time - hourly",
       "url": "https://careers.hireology.com/meadowlarkhomecare3/2568343/description",
-      "summary": "We are hiring for full time and part-time positions starting at $19.25/hr. Open availability is a plus; however, we are specifically seeking someone who is available to work Fridays, Saturdays, and Sundays.",
+      "summary": "Full- and part-time in-home care starting at $19.25/hour, with particular need for Friday-Sunday availability. Duties include assisting with activities of daily living, bathing, hygiene, meal preparation, mobility, social supervision, homemaking, life-coach and companion support. Requires current CNA/PCA certification (waiver or training may be available), compassion, ability to lift 50 lb, a driver's license, insurance and reliable transportation.",
       "position": "Caregiver"
     },
     {
@@ -27,7 +18,16 @@
       "location": "Missoula, MT",
       "employmentStatus": "Full Time - hourly",
       "url": "https://careers.hireology.com/meadowlarkhomecare3/2492230/description",
-      "summary": "We are hiring for full time and part-time positions starting at $19.25/hr. Being an in-home care provider means assisting our members with their activities of daily living (ADLs) and/or providing social supervision, homemaking, life coach and companion hours.",
+      "summary": "Full-time listing (description also says part-time positions are available) starting at $19.25/hour. In-home caregiver duties cover activities of daily living, bathing, hygiene, meal preparation, mobility, social supervision, homemaking, life-coach and companion support. Requires current CNA/PCA certification (waiver or training may be available), compassion, ability to lift 50 lb, a driver's license, insurance and reliable transportation.",
+      "position": "Caregiver"
+    },
+    {
+      "id": "2492229",
+      "title": "PCA/CNA Home Care",
+      "location": "Great Falls, MT",
+      "employmentStatus": "Full Time - hourly",
+      "url": "https://careers.hireology.com/meadowlarkhomecare3/2492229/description",
+      "summary": "Full-time listing (description also says part-time positions are available) starting at $19.25/hour, with particular need for Friday-Sunday availability. Provides in-home support with activities of daily living, bathing, hygiene, meal preparation, mobility, social supervision, homemaking, life-coach and companion hours. Requires current CNA/PCA certification (waiver or training may be available), compassion, ability to lift 50 lb, a driver's license, insurance and reliable transportation.",
       "position": "Caregiver"
     },
     {
@@ -36,16 +36,16 @@
       "location": "Missoula, MT",
       "employmentStatus": "Full Time - hourly",
       "url": "https://careers.hireology.com/meadowlarkhomecare3/2492228/description",
-      "summary": "We are hiring for part-time and full-time positions to work with our agency. Our current nursing needs are shift work.",
+      "summary": "Part-time and full-time nursing role, primarily shift work. Nurses perform nursing tasks while also handling activities of daily living and home management. Requires current RN or LPN certification (waiver or training may be available), compassion, ability to lift 50 lb, a driver's license, insurance and reliable transportation.",
       "position": "Nurse"
     },
     {
-      "id": "2492229",
-      "title": "PCA/CNA Home Care",
-      "location": "Great Falls, MT",
+      "id": "2492227",
+      "title": "PCA/CNA Needed",
+      "location": "Missoula, MT",
       "employmentStatus": "Full Time - hourly",
-      "url": "https://careers.hireology.com/meadowlarkhomecare3/2492229/description",
-      "summary": "We are hiring for full time and part-time positions starting at $19.25/hr. Open availability is a plus; however, we are specifically seeking someone who is available to work Fridays, Saturdays, and Sundays.",
+      "url": "https://careers.hireology.com/meadowlarkhomecare3/2492227/description",
+      "summary": "Part-time and full-time caregiver role with evening and day availability starting at $18.75/hour. Duties include activities of daily living, bathing, hygiene, meal preparation, mobility, social supervision, homemaking, life-coach and companion support. Requires current CNA/PCA certification (waiver or training may be available), compassion, ability to lift 50 lb, a driver's license, insurance and reliable transportation.",
       "position": "Caregiver"
     },
     {
@@ -54,7 +54,7 @@
       "location": "Great Falls, MT",
       "employmentStatus": "Full Time - hourly",
       "url": "https://careers.hireology.com/meadowlarkhomecare3/508576/description",
-      "summary": "We are hiring for part-time and full-time positions to work with our agency. We are currently looking more for shift work (4-12 hours).",
+      "summary": "Part-time and full-time nursing role, especially shift assignments of 4-12 hours, supporting new incoming clients. Nurses handle nursing tasks plus activities of daily living and home management; shorter visits may cover medication management, bowel-care programs and foot care. Requires current RN or LPN certification (waiver or training may be available), compassion, ability to lift 50 lb, a driver's license, insurance and reliable transportation.",
       "position": "Nurse"
     }
   ]

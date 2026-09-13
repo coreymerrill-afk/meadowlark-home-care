@@ -4,7 +4,7 @@
  * No API key required. See docs/hireology-jobs.md.
  */
 
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const CAREERS_SLUG = "meadowlarkhomecare3";
@@ -148,6 +148,18 @@ async function fetchJobs() {
   return jobs;
 }
 
+const previousSummaries = new Map();
+try {
+  const previous = JSON.parse(await readFile(OUTPUT, "utf8"));
+  for (const job of previous.jobs ?? []) {
+    if (job?.id && job.summary) {
+      previousSummaries.set(String(job.id), String(job.summary));
+    }
+  }
+} catch {
+  // First run — no checked-in file yet.
+}
+
 const rawJobs = await fetchJobs();
 const openJobs = rawJobs.filter((job) => job.status === "Open");
 
@@ -156,17 +168,19 @@ if (openJobs.length === 0) {
 }
 
 const jobs = sortJobs(
-  openJobs.map((job) => ({
-    id: String(job.id),
-    title: String(job.name ?? "").trim(),
-    location: formatLocation(job.locations),
-    employmentStatus: String(job.employment_status ?? "").trim(),
-    url:
-      job.career_site_url ||
-      `${CAREERS_URL}/${job.id}/description`,
-    summary: summarizeDescription(job.job_description),
-    position: mapTitleToPosition(String(job.name ?? "")),
-  }))
+  openJobs.map((job) => {
+    const id = String(job.id);
+    return {
+      id,
+      title: String(job.name ?? "").trim(),
+      location: formatLocation(job.locations),
+      employmentStatus: String(job.employment_status ?? "").trim(),
+      url: job.career_site_url || `${CAREERS_URL}/${job.id}/description`,
+      summary:
+        previousSummaries.get(id) || summarizeDescription(job.job_description),
+      position: mapTitleToPosition(String(job.name ?? "")),
+    };
+  })
 );
 
 const file = {

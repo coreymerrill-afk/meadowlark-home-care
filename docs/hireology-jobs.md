@@ -14,7 +14,7 @@ No API key or other secret is required. Only `status: "Open"` rows are kept.
 npm run refresh:hireology-jobs
 ```
 
-That writes `src/data/hireology-jobs.json`. Commit the file when titles, locations, or summaries change.
+That writes `src/data/hireology-jobs.json`. Existing summaries are kept when the same job id is still open, so curated blurbs are not overwritten. Commit the file when titles, locations, or listings change. To rewrite a blurb, edit the JSON `summary` by hand.
 
 Titles map to **Caregiver** (PCA/CNA and similar) or **Nurse** (LPN/RN) when the name is clear. Unmapped titles still appear; the applicant picks Caregiver or Nurse on the form.
 
