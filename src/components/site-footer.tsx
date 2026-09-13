@@ -63,11 +63,13 @@ export function SiteFooter() {
               <a href={site.contactEmailHref} className="hover:underline">
                 {site.contactEmail}
               </a>
+              <span className="text-white/55"> · general</span>
             </li>
             <li>
               <a href={site.careersEmailHref} className="hover:underline">
                 {site.careersEmail}
               </a>
+              <span className="text-white/55"> · careers</span>
             </li>
             <li>
               <a

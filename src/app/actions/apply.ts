@@ -43,7 +43,7 @@ export async function submitApply(
   const { subject, text, html } = formatApplyEmail(payload);
 
   if (!apiKey) {
-    console.info("[apply form preview]", { to, subject, ...payload });
+    console.info("[apply form preview]", { to, subject, text });
     return {
       status: "success",
       mode: "preview",
