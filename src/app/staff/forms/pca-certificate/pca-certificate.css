@@ -1,5 +1,5 @@
 @page {
-  size: letter portrait;
+  size: letter landscape;
   margin: 0;
 }
 
@@ -29,6 +29,7 @@
   .pca-print-sheet {
     margin-inline: auto;
     box-shadow: 0 12px 32px -16px rgba(0, 52, 65, 0.35);
+    zoom: 0.72;
   }
 }
 
@@ -36,7 +37,7 @@
   html[data-pca-certificate-print],
   html[data-pca-certificate-print] body {
     background: #fff !important;
-    height: 11in;
+    height: 8.5in;
     overflow: hidden;
   }
 
@@ -70,5 +71,6 @@
     margin: 0;
     box-shadow: none;
     background: #fff;
+    zoom: 1;
   }
 }
