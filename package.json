@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test src/lib/apply.test.ts src/lib/hireology-jobs.test.ts src/lib/mail.test.ts src/lib/auth-env.test.ts",
+    "test": "tsx --test src/lib/apply.test.ts src/lib/hireology-jobs.test.ts src/lib/mail.test.ts src/lib/auth-env.test.ts src/lib/pca-certificate.test.ts",
     "refresh:hireology-jobs": "node scripts/refresh-hireology-jobs.mjs"
   },
   "dependencies": {

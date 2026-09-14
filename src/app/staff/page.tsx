@@ -115,6 +115,13 @@ function AdminPortal({
         >
           SLTC phone form filler
         </Link>
+        {" · "}
+        <Link
+          href="/staff/forms/pca-certificate"
+          className="font-medium text-teal underline-offset-4 hover:underline"
+        >
+          PCA certificate
+        </Link>
       </p>
     </section>
   );
