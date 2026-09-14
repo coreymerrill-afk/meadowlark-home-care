@@ -36,7 +36,7 @@ export function PcaCertificateForm({
   const [certificationDate, setCertificationDate] = useState(todayIsoDate);
   const [supervisorName, setSupervisorName] = useState(defaultSupervisorName);
   const [pathway, setPathway] = useState<PcaCertificatePathway>("training");
-  const [explanation, setExplanation] = useState(
+  const [explanation, setExplanation] = useState<string>(
     DEFAULT_PCA_CERTIFICATE_EXPLANATION
   );
   const [signatureDataUrl, setSignatureDataUrl] = useState("");
