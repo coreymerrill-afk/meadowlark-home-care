@@ -1,0 +1,74 @@
+@page {
+  size: letter portrait;
+  margin: 0;
+}
+
+.pca-print-sheet {
+  width: var(--pca-page-width);
+  min-height: var(--pca-page-height);
+  padding: var(--pca-page-margin-y) var(--pca-page-margin-x);
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.pca-print-block {
+  width: var(--pca-block-width);
+  height: var(--pca-block-height);
+  box-sizing: border-box;
+  border: 0.6pt dashed #b7b0a4;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+@media screen {
+  .pca-preview-frame {
+    overflow: auto;
+    background: color-mix(in srgb, #003441 8%, #faf6ee);
+  }
+
+  .pca-print-sheet {
+    margin-inline: auto;
+    box-shadow: 0 12px 32px -16px rgba(0, 52, 65, 0.35);
+  }
+}
+
+@media print {
+  html[data-pca-certificate-print],
+  html[data-pca-certificate-print] body {
+    background: #fff !important;
+    height: 11in;
+    overflow: hidden;
+  }
+
+  html[data-pca-certificate-print] body * {
+    visibility: hidden;
+  }
+
+  html[data-pca-certificate-print] .pca-print-sheet,
+  html[data-pca-certificate-print] .pca-print-sheet * {
+    visibility: visible;
+  }
+
+  html[data-pca-certificate-print] header,
+  html[data-pca-certificate-print] footer,
+  html[data-pca-certificate-print] [data-staff-session-bar],
+  html[data-pca-certificate-print] .pca-no-print {
+    display: none !important;
+  }
+
+  html[data-pca-certificate-print] .pca-preview-frame {
+    overflow: visible;
+    background: transparent;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+  html[data-pca-certificate-print] .pca-print-sheet {
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    box-shadow: none;
+    background: #fff;
+  }
+}

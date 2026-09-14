@@ -23,6 +23,7 @@ Header/footer **Login** goes to `/login`. `robots.txt` keeps `Disallow: /staff/`
 - `/staff/employment-forms` — **admin-only** on-hire hub (shared templates + Natalie Redman’s packet at `/staff/employment-forms/natalie-redman`)
 - `/staff/forms` — **admin-only** forms hub (quiet link from admin landing)
 - `/staff/forms/sltc` — SLTC phone form filler entry (Apps Script CTA; Meadowlark Google account required)
+- `/staff/forms/pca-certificate` — **admin-only** PCA certificate insert (print on US Letter, cut, paste inside gold-foil paper). Size constants live in `src/lib/pca-certificate.ts` (`PCA_CERTIFICATE_PRINT`).
 
 Staff documents live in `content/staff-docs/` and are served only after login. Do not put them in `public/`. All four PDFs (handbook, HIPAA, AxisCare mobile guide, tip sheet) are committed.
 

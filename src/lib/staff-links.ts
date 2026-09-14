@@ -118,7 +118,8 @@ export const adminSecondaryResources: StaffResource[] = [
   {
     title: "Forms hub",
     href: "/staff/forms",
-    description: "Internal Medicaid / SLTC tools, including the phone form filler.",
+    description:
+      "Internal Medicaid / SLTC tools and the PCA certificate printer.",
     external: false,
   },
 ];

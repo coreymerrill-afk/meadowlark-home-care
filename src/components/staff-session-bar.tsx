@@ -22,7 +22,10 @@ function roleLabel(role: StaffSession["role"]): string {
 
 export function StaffSessionBar({ session }: { session: StaffSession }) {
   return (
-    <div className="border-b border-border bg-card/80">
+    <div
+      data-staff-session-bar=""
+      className="border-b border-border bg-card/80"
+    >
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p className="text-sm text-muted-foreground">
           <span className="font-medium text-foreground">{session.email}</span>
