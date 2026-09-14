@@ -9,7 +9,13 @@ import {
   readApplyForm,
   type ApplyState,
 } from "@/lib/apply";
-import { applyInbox, publicFromEmail } from "@/lib/mail";
+import { getResendApiKey } from "@/lib/auth-env";
+import {
+  applyInbox,
+  logResendError,
+  publicFromEmail,
+  publicSendFailureMessage,
+} from "@/lib/mail";
 import { site } from "@/lib/site";
 
 export type { ApplyState } from "@/lib/apply";
@@ -37,7 +43,7 @@ export async function submitApply(
   }
 
   const payload = parsed.data;
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = getResendApiKey();
   const to = applyInbox();
   const from = publicFromEmail();
   const { subject, text, html } = formatApplyEmail(payload);
@@ -63,17 +69,23 @@ export async function submitApply(
     });
 
     if (error) {
-      console.error("[apply form]", error);
+      logResendError("apply form", error);
       return {
         status: "error",
-        message: `We could not send that just now. Please call ${site.phone} or email ${site.careersEmail}.`,
+        message: publicSendFailureMessage(error, {
+          phone: site.phone,
+          email: site.careersEmail,
+        }),
       };
     }
   } catch (error) {
-    console.error("[apply form]", error);
+    logResendError("apply form", error);
     return {
       status: "error",
-      message: `We could not send that just now. Please call ${site.phone} or email ${site.careersEmail}.`,
+      message: publicSendFailureMessage(error, {
+        phone: site.phone,
+        email: site.careersEmail,
+      }),
     };
   }
 

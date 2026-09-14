@@ -7,7 +7,7 @@ The site replaces the previous HostGator pages with five public routes:
 - `/` — home, services overview, dual CTAs
 - `/about` — founders and mission
 - `/services` — four Compass cards: CFCS/PCS, HCBS waiver, nursing, private pay & VA / third party
-- `/apply` — employment application (Caregiver or Nurse, Hireology openings, availability, work history, references, optional notes)
+- `/apply` — employment application (Caregiver or Nurse, generic PCA/CNA and LPN/RN descriptions, availability, work history, references, optional notes)
 - `/work-with-us` — hiring areas, PTO, raises, advancement, short `/apply` form
 - `/contact` — office details and a working contact form
 
@@ -48,7 +48,7 @@ npm run build    # production build
 npm run start    # serve the production build
 npm run lint     # ESLint
 npm run test     # Apply form + Hireology listing checks
-npm run refresh:hireology-jobs  # Update src/data/hireology-jobs.json
+npm run refresh:hireology-jobs  # Print live Hireology listings (does not overwrite generic roles)
 ```
 
 ## Contact and apply email
@@ -58,11 +58,11 @@ The public contact form posts to `src/app/actions/contact.ts`. Employment applic
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | **Required on Vercel Production before DNS cutover** | Must be `https://www.meadowlarkhomecare.com`. Drives canonical URLs, `og:url`, sitemap, and the sitemap line in `robots.txt`. Localhost values from `.env.local` are ignored on production builds. If unset, the build falls back to `VERCEL_PROJECT_PRODUCTION_URL` / `VERCEL_URL`, then `https://www.meadowlarkhomecare.com`. |
-| `RESEND_API_KEY` | For live email | Sends submissions through [Resend](https://resend.com). |
+| `RESEND_API_KEY` | For live email | Sends submissions through [Resend](https://resend.com). Apply, contact, and staff email use `getResendApiKey()`, which prefers `AUTH_RESEND_KEY` then this key. |
 | `CONTACT_FROM_EMAIL` | With Resend | Must use a domain verified in Resend. Example: `Meadowlark Home Care <noreply@meadowlarkhomecare.com>`. |
 | `CONTACT_TO_EMAIL` | With Resend | Inbox for **Request care** and **General** on the contact form. Defaults to `info@meadowlarkhomecare.com`. **Join the team** on that form, and all `/apply` submissions, go to `hr@meadowlarkhomecare.com` (`site.careersEmail`) and do not use this variable. |
 
-Without `RESEND_API_KEY`, the form still validates and submits. It logs the message on the server and returns a preview-mode success so local and Vercel preview deploys are usable before email is configured.
+Without `AUTH_RESEND_KEY` or `RESEND_API_KEY`, the form still validates and submits. It logs the message on the server and returns a preview-mode success so local and Vercel preview deploys are usable before email is configured.
 
 ## Staff auth
 
@@ -92,7 +92,7 @@ Google OAuth leftover (exact redirect URIs): **[STAFF_AUTH_SETUP.md](./STAFF_AUT
 | --- | --- | --- |
 | `AUTH_SECRET` | Runtime sign-in | Session + magic-link signing. Generate with `npx auth secret`. |
 | `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | Google SSO | Google Cloud OAuth client. Production redirect: `https://www.meadowlarkhomecare.com/api/auth/callback/google`. |
-| `AUTH_RESEND_KEY` | Optional | Preferred staff Resend key. Falls back to `RESEND_API_KEY` (already on Vercel). Contact/apply read `RESEND_API_KEY` only. |
+| `AUTH_RESEND_KEY` | Optional | Preferred Resend key for apply, contact, and staff email. Falls back to `RESEND_API_KEY`. |
 | `AUTH_URL` | Recommended on Vercel | Canonical origin. Production/Preview: `https://www.meadowlarkhomecare.com`. |
 | `AUTH_TRUST_HOST` | Recommended on Vercel | Set `true`. Auth.js host trust (`src/auth.ts` also sets `trustHost: true`). |
 | `STAFF_WHITELIST_EMAILS` | Optional | Extra Active caregiver emails on top of the CSV. |
@@ -181,9 +181,9 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 - Services uses four Compass cards: agency-based CFCS/PCS (formerly CFC/PAS); HCBS Big Sky / SDMI / DD; skilled nursing; and private pay / insurance / VA Community Care with respite.Respite is offered. Shared eligibility disclaimer: the state or VA decides — not Meadowlark. Confirm on .gov pages.
 - The primary **Apply online** CTA is the short `/apply` form (emails `hr@meadowlarkhomecare.com` via Resend). AxisCare URL kept in `site.axisCareApplyUrl` as optional backup only.
 - Contact form: **Request care** and **General** email `info@meadowlarkhomecare.com` (`CONTACT_TO_EMAIL`, defaulting to `site.contactEmail`). **Join the team** emails `hr@`. Do not point `CONTACT_TO_EMAIL` at HR.
-- `/apply` lists current Hireology openings from `src/data/hireology-jobs.json` (refresh with `npm run refresh:hireology-jobs`; see [docs/hireology-jobs.md](docs/hireology-jobs.md)). The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) stays a quiet secondary browse-all link.
+- `/apply` shows two generic Hireology-derived roles (PCA/CNA caregiver and LPN/RN nurse, caregiver starting wage $19.75/hour) from `src/data/hireology-jobs.json`. See [docs/hireology-jobs.md](docs/hireology-jobs.md). The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) stays a quiet secondary browse-all link.
 - Facebook: [facebook.com/meadowlarkhomecare](https://www.facebook.com/meadowlarkhomecare/).
-- Contact form success copy is always visitor-facing. It never surfaces HostGator-style “server encountered an error” text. Without `RESEND_API_KEY`, submissions still succeed and are logged on the server.
+- Contact form success copy is always visitor-facing. It never surfaces HostGator-style “server encountered an error” text. Without `AUTH_RESEND_KEY` or `RESEND_API_KEY`, submissions still succeed and are logged on the server.
 
 ## Project layout
 
@@ -192,9 +192,9 @@ STAFF_AUTH_SETUP.md Google OAuth + Resend + Vercel env checklist
 src/app/            App Router pages, sitemap, robots, contact/apply/staff actions
 src/auth.ts         Auth.js config (Google + magic-link credentials)
 src/proxy.ts        Unauthenticated /staff/* → /login?next=...
-src/data/           AxisCare Active whitelist CSV, Hireology openings JSON, optional extras
+src/data/           AxisCare Active whitelist CSV, generic Hireology role JSON, optional extras
 content/staff-docs/ Authenticated PDFs (not publicly fetchable); Natalie packet in employment-forms/natalie-redman/
-docs/               Staff auth Vercel env notes; Hireology openings refresh
+docs/               Staff auth Vercel env notes; Hireology role notes
 src/components/     Header, footer, form, shared sections, shadcn/ui
 src/lib/site.ts     Business details used across pages
 public/images/      Page photography

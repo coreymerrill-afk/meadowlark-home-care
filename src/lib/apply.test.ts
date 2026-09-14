@@ -2,16 +2,8 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
 import { applySchema, formatApplyEmail } from "@/lib/apply";
-import {
-  GENERAL_HIREOLOGY_JOB_ID,
-  getHireologyJobs,
-} from "@/lib/hireology-jobs";
+import { describeApplyRole, hireologyCareersUrl } from "@/lib/hireology-jobs";
 import { applyPositionOptions } from "@/lib/site";
-
-const caregiverJob = getHireologyJobs().find(
-  (job) => job.position === "Caregiver"
-);
-const nurseJob = getHireologyJobs().find((job) => job.position === "Nurse");
 
 function validInput(overrides: Record<string, unknown> = {}) {
   return {
@@ -19,7 +11,6 @@ function validInput(overrides: Record<string, unknown> = {}) {
     email: "jane@example.com",
     phone: "406-555-0100",
     office: "Missoula",
-    hireologyJobId: caregiverJob?.id ?? GENERAL_HIREOLOGY_JOB_ID,
     position: "Caregiver",
     availability: "Part-time",
     availabilityNotes: "Weekends",
@@ -53,7 +44,6 @@ describe("applySchema", () => {
   it("accepts Nurse as a position", () => {
     const parsed = applySchema.safeParse(
       validInput({
-        hireologyJobId: nurseJob?.id ?? GENERAL_HIREOLOGY_JOB_ID,
         position: "Nurse",
         certifications: "RN 12345",
       })
@@ -68,21 +58,17 @@ describe("applySchema", () => {
     }
   });
 
-  it("requires a current opening or a general application", () => {
-    const parsed = applySchema.safeParse(
-      validInput({ hireologyJobId: "not-a-real-job" })
-    );
+  it("requires a Caregiver or Nurse position", () => {
+    const parsed = applySchema.safeParse(validInput({ position: undefined }));
     assert.equal(parsed.success, false);
-    if (!parsed.success) {
-      assert.equal(parsed.error.issues[0]?.path[0], "hireologyJobId");
-    }
   });
 
-  it("allows a general application", () => {
-    const parsed = applySchema.safeParse(
-      validInput({ hireologyJobId: GENERAL_HIREOLOGY_JOB_ID })
-    );
+  it("does not require a Hireology listing id", () => {
+    const parsed = applySchema.safeParse(validInput());
     assert.equal(parsed.success, true);
+    if (parsed.success) {
+      assert.equal("hireologyJobId" in parsed.data, false);
+    }
   });
 
   it("requires recent work unless experience is None yet", () => {
@@ -126,34 +112,35 @@ describe("applySchema", () => {
 });
 
 describe("formatApplyEmail", () => {
-  it("labels new fields and includes the Hireology listing URL", () => {
+  it("labels new fields and includes the Hireology board URL", () => {
     const parsed = applySchema.parse(validInput());
     const email = formatApplyEmail(parsed);
+    const caregiver = describeApplyRole("Caregiver");
+    const board = hireologyCareersUrl();
+    const escapedBoard = board.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
     assert.match(email.subject, /Jane Doe/);
     assert.match(email.subject, /Missoula/);
-    assert.match(email.text, /Opening:/);
-    assert.match(email.text, /Hireology listing:/);
+    assert.match(email.subject, /PCA\/CNA \(Caregiver\)/);
+    assert.match(email.text, /Role:/);
+    assert.match(email.text, /Hireology board:/);
     assert.match(email.text, /Most recent job/i);
     assert.match(email.text, /Valley Home Care/);
     assert.match(email.text, /Reference 1/i);
     assert.match(email.text, /Alex Rivera/);
     assert.match(email.text, /Other notes:/);
     assert.doesNotMatch(email.text, /Why Meadowlark/);
-
-    if (caregiverJob) {
-      assert.match(email.text, new RegExp(caregiverJob.title));
-      assert.match(email.text, new RegExp(caregiverJob.url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
-      assert.match(email.html, new RegExp(caregiverJob.url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
-    }
+    assert.doesNotMatch(email.text, /Opening:/);
+    assert.match(email.text, new RegExp(caregiver.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+    assert.match(email.text, new RegExp(escapedBoard));
+    assert.match(email.html, new RegExp(escapedBoard));
   });
 
-  it("uses a general-application label when no listing is selected", () => {
-    const parsed = applySchema.parse(
-      validInput({ hireologyJobId: GENERAL_HIREOLOGY_JOB_ID })
-    );
+  it("names the nurse role without a specific listing id", () => {
+    const parsed = applySchema.parse(validInput({ position: "Nurse" }));
     const email = formatApplyEmail(parsed);
-    assert.match(email.text, /General application \(no specific listing\)/);
+    assert.match(email.subject, /LPN\/RN \(Nurse\)/);
+    assert.match(email.text, /LPN\/RN \(Nurse\)/);
     assert.match(email.text, /careers\.hireology\.com\/meadowlarkhomecare3/);
   });
 });

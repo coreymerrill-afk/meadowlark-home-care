@@ -14,7 +14,7 @@ Google is **not** domain-locked. Personal Gmail (and other Google accounts) work
 | --- | --- |
 | `AUTH_SECRET` | Set — Production + Preview. Do not rotate. |
 | `AUTH_URL` | Production set to `https://www.meadowlarkhomecare.com`. Preview being set to the same. |
-| `RESEND_API_KEY` | Set (contact form). Staff magic-link + request-access use this as fallback. |
+| `RESEND_API_KEY` | Set (fallback for apply, contact, and staff email). |
 | `CONTACT_FROM_EMAIL` | Set (contact form). Same From address for staff email. |
 | `AUTH_TRUST_HOST` | Optional. `src/auth.ts` already sets `trustHost: true`. |
 | `AUTH_GOOGLE_ID` | **Not set — Corey** |
@@ -31,12 +31,10 @@ Google is **not** domain-locked. Personal Gmail (and other Google accounts) work
 process.env.AUTH_RESEND_KEY?.trim() || process.env.RESEND_API_KEY?.trim() || ""
 ```
 
-- Staff magic-link (`src/app/actions/staff-auth.ts`) and request-access (`src/app/actions/request-access.ts`) call `getResendApiKey()`.
-- Contact and apply read **`RESEND_API_KEY` only**.
+- Apply, contact, staff magic-link, request-access, and password-reset email all call `getResendApiKey()`.
+- That prefers `AUTH_RESEND_KEY`, then `RESEND_API_KEY`.
 
-Because `RESEND_API_KEY` is already on Vercel, magic-link and request-access email work **without** `AUTH_RESEND_KEY`.
-
-Optional later: mirror the same key to `AUTH_RESEND_KEY` on Production + Preview if you want Auth.js-style naming. Not required. Do not create a second Resend key unless you intend to rotate.
+If magic-link works but `/apply` does not, check that `AUTH_RESEND_KEY` is the working key and that `RESEND_API_KEY` is not an empty or stale override. Do not create a second Resend key unless you intend to rotate.
 
 From address for staff mail is `CONTACT_FROM_EMAIL` (already set). Inbox for request-access is `hr@meadowlarkhomecare.com` (`site.careersEmail`). `CONTACT_TO_EMAIL` is the public contact form inbox (`info@`).
 

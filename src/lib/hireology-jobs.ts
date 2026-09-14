@@ -1,30 +1,35 @@
 import hireologyJobsFile from "@/data/hireology-jobs.json";
 import {
   applyPositionOptions,
-  type ApplyOffice,
   type ApplyPosition,
 } from "@/lib/site";
 
-export const GENERAL_HIREOLOGY_JOB_ID = "general";
-
-export type HireologyJob = {
+export type HireologyRole = {
   id: string;
   title: string;
   location: string;
   employmentStatus: string;
-  url: string;
   summary: string;
-  position: ApplyPosition | null;
+  position: ApplyPosition;
 };
 
 export type HireologyJobsFile = {
-  fetchedAt: string;
+  updatedAt: string;
   source: string;
   careersUrl: string;
-  jobs: HireologyJob[];
+  startingWage: string;
+  roles: Array<Omit<HireologyRole, "position"> & { position?: ApplyPosition }>;
 };
 
 const file = hireologyJobsFile as HireologyJobsFile;
+
+export function hireologyCareersUrl() {
+  return file.careersUrl;
+}
+
+export function hireologyStartingWage() {
+  return file.startingWage;
+}
 
 export function mapHireologyTitleToPosition(title: string): ApplyPosition | null {
   const normalized = title.toLowerCase();
@@ -37,31 +42,26 @@ export function mapHireologyTitleToPosition(title: string): ApplyPosition | null
   return null;
 }
 
-export function officeFromHireologyLocation(
-  location: string
-): ApplyOffice | undefined {
-  const normalized = location.toLowerCase();
-  const missoula = normalized.includes("missoula");
-  const greatFalls = normalized.includes("great falls");
-  if (missoula && !greatFalls) {
-    return "Missoula";
-  }
-  if (greatFalls && !missoula) {
-    return "Great Falls";
-  }
-  return undefined;
-}
-
-function normalizeJob(job: HireologyJob): HireologyJob {
-  const mapped = mapHireologyTitleToPosition(job.title);
+function normalizeRole(
+  role: HireologyJobsFile["roles"][number]
+): HireologyRole | null {
+  const mapped = mapHireologyTitleToPosition(role.title);
   const position =
-    job.position && (applyPositionOptions as readonly string[]).includes(job.position)
-      ? job.position
+    role.position &&
+    (applyPositionOptions as readonly string[]).includes(role.position)
+      ? role.position
       : mapped;
 
+  if (!position) {
+    return null;
+  }
+
   return {
-    ...job,
-    id: String(job.id),
+    id: String(role.id),
+    title: role.title,
+    location: role.location,
+    employmentStatus: role.employmentStatus,
+    summary: role.summary,
     position,
   };
 }
@@ -70,45 +70,49 @@ export function getHireologyJobsFile(): HireologyJobsFile {
   return file;
 }
 
-export function getHireologyJobs(): HireologyJob[] {
-  return file.jobs.map(normalizeJob);
+export function getHireologyRoles(): HireologyRole[] {
+  return file.roles
+    .map(normalizeRole)
+    .filter((role): role is HireologyRole => role !== null);
 }
 
-export function findHireologyJob(
+export function findHireologyRole(
   id: string | undefined,
-  jobs: HireologyJob[] = getHireologyJobs()
-): HireologyJob | undefined {
-  if (!id || id === GENERAL_HIREOLOGY_JOB_ID) {
+  roles: HireologyRole[] = getHireologyRoles()
+): HireologyRole | undefined {
+  if (!id) {
     return undefined;
   }
-  return jobs.find((job) => job.id === id);
+  return roles.find((role) => role.id === id);
 }
 
-export function isHireologyJobId(
-  id: string,
-  jobs: HireologyJob[] = getHireologyJobs()
-): boolean {
-  if (id === GENERAL_HIREOLOGY_JOB_ID) {
-    return true;
+export function positionFromApplyQuery(
+  value: string | undefined,
+  roles: HireologyRole[] = getHireologyRoles()
+): ApplyPosition | undefined {
+  if (!value) {
+    return undefined;
   }
-  return jobs.some((job) => job.id === id);
+  if ((applyPositionOptions as readonly string[]).includes(value)) {
+    return value as ApplyPosition;
+  }
+  return findHireologyRole(value, roles)?.position;
 }
 
-export function describeHireologyOpening(
-  jobId: string | undefined,
-  jobs: HireologyJob[] = getHireologyJobs()
+export function describeApplyRole(
+  position: ApplyPosition,
+  roles: HireologyRole[] = getHireologyRoles()
 ): { title: string; url: string } {
-  const job = findHireologyJob(jobId, jobs);
-  if (job) {
+  const role = roles.find((item) => item.position === position);
+  if (role) {
     return {
-      title: `${job.title} (${job.location})`,
-      url: job.url,
+      title: role.title,
+      url: file.careersUrl,
     };
   }
 
   return {
-    title: "General application (no specific listing)",
+    title: position,
     url: file.careersUrl,
   };
 }
-
