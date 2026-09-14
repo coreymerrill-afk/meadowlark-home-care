@@ -69,13 +69,14 @@ export function PcaCertificatePreview({
         </p>
         <div className="mt-auto grid w-full max-w-[8.2in] grid-cols-2 gap-[0.7in] pt-[0.2in]">
           <div className="flex flex-col items-center">
-            <div className="flex h-[0.55in] w-full items-end justify-center" />
+            <div className="flex h-[0.55in] w-full items-end justify-center">
+              <p className="font-heading text-[12pt] text-[#003441]">
+                {displayDate}
+              </p>
+            </div>
             <div className="h-px w-full bg-[#1d2a2e]" aria-hidden="true" />
             <p className="mt-[0.06in] text-[9pt] tracking-[0.14em] text-[#6b6256] uppercase">
               Date of certification
-            </p>
-            <p className="mt-[0.04in] font-heading text-[12pt] text-[#003441]">
-              {displayDate}
             </p>
           </div>
           <div className="flex flex-col items-center">
