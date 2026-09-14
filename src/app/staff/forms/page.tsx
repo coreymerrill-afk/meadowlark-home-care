@@ -57,8 +57,9 @@ export default function StaffFormsPage() {
           <Award className="size-6 text-teal" aria-hidden="true" />
           <h2 className="mt-4 text-2xl">PCA certificate</h2>
           <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-            Fill a Personal Care Attendant certificate, print the insert, and
-            paste it inside the gold-foil border.
+            Montana CFC Personal Care Attendant certificate — 20-hour training
+            class or waiver. Print the landscape insert and paste it inside the
+            gold-foil border.
           </p>
           <Link
             href="/staff/forms/pca-certificate"

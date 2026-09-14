@@ -10,10 +10,15 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   DEFAULT_PCA_CERTIFICATE_EXPLANATION,
+  PCA_CERTIFICATE_PATHWAYS,
+  PCA_CERTIFICATE_PATHWAY_LABELS,
   PCA_CERTIFICATE_PRINT,
+  defaultExplanationForPathway,
+  explanationMatchesKnownDefault,
   todayIsoDate,
   validatePcaCertificate,
   type PcaCertificateFieldErrors,
+  type PcaCertificatePathway,
 } from "@/lib/pca-certificate";
 
 import "@/app/staff/forms/pca-certificate/pca-certificate.css";
@@ -30,6 +35,7 @@ export function PcaCertificateForm({
   const [employeeName, setEmployeeName] = useState("");
   const [certificationDate, setCertificationDate] = useState(todayIsoDate);
   const [supervisorName, setSupervisorName] = useState(defaultSupervisorName);
+  const [pathway, setPathway] = useState<PcaCertificatePathway>("training");
   const [explanation, setExplanation] = useState(
     DEFAULT_PCA_CERTIFICATE_EXPLANATION
   );
@@ -43,11 +49,21 @@ export function PcaCertificateForm({
     };
   }, []);
 
+  function handlePathwayChange(next: PcaCertificatePathway) {
+    setPathway(next);
+    setExplanation((current) =>
+      explanationMatchesKnownDefault(current)
+        ? defaultExplanationForPathway(next)
+        : current
+    );
+  }
+
   function handlePrint() {
     const result = validatePcaCertificate({
       employeeName,
       certificationDate,
       supervisorName,
+      pathway,
       explanation,
     });
     if (!result.ok) {
@@ -106,6 +122,38 @@ export function PcaCertificateForm({
           ) : null}
         </div>
 
+        <fieldset className="space-y-3">
+          <legend className="text-sm font-medium">CFC training pathway</legend>
+          <div className="flex flex-col gap-2">
+            {PCA_CERTIFICATE_PATHWAYS.map((option) => (
+              <label
+                key={option}
+                className="inline-flex cursor-pointer items-center gap-2 rounded-2xl bg-secondary px-4 py-2.5 text-sm font-medium ring-1 ring-foreground/10 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:checked]:bg-teal has-[:checked]:text-white"
+              >
+                <input
+                  type="radio"
+                  name="pathway"
+                  value={option}
+                  required
+                  className="sr-only"
+                  checked={pathway === option}
+                  onChange={() => handlePathwayChange(option)}
+                />
+                {PCA_CERTIFICATE_PATHWAY_LABELS[option]}
+              </label>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Printed wording states this choice clearly: 20-hour CFC class, or
+            training waived per program rules.
+          </p>
+          {fieldErrors.pathway ? (
+            <p className="text-sm text-destructive" role="alert">
+              {fieldErrors.pathway}
+            </p>
+          ) : null}
+        </fieldset>
+
         <div className="space-y-2">
           <Label htmlFor={supervisorId}>Nurse supervisor name</Label>
           <Input
@@ -138,8 +186,10 @@ export function PcaCertificateForm({
             aria-invalid={Boolean(fieldErrors.explanation)}
           />
           <p className="text-xs text-muted-foreground">
-            Use {"{name}"} to insert the employee’s name. Keep this as home-care
-            competency recognition — not hospice or skilled-nursing marketing.
+            Use {"{name}"} to insert the employee’s name. Switching the pathway
+            resets this to the matching Montana CFC default unless you have
+            edited it. Keep CFC personal-care language — not hospice or
+            skilled-nursing marketing.
           </p>
           {fieldErrors.explanation ? (
             <p className="text-sm text-destructive" role="alert">
@@ -168,18 +218,19 @@ export function PcaCertificateForm({
 
       <div>
         <p className="pca-no-print text-sm text-muted-foreground">
-          Preview matches the print insert:{" "}
+          Preview matches the landscape print insert:{" "}
           {PCA_CERTIFICATE_PRINT.blockWidthIn}&quot; ×{" "}
-          {PCA_CERTIFICATE_PRINT.blockHeightIn}&quot; centered on US Letter,
-          with light dashed cut guides. Cut and paste inside the gold border
-          (about {PCA_CERTIFICATE_PRINT.innerClearWidthIn}&quot; ×{" "}
-          {PCA_CERTIFICATE_PRINT.innerClearHeightIn}&quot; clear).
+          {PCA_CERTIFICATE_PRINT.blockHeightIn}&quot; centered on US Letter
+          landscape ({PCA_CERTIFICATE_PRINT.pageWidthIn}&quot; ×{" "}
+          {PCA_CERTIFICATE_PRINT.pageHeightIn}&quot;), with light dashed cut
+          guides. Cut and paste inside the gold border.
         </p>
         <div className="pca-preview-frame mt-4 rounded-[1.25rem] p-4 ring-1 ring-foreground/10 sm:p-6">
           <PcaCertificatePreview
             employeeName={employeeName}
             certificationDate={certificationDate}
             supervisorName={supervisorName}
+            pathway={pathway}
             explanation={explanation}
             signatureDataUrl={signatureDataUrl}
           />

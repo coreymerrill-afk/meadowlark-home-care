@@ -8,7 +8,7 @@ import { requireAdminSession } from "@/lib/staff-session";
 export const metadata: Metadata = {
   title: "PCA certificate",
   description:
-    "Print a Personal Care Attendant certificate insert for gold-foil letter paper.",
+    "Print a Montana CFC Personal Care Attendant certificate insert on landscape letter paper.",
   robots: staffRobots,
   alternates: { canonical: "/staff/forms/pca-certificate" },
 };
@@ -35,8 +35,9 @@ export default async function PcaCertificatePage() {
         PCA certificate
       </h1>
       <p className="pca-no-print mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        Fill this in, print on US Letter, then cut along the dashed guides and
-        paste the insert inside the gold-foil certificate border. Admin only.
+        Choose the Montana CFC pathway (20-hour class or training waiver),
+        print landscape US Letter, then cut along the dashed guides and paste
+        the insert inside the gold-foil certificate border. Admin only.
       </p>
       <PcaCertificateForm defaultSupervisorName={session.name ?? ""} />
     </section>
