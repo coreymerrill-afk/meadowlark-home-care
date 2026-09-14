@@ -55,7 +55,7 @@ export default function WorkWithUsPage() {
               Start here
             </p>
             <p className="mt-1 text-base text-muted-foreground">
-              Short application on this site. Current openings are listed on the apply page.
+              Short application on this site. Caregiver and nurse role descriptions are on the apply page.
             </p>
           </div>
           <div className="flex flex-col items-start gap-2">

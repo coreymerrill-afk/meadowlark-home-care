@@ -9,12 +9,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { initialApplyState, type ApplyField } from "@/lib/apply";
 import {
-  GENERAL_HIREOLOGY_JOB_ID,
-  findHireologyJob,
-  officeFromHireologyLocation,
-  type HireologyJob,
-} from "@/lib/hireology-jobs";
-import {
   applyAvailabilityOptions,
   applyExperienceOptions,
   applyOfficeOptions,
@@ -27,39 +21,16 @@ import {
 import { cn } from "@/lib/utils";
 
 export function ApplyForm({
-  jobs,
-  initialJobId,
+  initialPosition,
 }: {
-  jobs: HireologyJob[];
-  initialJobId?: string;
+  initialPosition?: ApplyPosition;
 }) {
   const [state, action, pending] = useActionState(submitApply, initialApplyState);
-  const initialJob = findHireologyJob(initialJobId, jobs);
-  const [jobId, setJobId] = useState(
-    initialJob?.id ?? (jobs.length > 0 ? GENERAL_HIREOLOGY_JOB_ID : "")
-  );
   const [position, setPosition] = useState<ApplyPosition | "">(
-    initialJob?.position ?? ""
+    initialPosition ?? ""
   );
-  const [office, setOffice] = useState<ApplyOffice>(
-    (initialJob && officeFromHireologyLocation(initialJob.location)) || "Either"
-  );
+  const [office, setOffice] = useState<ApplyOffice>("Either");
   const [experience, setExperience] = useState("");
-
-  function selectJob(id: string) {
-    setJobId(id);
-    const job = findHireologyJob(id, jobs);
-    if (!job) {
-      return;
-    }
-    if (job.position) {
-      setPosition(job.position);
-    }
-    const nextOffice = officeFromHireologyLocation(job.location);
-    if (nextOffice) {
-      setOffice(nextOffice);
-    }
-  }
 
   if (state.status === "success") {
     return (
@@ -82,61 +53,6 @@ export function ApplyForm({
         className="hidden"
         aria-hidden="true"
       />
-
-      {jobs.length > 0 ? (
-        <FormSection title="Opening">
-          <fieldset className="space-y-3">
-            <legend className="text-sm font-medium">Which opening?</legend>
-            <div className="space-y-2">
-              {jobs.map((job) => (
-                <label
-                  key={job.id}
-                  className="flex cursor-pointer items-start gap-3 rounded-2xl bg-secondary px-4 py-3 text-sm ring-1 ring-foreground/10 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:checked]:bg-teal/[0.12] has-[:checked]:ring-teal"
-                >
-                  <input
-                    type="radio"
-                    name="hireologyJobId"
-                    value={job.id}
-                    required
-                    checked={jobId === job.id}
-                    onChange={() => selectJob(job.id)}
-                    className="sr-only"
-                  />
-                  <span>
-                    <span className="block font-medium">{job.title}</span>
-                    <span className="block text-muted-foreground">
-                      {job.location}
-                      {job.position ? ` · ${job.position}` : ""}
-                    </span>
-                  </span>
-                </label>
-              ))}
-              <label className="flex cursor-pointer items-start gap-3 rounded-2xl bg-secondary px-4 py-3 text-sm ring-1 ring-foreground/10 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:checked]:bg-teal/[0.12] has-[:checked]:ring-teal">
-                <input
-                  type="radio"
-                  name="hireologyJobId"
-                  value={GENERAL_HIREOLOGY_JOB_ID}
-                  required
-                  checked={jobId === GENERAL_HIREOLOGY_JOB_ID}
-                  onChange={() => selectJob(GENERAL_HIREOLOGY_JOB_ID)}
-                  className="sr-only"
-                />
-                <span>
-                  <span className="block font-medium">General application</span>
-                  <span className="block text-muted-foreground">
-                    Not applying to a listed opening
-                  </span>
-                </span>
-              </label>
-            </div>
-            {state.fieldErrors?.hireologyJobId ? (
-              <p className="text-sm text-destructive" role="alert">
-                {state.fieldErrors.hireologyJobId}
-              </p>
-            ) : null}
-          </fieldset>
-        </FormSection>
-      ) : null}
 
       <FormSection title="About you">
         <Field id="name" label="Name" error={state.fieldErrors?.name}>

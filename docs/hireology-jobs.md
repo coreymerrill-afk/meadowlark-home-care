@@ -1,23 +1,24 @@
-# Hireology openings on `/apply`
+# Hireology roles on `/apply`
 
-Public apply uses a checked-in snapshot of open roles from the [Hireology careers site](https://careers.hireology.com/meadowlarkhomecare3). Do not invent listings.
+Public apply shows **two generic role descriptions** derived from Meadowlark’s Hireology postings — not the six individual listing cards.
 
-## Source
+- **PCA/CNA (Caregiver)**
+- **LPN/RN (Nurse)**
 
-`GET https://api.hireology.com/v2/public/careers/meadowlarkhomecare3`
+Applicants choose Caregiver or Nurse, plus office and availability, on the form. The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) stays a quiet secondary link for full listings.
 
-No API key or other secret is required. Only `status: "Open"` rows are kept.
+Do not invent services. Blurbs stay generalized from the live PCA/CNA and LPN/RN copy. Caregiver starting wage is **$19.75/hour**.
 
-## Refresh
+## File
+
+`src/data/hireology-jobs.json` is curated. Edit the two `roles` summaries by hand when Hireology duties or the wage change.
+
+## Live listings
+
+`GET https://api.hireology.com/v2/public/careers/meadowlarkhomecare3` still lists individual openings (no API key). To compare against the generic blurbs:
 
 ```bash
 npm run refresh:hireology-jobs
 ```
 
-That writes `src/data/hireology-jobs.json`. Existing summaries are kept when the same job id is still open, so curated blurbs are not overwritten. Commit the file when titles, locations, or listings change. To rewrite a blurb, edit the JSON `summary` by hand.
-
-Titles map to **Caregiver** (PCA/CNA and similar) or **Nurse** (LPN/RN) when the name is clear. Unmapped titles still appear; the applicant picks Caregiver or Nurse on the form.
-
-## Why a file instead of a live fetch
-
-The public endpoint works without secrets, but a checked-in JSON file keeps `/apply` and HR email lookup stable if Hireology is down or the payload shape changes. Re-run the script when Corey updates postings.
+That prints current open titles and locations. It does **not** replace the two generic roles with per-listing cards.

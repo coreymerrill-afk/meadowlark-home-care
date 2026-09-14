@@ -1,35 +1,11 @@
 #!/usr/bin/env node
 /**
- * Refresh src/data/hireology-jobs.json from the public Hireology careers API.
- * No API key required. See docs/hireology-jobs.md.
+ * Print live Hireology openings for comparison with the curated generic roles.
+ * Does not overwrite src/data/hireology-jobs.json. See docs/hireology-jobs.md.
  */
 
-import { readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
-
 const CAREERS_SLUG = "meadowlarkhomecare3";
-const CAREERS_URL = `https://careers.hireology.com/${CAREERS_SLUG}`;
 const SOURCE = `https://api.hireology.com/v2/public/careers/${CAREERS_SLUG}`;
-const OUTPUT = path.resolve(
-  import.meta.dirname,
-  "../src/data/hireology-jobs.json"
-);
-
-function htmlToText(html) {
-  return html
-    .replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, " ")
-    .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/<\/(p|div|li|h\d)>/gi, "\n")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
-    .replace(/&#39;/gi, "'")
-    .replace(/&quot;/gi, '"')
-    .replace(/\s+/g, " ")
-    .trim();
-}
 
 function mapTitleToPosition(title) {
   const normalized = title.toLowerCase();
@@ -50,68 +26,6 @@ function formatLocation(locations) {
   const city = first.city?.trim() ?? "";
   const state = first.state?.trim() ?? "";
   return [city, state].filter(Boolean).join(", ") || "Location not listed";
-}
-
-function summarizeDescription(html) {
-  const text = htmlToText(html ?? "");
-  const withoutBoiler = text
-    .replace(
-      /Meadowlark Home Care is looking to revitalize[\s\S]*?clients!/i,
-      ""
-    )
-    .replace(
-      /Meadowlark Home Care believes the industry[\s\S]*?care providers\./gi,
-      ""
-    )
-    .replace(/\*\*We offer periodic[\s\S]*?\*\*/g, "")
-    .replace(/The market is due[\s\S]*?providers\./gi, "")
-    .replace(/Getting in with us[\s\S]*$/i, "")
-    .replace(/\bJob Description:\s*/gi, "")
-    .trim();
-
-  const sentences = withoutBoiler
-    .split(/(?<=[.!?])\s+/)
-    .map((sentence) => sentence.replace(/^[*•]+\s*/, "").trim())
-    .filter(Boolean);
-
-  const skip =
-    /revitalize|industry is in trouble|growing very rapidly|getting in with us|readjustment|appreciated and supported|eligible for our full benefits|accrue paid time off|Raises are available/i;
-  const prefer =
-    /\$\d|\/hour|\/hr|friday|saturday|sunday|shift work|evenings?|starting at|nursing|ADL|certif|visit|med management|bowel|foot care|part-time|full-time|4-12|4–12/i;
-
-  const preferred = sentences.filter(
-    (sentence) => prefer.test(sentence) && !skip.test(sentence)
-  );
-  const fallback = sentences.filter((sentence) => !skip.test(sentence));
-  let summary = (preferred.length ? preferred : fallback).slice(0, 2).join(" ");
-
-  if (summary.length > 280) {
-    summary = `${summary.slice(0, 277).replace(/\s+\S*$/, "")}…`;
-  }
-
-  return summary || "See the Hireology listing for the current description.";
-}
-
-function sortJobs(jobs) {
-  const locationRank = (location) => {
-    if (location.includes("Missoula")) return 0;
-    if (location.includes("Great Falls")) return 1;
-    return 2;
-  };
-  const positionRank = (position) => {
-    if (position === "Caregiver") return 0;
-    if (position === "Nurse") return 1;
-    return 2;
-  };
-
-  return [...jobs].sort((a, b) => {
-    return (
-      locationRank(a.location) - locationRank(b.location) ||
-      positionRank(a.position) - positionRank(b.position) ||
-      a.title.localeCompare(b.title) ||
-      a.id.localeCompare(b.id)
-    );
-  });
 }
 
 async function fetchJobs() {
@@ -148,51 +62,22 @@ async function fetchJobs() {
   return jobs;
 }
 
-const previousSummaries = new Map();
-try {
-  const previous = JSON.parse(await readFile(OUTPUT, "utf8"));
-  for (const job of previous.jobs ?? []) {
-    if (job?.id && job.summary) {
-      previousSummaries.set(String(job.id), String(job.summary));
-    }
-  }
-} catch {
-  // First run — no checked-in file yet.
-}
-
 const rawJobs = await fetchJobs();
 const openJobs = rawJobs.filter((job) => job.status === "Open");
 
 if (openJobs.length === 0) {
-  throw new Error("Hireology returned no open jobs. JSON was not updated.");
+  throw new Error("Hireology returned no open jobs.");
 }
 
-const jobs = sortJobs(
-  openJobs.map((job) => {
-    const id = String(job.id);
-    return {
-      id,
-      title: String(job.name ?? "").trim(),
-      location: formatLocation(job.locations),
-      employmentStatus: String(job.employment_status ?? "").trim(),
-      url: job.career_site_url || `${CAREERS_URL}/${job.id}/description`,
-      summary:
-        previousSummaries.get(id) || summarizeDescription(job.job_description),
-      position: mapTitleToPosition(String(job.name ?? "")),
-    };
-  })
+console.log(
+  `${openJobs.length} open Hireology listings (apply page still uses two generic roles):`
 );
-
-const file = {
-  fetchedAt: new Date().toISOString(),
-  source: SOURCE,
-  careersUrl: CAREERS_URL,
-  jobs,
-};
-
-await writeFile(OUTPUT, `${JSON.stringify(file, null, 2)}\n`, "utf8");
-
-console.log(`Wrote ${jobs.length} open Hireology jobs to ${OUTPUT}`);
-for (const job of jobs) {
-  console.log(`- ${job.id} ${job.title} (${job.location}) → ${job.position ?? "unmapped"}`);
+for (const job of openJobs) {
+  const title = String(job.name ?? "").trim();
+  const location = formatLocation(job.locations);
+  const position = mapTitleToPosition(title) ?? "unmapped";
+  console.log(`- ${job.id} ${title} (${location}) → ${position}`);
 }
+console.log(
+  "src/data/hireology-jobs.json was not changed. Edit the two generic role blurbs by hand."
+);

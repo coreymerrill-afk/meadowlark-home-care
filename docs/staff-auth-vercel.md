@@ -12,16 +12,16 @@ Google sign-in is **not** locked to `@meadowlarkhomecare.com`. The app allows th
 | --- | --- | --- |
 | `AUTH_SECRET` | Production + Preview | Leave as-is. |
 | `AUTH_URL` | Production (`https://www.meadowlarkhomecare.com`); Preview being set to the same | Pins Google + magic-link origin to www. |
-| `RESEND_API_KEY` | Production + Preview | Contact/apply. Staff email falls back to this. |
+| `RESEND_API_KEY` | Production + Preview | Fallback Resend key for apply, contact, and staff email. |
 | `CONTACT_FROM_EMAIL` | Production + Preview | From address for staff + public forms. |
 | `CONTACT_TO_EMAIL` | Production + Preview | Public **contact** inbox. Should be `info@meadowlarkhomecare.com`. Request-access and employment applications go to `hr@`, not this variable. |
 | `NEXT_PUBLIC_SITE_URL` | Production | `https://www.meadowlarkhomecare.com` |
 
 ## Resend: no extra key required
 
-`getResendApiKey()` in `src/lib/auth-env.ts` reads `AUTH_RESEND_KEY` first, then `RESEND_API_KEY`. With `RESEND_API_KEY` already on the project, magic-link and request-access are wired.
+`getResendApiKey()` in `src/lib/auth-env.ts` reads `AUTH_RESEND_KEY` first, then `RESEND_API_KEY`. Apply, contact, and staff email all use this helper.
 
-Optional later: copy the same value to `AUTH_RESEND_KEY`. Not required.
+If magic-link works with `AUTH_RESEND_KEY` but public forms fail, prefer that key — a stale or empty `RESEND_API_KEY` is no longer enough to send `/apply` or `/contact`.
 
 ## Optional admin list
 

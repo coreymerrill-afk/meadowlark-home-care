@@ -4,7 +4,13 @@ import { Resend } from "resend";
 import { z } from "zod";
 
 import { type ContactState } from "@/lib/contact";
-import { inboxForInquiry, publicFromEmail } from "@/lib/mail";
+import { getResendApiKey } from "@/lib/auth-env";
+import {
+  inboxForInquiry,
+  logResendError,
+  publicFromEmail,
+  publicSendFailureMessage,
+} from "@/lib/mail";
 import { inquiryTypes, site } from "@/lib/site";
 
 const contactSchema = z.object({
@@ -58,7 +64,7 @@ export async function submitContact(
   }
 
   const payload = parsed.data;
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = getResendApiKey();
   const to = inboxForInquiry(payload.inquiryType);
   const from = publicFromEmail();
 
@@ -95,17 +101,17 @@ export async function submitContact(
     });
 
     if (error) {
-      console.error("[contact form]", error);
+      logResendError("contact form", error);
       return {
         status: "error",
-        message: `We could not send that just now. Please call ${site.phone} or try again in a few minutes.`,
+        message: publicSendFailureMessage(error, { phone: site.phone }),
       };
     }
   } catch (error) {
-    console.error("[contact form]", error);
+    logResendError("contact form", error);
     return {
       status: "error",
-      message: `We could not send that just now. Please call ${site.phone} or try again in a few minutes.`,
+      message: publicSendFailureMessage(error, { phone: site.phone }),
     };
   }
 

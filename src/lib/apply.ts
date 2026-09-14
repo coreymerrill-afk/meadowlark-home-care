@@ -1,10 +1,6 @@
 import { z } from "zod";
 
-import {
-  describeHireologyOpening,
-  getHireologyJobs,
-  isHireologyJobId,
-} from "@/lib/hireology-jobs";
+import { describeApplyRole, hireologyCareersUrl } from "@/lib/hireology-jobs";
 import { escapeHtml } from "@/lib/mail";
 import {
   applyAvailabilityOptions,
@@ -19,7 +15,6 @@ export const applyFieldKeys = [
   "email",
   "phone",
   "office",
-  "hireologyJobId",
   "position",
   "availability",
   "availabilityNotes",
@@ -93,7 +88,6 @@ const applyShape = z.object({
   office: z.enum(applyOfficeOptions, {
     error: "Please choose a preferred office.",
   }),
-  hireologyJobId: optionalText(40),
   position: z.enum(applyPositionOptions, {
     error: "Please choose a position.",
   }),
@@ -134,32 +128,6 @@ const applyShape = z.object({
 });
 
 export const applySchema = applyShape.superRefine((data, ctx) => {
-  const jobs = getHireologyJobs();
-  if (jobs.length > 0) {
-    if (!data.hireologyJobId) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["hireologyJobId"],
-        message: "Please choose an opening, or a general application.",
-      });
-    } else if (!isHireologyJobId(data.hireologyJobId, jobs)) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["hireologyJobId"],
-        message: "Please choose a current opening, or a general application.",
-      });
-    }
-  } else if (
-    data.hireologyJobId &&
-    !isHireologyJobId(data.hireologyJobId, jobs)
-  ) {
-    ctx.addIssue({
-      code: "custom",
-      path: ["hireologyJobId"],
-      message: "Please choose a current opening, or a general application.",
-    });
-  }
-
   const job1Started = filled(
     data.job1Employer,
     data.job1Title,
@@ -268,7 +236,6 @@ export function readApplyForm(formData: FormData) {
     email: formData.get("email"),
     phone: formData.get("phone"),
     office: formData.get("office"),
-    hireologyJobId: textField(formData, "hireologyJobId"),
     position: formData.get("position"),
     availability: formData.get("availability"),
     availabilityNotes: textField(formData, "availabilityNotes"),
@@ -324,7 +291,7 @@ type EmailSection = {
 };
 
 function emailSections(payload: ApplyPayload): EmailSection[] {
-  const opening = describeHireologyOpening(payload.hireologyJobId);
+  const role = describeApplyRole(payload.position);
 
   return [
     {
@@ -338,12 +305,12 @@ function emailSections(payload: ApplyPayload): EmailSection[] {
     {
       title: "Role",
       rows: [
-        ["Opening", opening.title],
-        ["Hireology listing", opening.url],
-        ["Preferred office", payload.office],
+        ["Role", role.title],
         ["Position interest", payload.position],
+        ["Preferred office", payload.office],
         ["Availability", payload.availability],
         ["Days / times", display(payload.availabilityNotes)],
+        ["Hireology board", hireologyCareersUrl()],
       ],
     },
     {
@@ -407,8 +374,8 @@ function emailSections(payload: ApplyPayload): EmailSection[] {
 }
 
 export function formatApplyEmail(payload: ApplyPayload) {
-  const opening = describeHireologyOpening(payload.hireologyJobId);
-  const subject = `New employment application — ${payload.name} — ${opening.title} — ${payload.office}`;
+  const role = describeApplyRole(payload.position);
+  const subject = `New employment application — ${payload.name} — ${role.title} — ${payload.office}`;
   const sections = emailSections(payload);
 
   const text = [
