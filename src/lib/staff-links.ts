@@ -41,6 +41,13 @@ export const staffDocumentResources: StaffResource[] = [
     description: "Short reference for common AxisCare tasks.",
     external: false,
   },
+  {
+    title: "CFC Agency-Based Policy Manual",
+    href: "/staff/cfc-policy",
+    description:
+      "Montana DPHHS CFCS Agency-Based policy — seven Meadowlark sections you can jump between.",
+    external: false,
+  },
 ];
 
 export const caregiverAppResources: StaffResource[] = [
@@ -120,6 +127,13 @@ export const adminSecondaryResources: StaffResource[] = [
     href: "/staff/forms",
     description:
       "Internal Medicaid / SLTC tools and the PCA certificate printer.",
+    external: false,
+  },
+  {
+    title: "CFC Agency-Based Policy Manual",
+    href: "/staff/cfc-policy",
+    description:
+      "Montana DPHHS CFCS Agency-Based policy — seven Meadowlark sections you can jump between.",
     external: false,
   },
 ];

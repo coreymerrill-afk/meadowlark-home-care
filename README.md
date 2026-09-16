@@ -19,7 +19,8 @@ Header/footer **Login** goes to `/login`. `robots.txt` keeps `Disallow: /staff/`
 - `/login` — Google SSO + email/password + magic-link. Request access is on `/login/request-access` (emails `hr@meadowlarkhomecare.com`)
 - `/login/set-password` — forgot / first-time set password (email link or signed-in session)
 - `/staff` — post-login landing (caregiver docs; admin sees AxisCare, Qliq, Employee Navigator, Hireology, ADP, and employment forms)
-- `/staff/docs/*` — authenticated PDFs (handbook, HIPAA, AxisCare guide, tip sheet, admin employment forms). Not in `public/`.
+- `/staff/docs/*` — authenticated PDFs (handbook, HIPAA, AxisCare guide, tip sheet, CFC policy sections, admin employment forms). Not in `public/`.
+- `/staff/cfc-policy` — CFC Agency-Based policy browser (seven Meadowlark section PDFs)
 - `/staff/employment-forms` — **admin-only** on-hire hub (shared templates + Natalie Redman’s packet at `/staff/employment-forms/natalie-redman`)
 - `/staff/forms` — **admin-only** forms hub (quiet link from admin landing)
 - `/staff/forms/sltc` — SLTC phone form filler entry (Apps Script CTA; Meadowlark Google account required)
