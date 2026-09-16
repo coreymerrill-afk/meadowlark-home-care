@@ -1,22 +1,25 @@
 import { NextResponse } from "next/server";
 
-import { isStaffDocSlug, readStaffDoc, staffDocs } from "@/lib/staff-docs";
+import {
+  isCfcPolicySlug,
+  readCfcPolicyDoc,
+} from "@/lib/cfc-agency-policy";
 import { staffLoginUrl } from "@/lib/staff-access";
 import { getOptionalStaffSession } from "@/lib/staff-session";
 
-type StaffDocContext = {
+type CfcPolicyDocContext = {
   params: Promise<{ slug: string }>;
 };
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request: Request, context: StaffDocContext) {
+export async function GET(request: Request, context: CfcPolicyDocContext) {
   const { slug } = await context.params;
   const session = await getOptionalStaffSession();
 
   if (!session) {
     const login = new URL(
-      staffLoginUrl(`/staff/docs/${slug}`),
+      staffLoginUrl(`/staff/docs/cfc-policy/${slug}`),
       request.url
     );
     return NextResponse.redirect(login);
@@ -26,19 +29,11 @@ export async function GET(request: Request, context: StaffDocContext) {
     return NextResponse.redirect(new URL("/staff", request.url));
   }
 
-  if (slug === "cfc-policy") {
-    return NextResponse.redirect(new URL("/staff/cfc-policy", request.url));
-  }
-
-  if (!isStaffDocSlug(slug)) {
+  if (!isCfcPolicySlug(slug)) {
     return new NextResponse("Not found", { status: 404 });
   }
 
-  if (staffDocs[slug].audience === "admin" && session.role !== "admin") {
-    return NextResponse.redirect(new URL("/staff?notice=admin-only", request.url));
-  }
-
-  const result = await readStaffDoc(slug);
+  const result = await readCfcPolicyDoc(slug);
   if ("missing" in result) {
     return new NextResponse(
       `Staff document is not in the repo yet: ${result.doc.file}`,

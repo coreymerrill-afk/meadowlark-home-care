@@ -10,6 +10,7 @@ import {
   adminPrimaryResources,
   adminSecondaryResources,
   caregiverResources,
+  staffDocumentResources,
 } from "@/lib/staff-links";
 import { hasPasswordHash } from "@/lib/staff-passwords";
 import { requireStaffSession } from "@/lib/staff-session";
@@ -95,6 +96,17 @@ function AdminPortal({
         ))}
       </div>
 
+      <h2 className="mt-12 text-2xl">Staff documents</h2>
+      <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted-foreground">
+        Handbook, HIPAA, AxisCare guides, and the CFC Agency-Based policy
+        manual. Same documents caregivers see.
+      </p>
+      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        {staffDocumentResources.map((resource) => (
+          <StaffResourceCard key={resource.href} resource={resource} />
+        ))}
+      </div>
+
       <p className="mt-10 text-sm text-muted-foreground">
         Medicaid / SLTC tools:{" "}
         {adminSecondaryResources.map((resource, index) => (
@@ -141,8 +153,8 @@ function CaregiverPortal({
       </p>
       <h1 className="mt-4 text-4xl sm:text-5xl">Caregiver tools</h1>
       <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        Handbook, HIPAA, AxisCare, and ADP. Documents open only while you are
-        signed in.
+        Handbook, HIPAA, CFC policy, AxisCare, and ADP. Documents open only
+        while you are signed in.
       </p>
 
       <PortalNotices notice={notice} showPasswordHint={showPasswordHint} />

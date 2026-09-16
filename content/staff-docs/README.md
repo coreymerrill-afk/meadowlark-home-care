@@ -10,10 +10,13 @@ Place the binaries here, then they are served only by auth-checked route handler
 | `/staff/docs/hipaa` | `hipaa-confidentiality-agreement.pdf` | Any portal user |
 | `/staff/docs/axiscare-guide` | `axiscare-mobile-caregiver-guide.pdf` | Any portal user |
 | `/staff/docs/axiscare-tip-sheet` | `axiscare-tip-sheet.pdf` | Any portal user |
+| `/staff/docs/cfc-policy/{slug}` | `cfc-policy/{slug}.pdf` | Any portal user |
 | `/staff/docs/employment-i9` | `employment-i9.pdf` | Admin only |
 | `/staff/docs/employment-w4` | `employment-w4.pdf` | Admin only |
 | `/staff/docs/employment-direct-deposit` | `employment-direct-deposit.pdf` | Admin only |
 | `/staff/docs/employment-emergency-contact` | `employment-emergency-contact.pdf` | Admin only |
+
+CFC Agency-Based policy browser: `/staff/cfc-policy`. Drop the seven section PDFs into `cfc-policy/` using the kebab-case names in `cfc-policy/README.md`. Do not use Google Drive “anyone with the link.”
 
 Admin hub: `/staff/employment-forms`. Do not roll employment PDFs out to caregivers yet.
 
