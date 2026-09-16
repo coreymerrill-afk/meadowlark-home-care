@@ -11,6 +11,7 @@ import {
   cfcPolicyRelativeFile,
   getCfcPolicyDoc,
   isCfcPolicySlug,
+  readCfcPolicyDoc,
 } from "@/lib/cfc-agency-policy";
 
 describe("CFC_POLICY_SECTIONS", () => {
@@ -68,5 +69,16 @@ describe("CFC_POLICY_SECTIONS", () => {
     assert.equal(isCfcPolicySlug("agency-requirements"), true);
     assert.equal(isCfcPolicySlug("cfc-policy"), false);
     assert.equal(isCfcPolicySlug("handbook"), false);
+  });
+
+  it("has a non-empty hosted PDF for every section", async () => {
+    for (const section of CFC_POLICY_SECTIONS) {
+      const result = await readCfcPolicyDoc(section.slug);
+      if ("missing" in result) {
+        assert.fail(`${section.slug} is missing from content/staff-docs/cfc-policy/`);
+      }
+      assert.ok(result.bytes.length > 0);
+      assert.equal(result.bytes.subarray(0, 5).toString("ascii"), "%PDF-");
+    }
   });
 });

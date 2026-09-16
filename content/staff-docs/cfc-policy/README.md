@@ -1,7 +1,7 @@
 # CFC Agency-Based policy sections
 
 Authenticated PDFs for `/staff/cfc-policy`. Do not put these in `public/`.
-Empty files count as missing (503).
+Empty files count as missing (503). The seven section PDFs are committed here.
 
 Name each file exactly:
 
