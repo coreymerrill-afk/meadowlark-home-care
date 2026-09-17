@@ -202,11 +202,9 @@ export default function ServicesPage() {
         <div className="rounded-[1.5rem] bg-teal/[0.05] p-6 ring-1 ring-foreground/5 sm:p-8">
           <h2 className="text-2xl sm:text-3xl">Eligibility contacts</h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Office of Public Assistance answers Medicaid applications and
-            eligibility questions. Mountain Pacific has separate numbers for
-            CFCS/PCS referrals and for HCBS waiver screening. VA Community Care
-            consult questions go to the Montana Consult Call Center, not a
-            clinic main line. Request care if you need help with the next step.
+            Each line is for a different role: Medicaid applications, CFCS/PCS
+            referrals, HCBS waiver screening, or Community Care consult
+            questions. Request care if you need help with the next step.
           </p>
           <ul className="mt-5 divide-y divide-foreground/10">
             {servicesContactCluster.map((contact) => (
@@ -218,10 +216,10 @@ export default function ServicesPage() {
                 >
                   <span>
                     <span className="block font-medium text-foreground">
-                      {contact.org}
+                      {contact.role}
                     </span>
                     <span className="block text-sm text-muted-foreground">
-                      {contact.role}
+                      {contact.org}
                     </span>
                   </span>
                   <span className="text-base font-medium text-primary underline-offset-4 hover:underline">

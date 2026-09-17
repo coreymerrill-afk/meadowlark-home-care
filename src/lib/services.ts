@@ -48,7 +48,7 @@ export type EligibilityContact = {
 export const servicesContactCluster: EligibilityContact[] = [
   {
     org: "Office of Public Assistance",
-    role: "Medicaid applications / eligibility questions",
+    role: "Medicaid applications",
     phone: site.opaPhone,
     href: site.opaPhoneHref,
   },
@@ -58,12 +58,12 @@ export const servicesContactCluster: EligibilityContact[] = [
     phone: site.mountainPacific.cfcsAssessment.label,
     href: site.mountainPacific.cfcsAssessment.href,
   },
-  ...site.mountainPacific.waiverScreening.map((phone) => ({
+  {
     org: "Mountain Pacific",
-    role: phone.role,
-    phone: phone.label,
-    href: phone.href,
-  })),
+    role: site.mountainPacific.waiverScreening.role,
+    phone: site.mountainPacific.waiverScreening.label,
+    href: site.mountainPacific.waiverScreening.href,
+  },
   {
     org: site.vaMontanaCommunityCare.org,
     role: site.vaMontanaCommunityCare.role,
@@ -73,7 +73,7 @@ export const servicesContactCluster: EligibilityContact[] = [
 ];
 
 export function eligibilityContactLabel(contact: EligibilityContact) {
-  return `${contact.org} — ${contact.role} ${contact.phone}`;
+  return `${contact.role} — ${contact.org} — ${contact.phone}`;
 }
 
 export const serviceBlocks: ServiceBlock[] = [
