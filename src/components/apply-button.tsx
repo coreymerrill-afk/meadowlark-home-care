@@ -33,7 +33,9 @@ export function ApplyButton({
       )}
     >
       {children}
-      <ArrowUpRight className={compact ? "size-3.5" : "size-4"} />
+      <ArrowUpRight
+        className={compact ? "size-3.5 max-[380px]:hidden" : "size-4"}
+      />
     </Link>
   );
 }

@@ -22,7 +22,7 @@ export function CtaBand({
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-5 px-4 py-12 sm:px-6 md:flex-row md:items-center md:justify-between">
         <div className="max-w-xl">
           <h2 className="text-3xl sm:text-4xl">{title}</h2>
-          <p className="mt-3 text-muted-foreground">{body}</p>
+          {body ? <p className="mt-3 text-muted-foreground">{body}</p> : null}
         </div>
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           {showApply ? (

@@ -21,10 +21,9 @@ export function ApplyOpenings({
       <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
         Open roles
       </p>
-      <h2 className="mt-2 text-3xl sm:text-4xl">Caregiver and nurse</h2>
+      <h2 className="mt-2 text-3xl sm:text-4xl">Choose a role</h2>
       <p className="mt-2 max-w-2xl text-base text-muted-foreground">
-        Two role types in Missoula and Great Falls. Choose Caregiver or Nurse in
-        the form below — office and availability are there too.
+        Choose Caregiver or Nurse, then office and availability — HR will follow up.
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">

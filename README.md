@@ -6,7 +6,7 @@ The site replaces the previous HostGator pages with five public routes:
 
 - `/` — home, services overview, dual CTAs
 - `/about` — founders and mission
-- `/services` — four Compass cards: CFCS/PCS, HCBS waiver, nursing, private pay & VA / third party
+- `/services` — CFCS/PCS, VA Community Care, private pay, HCBS Big Sky / SDMI, and PCCA
 - `/apply` — employment application (Caregiver or Nurse, generic PCA/CNA and LPN/RN descriptions, availability, work history, references, optional notes)
 - `/work-with-us` — hiring areas, PTO, raises, advancement, short `/apply` form
 - `/contact` — office details and a working contact form
@@ -180,7 +180,7 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 
 - Do not use the old slogan “Quality care through compassion and innovation” anywhere on public pages. Footer line: “Home care for Missoula families since 2015.”
 - About has no testimonials and states the founders’ origin once (2015, Corey Merrill and Natalie Redman).
-- Services uses four Compass cards: agency-based CFCS/PCS (formerly CFC/PAS); HCBS Big Sky / SDMI / DD; skilled nursing; and private pay / insurance / VA Community Care with respite.Respite is offered. Shared eligibility disclaimer: the state or VA decides — not Meadowlark. Confirm on .gov pages.
+- Services covers agency-based CFCS/PCS (formerly CFC/PAS); HCBS Big Sky / SDMI; VA Community Care; private pay / insurance with respite; and PCCA. Shared eligibility disclaimer (once per page): the state or VA decides — not Meadowlark. Confirm on .gov pages.
 - The primary **Apply online** CTA is the short `/apply` form (emails `hr@meadowlarkhomecare.com` via Resend). AxisCare URL kept in `site.axisCareApplyUrl` as optional backup only.
 - Contact form: **Request care** and **General** email `info@meadowlarkhomecare.com` (`CONTACT_TO_EMAIL`, defaulting to `site.contactEmail`). **Join the team** emails `hr@`. Do not point `CONTACT_TO_EMAIL` at HR.
 - `/apply` shows two generic Hireology-derived roles (PCA/CNA caregiver and LPN/RN nurse, caregiver starting wage $19.75/hour) from `src/data/hireology-jobs.json`. See [docs/hireology-jobs.md](docs/hireology-jobs.md). The [Hireology careers board](https://careers.hireology.com/meadowlarkhomecare3) stays a quiet secondary browse-all link.

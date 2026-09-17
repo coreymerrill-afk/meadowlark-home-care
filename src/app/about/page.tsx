@@ -8,15 +8,16 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Meadowlark Home Care was founded in 2015 by Corey Merrill and Natalie Redman. Agency-based CFCS/PCS, waiver supports, nursing, private pay, insurance, VA Community Care, and respite in Missoula and Great Falls.",
+    "Meadowlark Home Care was founded in 2015 by Corey Merrill and Natalie Redman. Agency-based CFCS/PCS, HCBS Big Sky and SDMI, VA Community Care, private pay, PCCA, and respite in Missoula and Great Falls.",
   alternates: { canonical: "/about" },
 };
 
 const offerings = [
   "Agency-based CFCS/PCS (formerly CFC/PAS)",
+  "HCBS Big Sky and SDMI waiver supports",
   "VA Community Care and Aid & Attendance",
   "Private pay and insurance for non-skilled home care",
-  "HCBS Big Sky, SDMI, and DD waiver supports",
+  "Pediatric Complex Care Assistant (PCCA)",
   "Respite",
 ] as const;
 
@@ -26,7 +27,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About us"
         title="Home care in Missoula and Great Falls."
-        description="CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports."
+        description="CFCS/PCS, HCBS Big Sky and SDMI, VA Community Care, private pay, PCCA, and respite."
       />
 
       <section className="mx-auto grid w-full max-w-6xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-2 lg:items-center">

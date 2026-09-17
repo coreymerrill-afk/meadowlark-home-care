@@ -37,7 +37,7 @@ export default async function ApplyPage({
       <PageHero
         eyebrow="Careers"
         title="Apply to join the team."
-        description="Caregiver or nurse roles in Missoula and Great Falls. Choose a role, office, and availability — HR will follow up."
+        description="Caregiver or nurse roles in Missoula and Great Falls. Pick a role and office below."
       />
 
       <ApplyOpenings roles={roles} selectedPosition={selectedPosition} />
@@ -66,7 +66,7 @@ export default async function ApplyPage({
           .
         </p>
         <p className="mt-2 text-sm text-muted-foreground/80">
-          Individual postings stay on{" "}
+          Browse current listings on{" "}
           <a
             href={site.hireologyUrl}
             target="_blank"

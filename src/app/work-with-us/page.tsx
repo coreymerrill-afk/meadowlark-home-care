@@ -55,7 +55,7 @@ export default function WorkWithUsPage() {
               Start here
             </p>
             <p className="mt-1 text-base text-muted-foreground">
-              Short application on this site. Caregiver and nurse role descriptions are on the apply page.
+              Apply on this site — one short form. Role details are on the apply page.
             </p>
           </div>
           <div className="flex flex-col items-start gap-2">
@@ -66,7 +66,7 @@ export default function WorkWithUsPage() {
               rel="noreferrer"
               className="inline-flex items-center gap-1 text-sm font-medium text-primary underline-offset-4 hover:underline"
             >
-              Browse listed roles on Hireology
+              Current listings on Hireology
               <ArrowUpRight className="size-3.5" />
             </a>
           </div>

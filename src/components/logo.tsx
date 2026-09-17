@@ -5,17 +5,23 @@ import { cn } from "@/lib/utils";
 type LogoProps = {
   className?: string;
   markClassName?: string;
+  wordmarkClassName?: string;
   inverted?: boolean;
 };
 
-export function Logo({ className, markClassName, inverted = false }: LogoProps) {
+export function Logo({
+  className,
+  markClassName,
+  wordmarkClassName,
+  inverted = false,
+}: LogoProps) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <MeadowlarkMark
         inverted={inverted}
         className={cn("size-11 shrink-0 sm:size-12", markClassName)}
       />
-      <span className="flex min-w-0 flex-col leading-none">
+      <span className={cn("flex min-w-0 flex-col leading-none", wordmarkClassName)}>
         <span
           className={cn(
             "font-heading text-[1.15rem] font-semibold tracking-tight sm:text-xl",
