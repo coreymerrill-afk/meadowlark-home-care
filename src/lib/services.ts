@@ -37,19 +37,44 @@ const requestCare: ServiceLink = {
   kind: "internal",
 };
 
+export type EligibilityContact = {
+  org: string;
+  role: string;
+  phone: string;
+  href: string;
+};
+
 /** Shared eligibility contacts — shown once on the Services page. */
-export const servicesContactCluster: ServiceLink[] = [
+export const servicesContactCluster: EligibilityContact[] = [
   {
-    label: `Office of Public Assistance ${site.opaPhone}`,
+    org: "Office of Public Assistance",
+    role: "Medicaid applications / eligibility questions",
+    phone: site.opaPhone,
     href: site.opaPhoneHref,
-    kind: "phone",
   },
-  ...site.mountainPacific.all.map((phone) => ({
-    label: `Mountain Pacific ${phone.label}`,
+  {
+    org: "Mountain Pacific",
+    role: site.mountainPacific.cfcsAssessment.role,
+    phone: site.mountainPacific.cfcsAssessment.label,
+    href: site.mountainPacific.cfcsAssessment.href,
+  },
+  ...site.mountainPacific.waiverScreening.map((phone) => ({
+    org: "Mountain Pacific",
+    role: phone.role,
+    phone: phone.label,
     href: phone.href,
-    kind: "phone" as const,
   })),
+  {
+    org: site.vaMontanaCommunityCare.org,
+    role: site.vaMontanaCommunityCare.role,
+    phone: site.vaMontanaCommunityCare.label,
+    href: site.vaMontanaCommunityCare.href,
+  },
 ];
+
+export function eligibilityContactLabel(contact: EligibilityContact) {
+  return `${contact.org} — ${contact.role} ${contact.phone}`;
+}
 
 export const serviceBlocks: ServiceBlock[] = [
   {

@@ -16,6 +16,7 @@ import { CtaBand } from "@/components/cta-band";
 import { PageHero } from "@/components/page-hero";
 import { buttonVariants } from "@/components/ui/button";
 import {
+  eligibilityContactLabel,
   serviceBlocks,
   servicesContactCluster,
   type ServiceId,
@@ -201,25 +202,44 @@ export default function ServicesPage() {
         <div className="rounded-[1.5rem] bg-teal/[0.05] p-6 ring-1 ring-foreground/5 sm:p-8">
           <h2 className="text-2xl sm:text-3xl">Eligibility contacts</h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Medicaid and waiver screening numbers. Request care if you need help
-            with the next step.
+            Office of Public Assistance answers Medicaid applications and
+            eligibility questions. Mountain Pacific has separate numbers for
+            CFCS/PCS referrals and for HCBS waiver screening. VA Community Care
+            consult questions go to the Montana Consult Call Center, not a
+            clinic main line. Request care if you need help with the next step.
           </p>
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {servicesContactCluster.map((link) => (
-              <li key={link.href + link.label}>
-                <ServiceResourceLink link={link} />
+          <ul className="mt-5 divide-y divide-foreground/10">
+            {servicesContactCluster.map((contact) => (
+              <li key={contact.href + contact.role} className="py-3 first:pt-0 last:pb-0">
+                <a
+                  href={contact.href}
+                  className="flex flex-col gap-1 transition-colors hover:text-primary sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                  aria-label={eligibilityContactLabel(contact)}
+                >
+                  <span>
+                    <span className="block font-medium text-foreground">
+                      {contact.org}
+                    </span>
+                    <span className="block text-sm text-muted-foreground">
+                      {contact.role}
+                    </span>
+                  </span>
+                  <span className="text-base font-medium text-primary underline-offset-4 hover:underline">
+                    {contact.phone}
+                  </span>
+                </a>
               </li>
             ))}
-            <li>
-              <ServiceResourceLink
-                link={{
-                  label: "Request care",
-                  href: "/contact",
-                  kind: "internal",
-                }}
-              />
-            </li>
           </ul>
+          <div className="mt-5">
+            <ServiceResourceLink
+              link={{
+                label: "Request care",
+                href: "/contact",
+                kind: "internal",
+              }}
+            />
+          </div>
         </div>
       </section>
 
