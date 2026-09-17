@@ -92,18 +92,11 @@ export const site = {
       href: "tel:+18002197035",
       role: "CFCS/PCS referrals",
     },
-    waiverScreening: [
-      {
-        label: "1-800-497-8232",
-        href: "tel:+18004978232",
-        role: "HCBS waiver screening",
-      },
-      {
-        label: "406-443-4020",
-        href: "tel:+14064434020",
-        role: "HCBS waiver screening (Helena)",
-      },
-    ],
+    waiverScreening: {
+      label: "1-800-497-8232",
+      href: "tel:+18004978232",
+      role: "HCBS waiver screening",
+    },
   },
   links: {
     applyMedicaid: "https://apply.mt.gov/",
