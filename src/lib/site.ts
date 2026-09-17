@@ -80,6 +80,12 @@ export const site = {
   hiringAreas: ["Missoula", "Great Falls"],
   opaPhone: "1-888-706-1535",
   opaPhoneHref: "tel:+18887061535",
+  vaMontanaCommunityCare: {
+    org: "VA Montana Community Care Consult Call Center",
+    role: "Community Care consult questions",
+    label: "406-447-7400",
+    href: "tel:+14064477400",
+  },
   mountainPacific: {
     cfcsAssessment: {
       label: "1-800-219-7035",

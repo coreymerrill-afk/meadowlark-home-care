@@ -52,15 +52,23 @@ describe("servicesContactCluster", () => {
     );
   });
 
-  it("does not add a VA phone number", () => {
-    for (const contact of servicesContactCluster) {
-      assert.doesNotMatch(contact.org, /\bVA\b/);
-      assert.doesNotMatch(contact.role, /\bVA\b/);
-      assert.doesNotMatch(contact.phone, /\bVA\b/);
-    }
+  it("adds only the confirmed VA Montana Community Care consult number", () => {
+    const vaContacts = servicesContactCluster.filter((contact) =>
+      /\bVA\b/.test(contact.org)
+    );
+
+    const va = vaContacts[0];
+    assert.ok(va);
+    assert.equal(
+      eligibilityContactLabel(va),
+      "VA Montana Community Care Consult Call Center — Community Care consult questions 406-447-7400"
+    );
+    assert.equal(va.href, "tel:+14064477400");
+    assert.equal(va.href, site.vaMontanaCommunityCare.href);
+    assert.equal(va.role, "Community Care consult questions");
   });
 
-  it("explains the OPA vs Mountain Pacific split on Services", () => {
+  it("explains the Medicaid vs VA split on Services", () => {
     const servicesPage = readFileSync(
       join(root, "src/app/services/page.tsx"),
       "utf8"
@@ -71,6 +79,8 @@ describe("servicesContactCluster", () => {
     assert.match(servicesPage, /separate numbers for/);
     assert.match(servicesPage, /CFCS\/PCS referrals/);
     assert.match(servicesPage, /HCBS waiver screening/);
+    assert.match(servicesPage, /VA Community Care/);
+    assert.match(servicesPage, /Consult Call Center/);
     assert.doesNotMatch(
       servicesPage,
       /Medicaid and waiver screening numbers/

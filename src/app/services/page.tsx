@@ -204,8 +204,9 @@ export default function ServicesPage() {
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
             Office of Public Assistance answers Medicaid applications and
             eligibility questions. Mountain Pacific has separate numbers for
-            CFCS/PCS referrals and for HCBS waiver screening. Request care if
-            you need help with the next step.
+            CFCS/PCS referrals and for HCBS waiver screening. VA Community Care
+            consult questions go to the Montana Consult Call Center, not a
+            clinic main line. Request care if you need help with the next step.
           </p>
           <ul className="mt-5 divide-y divide-foreground/10">
             {servicesContactCluster.map((contact) => (

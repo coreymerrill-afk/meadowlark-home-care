@@ -64,6 +64,12 @@ export const servicesContactCluster: EligibilityContact[] = [
     phone: phone.label,
     href: phone.href,
   })),
+  {
+    org: site.vaMontanaCommunityCare.org,
+    role: site.vaMontanaCommunityCare.role,
+    phone: site.vaMontanaCommunityCare.label,
+    href: site.vaMontanaCommunityCare.href,
+  },
 ];
 
 export function eligibilityContactLabel(contact: EligibilityContact) {
