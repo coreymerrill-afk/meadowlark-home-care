@@ -81,15 +81,22 @@ export const site = {
   opaPhone: "1-888-706-1535",
   opaPhoneHref: "tel:+18887061535",
   mountainPacific: {
-    cfcsAssessment: { label: "1-800-219-7035", href: "tel:+18002197035" },
+    cfcsAssessment: {
+      label: "1-800-219-7035",
+      href: "tel:+18002197035",
+      role: "CFCS/PCS referrals",
+    },
     waiverScreening: [
-      { label: "1-800-497-8232", href: "tel:+18004978232" },
-      { label: "1-406-443-4020", href: "tel:+14064434020" },
-    ],
-    all: [
-      { label: "1-800-219-7035", href: "tel:+18002197035" },
-      { label: "1-800-497-8232", href: "tel:+18004978232" },
-      { label: "406-443-4020", href: "tel:+14064434020" },
+      {
+        label: "1-800-497-8232",
+        href: "tel:+18004978232",
+        role: "HCBS waiver screening",
+      },
+      {
+        label: "406-443-4020",
+        href: "tel:+14064434020",
+        role: "HCBS waiver screening (Helena)",
+      },
     ],
   },
   links: {
