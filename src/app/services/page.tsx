@@ -5,6 +5,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   ArrowUpRight,
   HeartHandshake,
+  HeartPulse,
   Home,
   Phone,
   Shield,
@@ -20,13 +21,13 @@ import {
   type ServiceId,
   type ServiceLink,
 } from "@/lib/services";
-import { assertNever, getStartedLinks, site } from "@/lib/site";
+import { assertNever, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports in Missoula and Great Falls.",
+    "CFCS/PCS, HCBS Big Sky and SDMI, VA Community Care, private pay, and PCCA in Missoula and Great Falls.",
   alternates: { canonical: "/services" },
 };
 
@@ -38,8 +39,10 @@ function serviceIcon(id: ServiceId): LucideIcon {
       return Shield;
     case "private-pay":
       return Users;
-    case "hcbs-waiver":
+    case "hcbs":
       return Home;
+    case "pcca":
+      return HeartPulse;
     default:
       return assertNever(id);
   }
@@ -117,40 +120,11 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Home care services in Missoula and Great Falls"
-        description={`CFCS/PCS, VA Community Care, private pay, and HCBS waivers. ${site.eligibilityDisclaimer}`}
+        description="In-home personal care through Montana Medicaid and VA pathways, private pay, and approved pediatric complex care support."
+        note={site.eligibilityDisclaimer}
       />
 
-      <section
-        id="get-started"
-        className="border-b border-border bg-teal text-white"
-      >
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-4 sm:px-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:py-5">
-          <p className="text-xs font-semibold tracking-[0.12em] text-orange uppercase">
-            How to get started
-          </p>
-          <ul className="flex flex-col gap-2 text-sm font-medium sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2">
-            {getStartedLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noreferrer" : undefined}
-                  className="inline-flex items-center gap-1.5 underline-offset-4 hover:underline"
-                >
-                  {link.label}
-                  {link.external ? (
-                    <ArrowUpRight className="size-3.5 text-orange" />
-                  ) : (
-                    <Phone className="size-3.5 text-orange" />
-                  )}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <div className="mx-auto grid w-full max-w-6xl gap-3 px-4 pt-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+      <div className="mx-auto grid w-full max-w-6xl gap-3 px-4 pt-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-5">
         {serviceBlocks.map((service) => {
           const Icon = serviceIcon(service.id);
           return (
@@ -181,7 +155,7 @@ export default function ServicesPage() {
       </div>
 
       <div className="mx-auto w-full max-w-6xl space-y-6 px-4 py-10 sm:px-6 sm:py-12">
-        {serviceBlocks.map((service, index) => {
+        {serviceBlocks.map((service) => {
           const Icon = serviceIcon(service.id);
           return (
             <article
@@ -191,21 +165,12 @@ export default function ServicesPage() {
             >
               <div className="flex flex-wrap items-center gap-2">
                 <Icon className="size-5 text-teal" aria-hidden="true" />
-                {service.chip ? (
-                  <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold tracking-[0.04em] text-foreground">
-                    {service.chip}
-                  </span>
-                ) : (
+                {service.program.toLowerCase() !== service.title.toLowerCase() ? (
                   <p className="text-sm font-medium tracking-[0.12em] text-primary uppercase">
-                    {String(index + 1).padStart(2, "0")} · {service.program}
+                    {service.program}
                   </p>
-                )}
+                ) : null}
               </div>
-              {service.chip ? (
-                <p className="mt-3 text-sm font-medium tracking-[0.12em] text-primary uppercase">
-                  {String(index + 1).padStart(2, "0")} · {service.program}
-                </p>
-              ) : null}
               <h2 className="mt-2 text-3xl sm:text-4xl">{service.title}</h2>
               <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground">
                 {service.body}
@@ -232,12 +197,12 @@ export default function ServicesPage() {
         })}
       </div>
 
-
       <section className="mx-auto w-full max-w-6xl px-4 pb-2 sm:px-6">
         <div className="rounded-[1.5rem] bg-teal/[0.05] p-6 ring-1 ring-foreground/5 sm:p-8">
           <h2 className="text-2xl sm:text-3xl">Eligibility contacts</h2>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Medicaid and waiver screening numbers. Call Meadowlark if you need help with the next step.
+            Medicaid and waiver screening numbers. Request care if you need help
+            with the next step.
           </p>
           <ul className="mt-5 flex flex-wrap gap-2">
             {servicesContactCluster.map((link) => (
@@ -245,17 +210,22 @@ export default function ServicesPage() {
                 <ServiceResourceLink link={link} />
               </li>
             ))}
+            <li>
+              <ServiceResourceLink
+                link={{
+                  label: "Request care",
+                  href: "/contact",
+                  kind: "internal",
+                }}
+              />
+            </li>
           </ul>
         </div>
       </section>
 
-      <p className="mx-auto max-w-6xl px-4 pb-4 text-sm text-muted-foreground sm:px-6">
-        {site.eligibilityDisclaimer}
-      </p>
-
       <CtaBand
         title="Not sure which service fits?"
-        body={`Tell us what a typical day looks like. We will point you toward the right official pages and what we can provide. ${site.eligibilityDisclaimer}`}
+        body="Tell us what a typical day looks like. We will point you to the right official pages and what we can provide."
       />
     </>
   );

@@ -29,7 +29,11 @@ export function SiteHeader() {
           href="/"
           className="min-w-0 shrink-0 rounded-md focus-visible:ring-3 focus-visible:ring-white/40"
         >
-          <Logo inverted markClassName="size-10 sm:size-11" />
+          <Logo
+            inverted
+            markClassName="size-9 sm:size-11"
+            wordmarkClassName="hidden min-[420px]:flex"
+          />
           <span className="sr-only">{site.name} home</span>
         </Link>
 

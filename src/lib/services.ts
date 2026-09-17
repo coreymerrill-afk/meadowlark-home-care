@@ -1,4 +1,4 @@
-import { offices, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 export type ServiceLinkKind = "external" | "phone" | "internal";
 
@@ -8,9 +8,9 @@ export type ServiceLink = {
   kind: ServiceLinkKind;
 };
 
-export type ServiceId = "cfcs-pcs" | "va" | "private-pay" | "hcbs-waiver";
+export type ServiceId = "cfcs-pcs" | "va" | "private-pay" | "hcbs" | "pcca";
 
-export type HomeTeaserId = "cfcs-pcs" | "va" | "private-pay";
+export type HomeTeaserId = "cfcs-pcs" | "hcbs" | "va" | "private-pay" | "pcca";
 
 export type ServiceBlock = {
   id: ServiceId;
@@ -31,6 +31,12 @@ export type HomeTeaser = {
   summary: string;
 };
 
+const requestCare: ServiceLink = {
+  label: "Request care",
+  href: "/contact",
+  kind: "internal",
+};
+
 /** Shared eligibility contacts — shown once on the Services page. */
 export const servicesContactCluster: ServiceLink[] = [
   {
@@ -41,16 +47,6 @@ export const servicesContactCluster: ServiceLink[] = [
   ...site.mountainPacific.all.map((phone) => ({
     label: `Mountain Pacific ${phone.label}`,
     href: phone.href,
-    kind: "phone" as const,
-  })),
-  {
-    label: `Developmental Disabilities Program ${site.ddpPhone}`,
-    href: site.ddpPhoneHref,
-    kind: "phone",
-  },
-  ...offices.map((office) => ({
-    label: `Call Meadowlark ${office.name} ${office.phone}`,
-    href: office.phoneHref,
     kind: "phone" as const,
   })),
 ];
@@ -80,6 +76,7 @@ export const serviceBlocks: ServiceBlock[] = [
         href: site.links.sltcHub,
         kind: "external",
       },
+      requestCare,
     ],
   },
   {
@@ -116,48 +113,28 @@ export const serviceBlocks: ServiceBlock[] = [
         href: site.links.vaMontana,
         kind: "external",
       },
-      ...offices.map((office) => ({
-        label: `Call Meadowlark ${office.name} ${office.phone}`,
-        href: office.phoneHref,
-        kind: "phone" as const,
-      })),
+      requestCare,
     ],
   },
   {
     id: "private-pay",
     program: "Private pay & insurance",
-    chip: "Private pay / insurance",
+    chip: "Private pay & insurance",
     title: "Private pay & insurance",
-    summary:
-      "Non-skilled private pay and insurance, including respite.",
-    body: "Not on Medicaid or VA? Meadowlark offers private pay and works with third-party insurance for non-skilled home care—live-in caregiving, companion support and outings, personal assistance, and respite.",
-    bullets: [
-      "Live-in care",
-      "Companion support",
-      "Personal assistance",
-      "Respite",
-    ],
-    primaryCta: {
-      label: "Contact us",
-      href: "/contact",
-      kind: "internal",
-    },
-    links: [
-      ...offices.map((office) => ({
-        label: `Call Meadowlark ${office.name} ${office.phone}`,
-        href: office.phoneHref,
-        kind: "phone" as const,
-      })),
-    ],
+    summary: "Non-skilled private pay and insurance, including respite.",
+    body: "Not on Medicaid or VA? Meadowlark offers private pay and works with third-party insurance for non-skilled home care—companion support and outings, personal assistance, and respite.",
+    bullets: ["Companion support", "Personal assistance", "Respite"],
+    primaryCta: requestCare,
+    links: [],
   },
   {
-    id: "hcbs-waiver",
-    program: "Medicaid HCBS waiver",
-    chip: "HCBS Big Sky / SDMI / DD",
+    id: "hcbs",
+    program: "HCBS Big Sky / SDMI",
+    chip: "HCBS Big Sky / SDMI",
     title: "Medicaid HCBS waiver",
     summary:
-      "Big Sky, SDMI, and/or DD supports as authorized. Some waivers have wait lists.",
-    body: "Meadowlark serves members on Montana HCBS waivers—including Big Sky, SDMI, and DD—for authorized supports such as social supervision, homemaker services, specially trained attendants, and habilitation aide help. Some waivers have wait lists. The state handles eligibility; we deliver what is on your approved plan.",
+      "Big Sky and SDMI waiver supports when authorized on the member’s plan. Some waivers have wait lists.",
+    body: "Meadowlark serves members on Montana HCBS waivers—including Big Sky and SDMI—for authorized supports such as social supervision, homemaker services, specially trained attendants, and habilitation aide help. Some waivers have wait lists. The state handles eligibility; we deliver what is on your approved plan.",
     primaryCta: {
       label: "Apply for Montana Medicaid",
       href: site.links.applyMedicaid,
@@ -180,16 +157,27 @@ export const serviceBlocks: ServiceBlock[] = [
         kind: "external",
       },
       {
-        label: "DD waiver services",
-        href: site.links.ddWaiver,
-        kind: "external",
-      },
-      {
         label: "Montana HCBS waiver information sheet (PDF)",
         href: site.links.hcbsWaiverPdf,
         kind: "external",
       },
+      requestCare,
     ],
+  },
+  {
+    id: "pcca",
+    program: "Montana Medicaid",
+    chip: "PCCA",
+    title: "Pediatric Complex Care Assistant (PCCA)",
+    summary:
+      "Approved Pediatric Complex Care Assistant provider agency for Montana Medicaid members under 21 with complex medical needs.",
+    body: "Meadowlark is an approved PCCA provider agency. PCCA helps Montana Medicaid members under 21 with complex medical needs by employing licensed family caregivers to deliver physician-ordered care at home. The state decides eligibility and prior authorization; we coordinate as the provider agency.",
+    primaryCta: {
+      label: "Learn more (DPHHS)",
+      href: site.links.pcca,
+      kind: "external",
+    },
+    links: [requestCare],
   },
 ];
 
@@ -202,6 +190,13 @@ export const homeServiceTeasers: HomeTeaser[] = [
       "Agency-based Medicaid personal care. If you qualify, there is no services waitlist—authorization still takes time.",
   },
   {
+    id: "hcbs",
+    href: "/services#hcbs",
+    title: "HCBS waivers",
+    summary:
+      "Big Sky and SDMI waiver supports when authorized on the member’s plan. Some waivers have wait lists.",
+  },
+  {
     id: "va",
     href: "/services#va",
     title: "VA Community Care",
@@ -212,7 +207,13 @@ export const homeServiceTeasers: HomeTeaser[] = [
     id: "private-pay",
     href: "/services#private-pay",
     title: "Private pay & insurance",
+    summary: "Non-skilled home care, including respite.",
+  },
+  {
+    id: "pcca",
+    href: "/services#pcca",
+    title: "PCCA",
     summary:
-      "Non-skilled home care, including respite.",
+      "Approved Pediatric Complex Care Assistant provider agency for Montana Medicaid members under 21 with complex medical needs.",
   },
 ];

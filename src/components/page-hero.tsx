@@ -4,6 +4,7 @@ type PageHeroProps = {
   eyebrow?: string;
   title: string;
   description: string;
+  note?: string;
   actions?: ReactNode;
 };
 
@@ -11,6 +12,7 @@ export function PageHero({
   eyebrow,
   title,
   description,
+  note,
   actions,
 }: PageHeroProps) {
   return (
@@ -27,6 +29,11 @@ export function PageHero({
         <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           {description}
         </p>
+        {note ? (
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            {note}
+          </p>
+        ) : null}
         {actions ? <div className="mt-6">{actions}</div> : null}
       </div>
     </section>

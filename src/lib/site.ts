@@ -46,7 +46,7 @@ export const site = {
   legalName: "Meadowlark Home Care, LLC",
   tagline: "Quality home care in Montana",
   description:
-    "Meadowlark Home Care provides agency-based Montana CFCS/PCS, VA Community Care, private pay, and HCBS waiver supports in Missoula and Great Falls, Montana.",
+    "Meadowlark Home Care provides agency-based Montana CFCS/PCS, HCBS Big Sky and SDMI, VA Community Care, private pay, and PCCA in Missoula and Great Falls, Montana.",
   eligibilityDisclaimer:
     "Eligibility is decided by the state or VA, not Meadowlark. Confirm details on official .gov pages.",
   footerLine: "Home care in Missoula and Great Falls since 2015.",
@@ -80,8 +80,6 @@ export const site = {
   hiringAreas: ["Missoula", "Great Falls"],
   opaPhone: "1-888-706-1535",
   opaPhoneHref: "tel:+18887061535",
-  ddpPhone: "406-444-2995",
-  ddpPhoneHref: "tel:+14064442995",
   mountainPacific: {
     cfcsAssessment: { label: "1-800-219-7035", href: "tel:+18002197035" },
     waiverScreening: [
@@ -109,47 +107,13 @@ export const site = {
       "https://www.va.gov/resources/eligibility-for-community-care-outside-va/",
     vaMontana: "https://www.va.gov/montana-health-care/",
     sdmiWaiver: "https://dphhs.mt.gov/BHDD/mentalhealthservices/SDMI/",
-    ddWaiver:
-      "https://dphhs.mt.gov/BHDD/DisabilityServices/developmentaldisabilities/MedicaidDDP0208WaiverServices",
+    pcca: "https://dphhs.mt.gov/sltc/csb/PCCA",
   },
   staff: {
     sltcFormUrl:
       "https://script.google.com/a/macros/meadowlarkhomecare.com/s/AKfycbxR80-VQsBrgyYgxyrNA8TKIrk47u-gv8OS5o5IF9uKQlnbdExndT8eNiDZ2SWazRE/exec",
   },
 } as const;
-
-export const getStartedLinks = [
-  {
-    label: "Apply Montana Medicaid",
-    href: site.links.applyMedicaid,
-    external: true,
-  },
-  {
-    label: "CFCS/PCS (dphhs.mt.gov)",
-    href: site.links.cfcsPcs,
-    external: true,
-  },
-  {
-    label: "Big Sky Waiver (dphhs.mt.gov)",
-    href: site.links.bigSkyWaiver,
-    external: true,
-  },
-  {
-    label: "VA Community Care (va.gov)",
-    href: site.links.vaCommunityCare,
-    external: true,
-  },
-  {
-    label: `Missoula ${offices[0].phone}`,
-    href: offices[0].phoneHref,
-    external: false,
-  },
-  {
-    label: `Great Falls ${offices[1].phone}`,
-    href: offices[1].phoneHref,
-    external: false,
-  },
-] as const;
 
 export const navLinks = [
   { href: "/", label: "Home" },

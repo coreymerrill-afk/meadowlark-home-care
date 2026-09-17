@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, HeartHandshake, Shield, Users } from "lucide-react";
+import { ArrowRight, HeartHandshake, HeartPulse, Home, Shield, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import { ApplyButton } from "@/components/apply-button";
@@ -14,10 +14,14 @@ function teaserIcon(id: HomeTeaserId): LucideIcon {
   switch (id) {
     case "cfcs-pcs":
       return HeartHandshake;
+    case "hcbs":
+      return Home;
     case "va":
       return Shield;
     case "private-pay":
       return Users;
+    case "pcca":
+      return HeartPulse;
     default:
       return assertNever(id);
   }
@@ -44,7 +48,7 @@ export default function HomePage() {
             Quality home care in Montana.
           </h1>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/85">
-            CFCS/PCS, VA Community Care, and private pay.
+            CFCS/PCS and HCBS waivers (Big Sky and SDMI), VA Community Care, private pay, and PCCA.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
@@ -134,7 +138,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-8 grid items-stretch gap-6 sm:grid-cols-2">
+          <div className="mt-8 grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {homeServiceTeasers.map((teaser) => {
               const Icon = teaserIcon(teaser.id);
               return (
@@ -159,10 +163,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <CtaBand
-        title="Need care at home?"
-        body="Request care and we will follow up, or call either office."
-      />
+      <CtaBand title="Need care at home?" body="" />
     </>
   );
 }
