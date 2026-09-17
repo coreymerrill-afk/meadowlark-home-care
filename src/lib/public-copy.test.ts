@@ -95,4 +95,23 @@ describe("public copy constraints", () => {
       /Caregiver or nurse roles in Missoula and Great Falls. Pick a role and office below\./
     );
   });
+
+  it("shows the eligibility disclaimer once on Services and About, not in the footer", () => {
+    const count = (text: string) =>
+      (text.match(/eligibilityDisclaimer/g) ?? []).length;
+
+    assert.equal(count(read("src/app/services/page.tsx")), 1);
+    assert.equal(count(read("src/app/about/page.tsx")), 1);
+    assert.doesNotMatch(
+      read("src/components/site-footer.tsx"),
+      /eligibilityDisclaimer/
+    );
+  });
+
+  it("keeps the Services closing band request-care only", () => {
+    assert.match(
+      read("src/app/services/page.tsx"),
+      /showOfficePhones=\{false\}/
+    );
+  });
 });

@@ -226,6 +226,7 @@ export default function ServicesPage() {
       <CtaBand
         title="Not sure which service fits?"
         body="Tell us what a typical day looks like. We will point you to the right official pages and what we can provide."
+        showOfficePhones={false}
       />
     </>
   );
