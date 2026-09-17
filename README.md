@@ -5,7 +5,6 @@ Production website for [Meadowlark Home Care, LLC](https://meadowlarkhomecare.co
 The site replaces the previous HostGator pages with five public routes:
 
 - `/` — home, services overview, dual CTAs
-- `/about` — founders and mission
 - `/services` — CFCS/PCS, VA Community Care, private pay, HCBS Big Sky / SDMI, and PCCA
 - `/apply` — employment application (Caregiver or Nurse, generic PCA/CNA and LPN/RN descriptions, availability, work history, references, optional notes)
 - `/work-with-us` — hiring areas, PTO, raises, advancement, short `/apply` form
@@ -179,7 +178,7 @@ Then open `https://www.meadowlarkhomecare.com` and `https://meadowlarkhomecare.c
 ## Content notes
 
 - Do not use the old slogan “Quality care through compassion and innovation” anywhere on public pages. Footer line: “Home care for Missoula families since 2015.”
-- About has no testimonials and states the founders’ origin once (2015, Corey Merrill and Natalie Redman).
+- About is archived (not in nav/sitemap). Restore from `docs/archive/about-2026-09-17/`. `/about` redirects home.
 - Services covers agency-based CFCS/PCS (formerly CFC/PAS); HCBS Big Sky / SDMI; VA Community Care; private pay / insurance with respite; and PCCA. Shared eligibility disclaimer (once per page): the state or VA decides — not Meadowlark. Confirm on .gov pages.
 - The primary **Apply online** CTA is the short `/apply` form (emails `hr@meadowlarkhomecare.com` via Resend). AxisCare URL kept in `site.axisCareApplyUrl` as optional backup only.
 - Contact form: **Request care** and **General** email `info@meadowlarkhomecare.com` (`CONTACT_TO_EMAIL`, defaulting to `site.contactEmail`). **Join the team** emails `hr@`. Do not point `CONTACT_TO_EMAIL` at HR.

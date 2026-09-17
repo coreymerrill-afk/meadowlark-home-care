@@ -10,12 +10,15 @@ type CtaBandProps = {
   body?: string;
   /** Careers mode: primary Apply (/apply) + Call. Default: Request care + Call. */
   showApply?: boolean;
+  /** Office tel buttons. Off on Services closing band — phones stay in footer. */
+  showOfficePhones?: boolean;
 };
 
 export function CtaBand({
   title = "Ready to talk?",
   body = "Call us about care at home, or apply to join the team from the header.",
   showApply = false,
+  showOfficePhones = true,
 }: CtaBandProps) {
   return (
     <section className="border-t border-teal/10 bg-teal/[0.07]">
@@ -30,18 +33,20 @@ export function CtaBand({
               <ApplyButton className="h-12 justify-center rounded-full px-6 text-base">
                 Apply online
               </ApplyButton>
-              {offices.map((office) => (
-                <a
-                  key={office.id}
-                  href={office.phoneHref}
-                  className={cn(
-                    buttonVariants({ variant: "outline", size: "lg" }),
-                    "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
-                  )}
-                >
-                  Call {office.name}
-                </a>
-              ))}
+              {showOfficePhones
+                ? offices.map((office) => (
+                    <a
+                      key={office.id}
+                      href={office.phoneHref}
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "lg" }),
+                        "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
+                      )}
+                    >
+                      Call {office.name}
+                    </a>
+                  ))
+                : null}
             </>
           ) : (
             <>
@@ -54,18 +59,20 @@ export function CtaBand({
               >
                 Request care
               </Link>
-              {offices.map((office) => (
-                <a
-                  key={office.id}
-                  href={office.phoneHref}
-                  className={cn(
-                    buttonVariants({ variant: "outline", size: "lg" }),
-                    "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
-                  )}
-                >
-                  {office.name} {office.phone}
-                </a>
-              ))}
+              {showOfficePhones
+                ? offices.map((office) => (
+                    <a
+                      key={office.id}
+                      href={office.phoneHref}
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "lg" }),
+                        "h-12 justify-center rounded-full border-teal/30 px-6 text-base"
+                      )}
+                    >
+                      {office.name} {office.phone}
+                    </a>
+                  ))
+                : null}
             </>
           )}
         </div>
