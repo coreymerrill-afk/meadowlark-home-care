@@ -5,11 +5,11 @@ import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "../..");
+const archivedAbout = "docs/archive/about-2026-09-17/page.tsx";
 
 const publicFiles = [
   "src/app/page.tsx",
   "src/app/services/page.tsx",
-  "src/app/about/page.tsx",
   "src/app/apply/page.tsx",
   "src/app/work-with-us/page.tsx",
   "src/app/contact/page.tsx",
@@ -21,12 +21,17 @@ const publicFiles = [
   "src/components/page-hero.tsx",
   "src/components/site-header.tsx",
   "src/components/site-footer.tsx",
+  archivedAbout,
 ] as const;
 
 const forbidden = /\bDD\b|Developmental Disabilities|live-in/i;
 
 function read(rel: string) {
   return readFileSync(join(root, rel), "utf8");
+}
+
+function count(text: string, pattern: RegExp) {
+  return (text.match(pattern) ?? []).length;
 }
 
 describe("public copy constraints", () => {
@@ -42,11 +47,11 @@ describe("public copy constraints", () => {
     }
   });
 
-  it("shows PCCA and HCBS on Home, Services, and About", () => {
+  it("shows PCCA and HCBS on Home and Services, and keeps them on archived About", () => {
     const pages = {
       home: read("src/app/page.tsx") + read("src/lib/services.ts"),
       services: read("src/app/services/page.tsx") + read("src/lib/services.ts"),
-      about: read("src/app/about/page.tsx"),
+      archivedAbout: read(archivedAbout),
     };
 
     for (const [name, text] of Object.entries(pages)) {
@@ -57,7 +62,7 @@ describe("public copy constraints", () => {
 
   it("keeps Quill’s locked public strings verbatim", () => {
     const services = read("src/lib/services.ts");
-    const about = read("src/app/about/page.tsx");
+    const about = read(archivedAbout);
     const home = read("src/app/page.tsx");
     const apply = read("src/app/apply/page.tsx");
     const site = read("src/lib/site.ts");
@@ -96,12 +101,12 @@ describe("public copy constraints", () => {
     );
   });
 
-  it("shows the eligibility disclaimer once on Services and About, not in the footer", () => {
-    const count = (text: string) =>
-      (text.match(/eligibilityDisclaimer/g) ?? []).length;
-
-    assert.equal(count(read("src/app/services/page.tsx")), 1);
-    assert.equal(count(read("src/app/about/page.tsx")), 1);
+  it("shows the eligibility disclaimer once on Services, not in the footer", () => {
+    assert.equal(
+      count(read("src/app/services/page.tsx"), /eligibilityDisclaimer/g),
+      1
+    );
+    assert.equal(count(read(archivedAbout), /eligibilityDisclaimer/g), 1);
     assert.doesNotMatch(
       read("src/components/site-footer.tsx"),
       /eligibilityDisclaimer/
@@ -113,5 +118,31 @@ describe("public copy constraints", () => {
       read("src/app/services/page.tsx"),
       /showOfficePhones=\{false\}/
     );
+  });
+
+  it("does not expose About on the public site", () => {
+    assert.doesNotMatch(read("src/lib/site.ts"), /href: "\/about"/);
+    assert.doesNotMatch(read("src/app/sitemap.ts"), /"\/about"/);
+    assert.doesNotMatch(read("src/app/page.tsx"), /href=["']\/about/);
+    assert.doesNotMatch(
+      read("src/app/services/page.tsx"),
+      /href=["']\/about/
+    );
+    assert.doesNotMatch(
+      read("src/app/contact/page.tsx"),
+      /href=["']\/about/
+    );
+
+    const config = read("next.config.ts");
+    assert.match(
+      config,
+      /source: "\/about"[\s\S]*?destination: "\/"[\s\S]*?permanent: false/
+    );
+    assert.match(
+      config,
+      /source: "\/about-us\.html"[\s\S]*?destination: "\/"[\s\S]*?permanent: false/
+    );
+    assert.doesNotMatch(config, /destination: "\/about"/);
+    assert.doesNotMatch(config, /rewrites\s*\(/);
   });
 });
